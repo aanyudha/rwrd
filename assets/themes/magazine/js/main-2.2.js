@@ -1,8 +1,8 @@
 function setAjaxData(object = null) {
     var data = {
-        'sysLangId': VrConfig.sysLangId,
+        'sysLangId': TrConfig.sysLangId,
     };
-    data[VrConfig.csrfTokenName] = $('meta[name="X-CSRF-TOKEN"]').attr('content');
+    data[TrConfig.csrfTokenName] = $('meta[name="X-CSRF-TOKEN"]').attr('content');
     if (object != null) {
         Object.assign(data, object);
     }
@@ -10,8 +10,8 @@ function setAjaxData(object = null) {
 }
 
 function setSerializedData(serializedData) {
-    serializedData.push({name: 'sysLangId', value: VrConfig.sysLangId});
-    serializedData.push({name: VrConfig.csrfTokenName, value: $('meta[name="X-CSRF-TOKEN"]').attr('content')});
+    serializedData.push({name: 'sysLangId', value: TrConfig.sysLangId});
+    serializedData.push({name: TrConfig.csrfTokenName, value: $('meta[name="X-CSRF-TOKEN"]').attr('content')});
     return serializedData;
 }
 
@@ -120,7 +120,7 @@ $(document).ready(function () {
         slidesToScroll: 1,
         infinite: true,
         speed: 200,
-        rtl: VrConfig.rtl,
+        rtl: TrConfig.rtl,
         cssEase: 'linear',
         lazyLoad: 'progressive',
         prevArrow: $('#main-slider-nav .prev'),
@@ -134,7 +134,7 @@ $(document).ready(function () {
         slidesToScroll: 1,
         infinite: false,
         speed: 200,
-        rtl: VrConfig.rtl,
+        rtl: TrConfig.rtl,
         adaptiveHeight: true,
         lazyLoad: 'progressive',
         prevArrow: $('#post-detail-slider-nav .prev'),
@@ -154,15 +154,15 @@ $(document).ready(function () {
         nextButton: $('#nav_newsticker .next')
     });
 
-    if (VrConfig.categorySliderIds.length > 0) {
-        for (var i = 0; i < VrConfig.categorySliderIds.length; i++) {
-            var sliderId = VrConfig.categorySliderIds[i];
+    if (TrConfig.categorySliderIds.length > 0) {
+        for (var i = 0; i < TrConfig.categorySliderIds.length; i++) {
+            var sliderId = TrConfig.categorySliderIds[i];
             $('#category_slider_' + sliderId).slick({
                 autoplay: true,
                 autoplaySpeed: 4900,
                 infinite: true,
                 speed: 200,
-                rtl: VrConfig.rtl,
+                rtl: TrConfig.rtl,
                 cssEase: 'linear',
                 prevArrow: $('#category_slider_nav_' + sliderId + ' .prev'),
                 nextArrow: $('#category_slider_nav_' + sliderId + ' .next'),
@@ -205,7 +205,7 @@ $(document).ready(function () {
         var serializedData = form.serializeArray();
         serializedData = setSerializedData(serializedData);
         $.ajax({
-            url: VrConfig.baseURL + '/AuthController/loginPost',
+            url: TrConfig.baseURL + '/AuthController/loginPost',
             type: 'POST',
             data: serializedData,
             success: function (response) {
@@ -234,7 +234,7 @@ $(document).ready(function () {
         serializedData = setSerializedData(serializedData);
         $.ajax({
             type: 'POST',
-            url: VrConfig.baseURL + '/add-newsletter-post',
+            url: TrConfig.baseURL + '/add-newsletter-post',
             data: serializedData,
             success: function (response) {
                 var obj = JSON.parse(response);
@@ -266,7 +266,7 @@ function loadMorePosts() {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/AjaxController/loadMorePosts',
+        url: TrConfig.baseURL + '/AjaxController/loadMorePosts',
         data: setAjaxData(data),
         success: function (response) {
             var obj = JSON.parse(response);
@@ -312,7 +312,7 @@ function addReaction(postId, reaction) {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/AjaxController/addReaction',
+        url: TrConfig.baseURL + '/AjaxController/addReaction',
         data: setAjaxData(data),
         success: function (response) {
             var obj = JSON.parse(response);
@@ -332,7 +332,7 @@ $(document).ready(function () {
         var serializedData = form.serializeArray();
         serializedData = setSerializedData(serializedData);
         $.ajax({
-            url: VrConfig.baseURL + '/AjaxController/addPollVote',
+            url: TrConfig.baseURL + '/AjaxController/addPollVote',
             type: 'POST',
             data: serializedData,
             success: function (response) {
@@ -369,7 +369,7 @@ $(document).ready(function () {
             }
         });
         data['limit'] = $('#post_comment_limit').val();
-        if (VrConfig.isRecaptchaEnabled == true) {
+        if (TrConfig.isRecaptchaEnabled == true) {
             if (typeof data['g-recaptcha-response'] === 'undefined') {
                 $('.g-recaptcha').addClass("is-recaptcha-invalid");
                 submit = false;
@@ -381,7 +381,7 @@ $(document).ready(function () {
             $('.g-recaptcha').removeClass("is-recaptcha-invalid");
             $.ajax({
                 type: 'POST',
-                url: VrConfig.baseURL + '/AjaxController/addCommentPost',
+                url: TrConfig.baseURL + '/AjaxController/addCommentPost',
                 data: setAjaxData(data),
                 success: function (response) {
                     var obj = JSON.parse(response);
@@ -390,7 +390,7 @@ $(document).ready(function () {
                     } else {
                         document.getElementById("comment-result").innerHTML = obj.htmlContent;
                     }
-                    if (VrConfig.isRecaptchaEnabled == true) {
+                    if (TrConfig.isRecaptchaEnabled == true) {
                         grecaptcha.reset();
                     }
                     $("#add_comment")[0].reset();
@@ -419,7 +419,7 @@ $(document).ready(function () {
         if (submit == true) {
             $.ajax({
                 type: 'POST',
-                url: VrConfig.baseURL + '/AjaxController/addCommentPost',
+                url: TrConfig.baseURL + '/AjaxController/addCommentPost',
                 data: setAjaxData(data),
                 success: function (response) {
                     var obj = JSON.parse(response);
@@ -454,7 +454,7 @@ $(document).on('click', '.btn-subcomment', function () {
                     data[field.name] = field.value;
                 }
             });
-            if (VrConfig.isRecaptchaEnabled == true) {
+            if (TrConfig.isRecaptchaEnabled == true) {
                 if (typeof data['g-recaptcha-response'] === 'undefined') {
                     $(formId + ' .g-recaptcha').addClass("is-recaptcha-invalid");
                     submit = false;
@@ -467,10 +467,10 @@ $(document).on('click', '.btn-subcomment', function () {
             }
         },
         type: 'POST',
-        url: VrConfig.baseURL + '/AjaxController/addCommentPost',
+        url: TrConfig.baseURL + '/AjaxController/addCommentPost',
         data: setAjaxData(data),
         success: function (response) {
-            if (VrConfig.isRecaptchaEnabled == true) {
+            if (TrConfig.isRecaptchaEnabled == true) {
                 grecaptcha.reset();
             }
             var obj = JSON.parse(response);
@@ -500,7 +500,7 @@ $(document).on('click', '.btn-subcomment-registered', function () {
             }
         },
         type: 'POST',
-        url: VrConfig.baseURL + '/AjaxController/addCommentPost',
+        url: TrConfig.baseURL + '/AjaxController/addCommentPost',
         data: setAjaxData(data),
         success: function (response) {
             var obj = JSON.parse(response);
@@ -531,7 +531,7 @@ $(document).on('click', '.comment-meta .btn-reply', function () {
         };
         $.ajax({
             type: 'POST',
-            url: VrConfig.baseURL + '/AjaxController/loadSubcommentBox',
+            url: TrConfig.baseURL + '/AjaxController/loadSubcommentBox',
             data: setAjaxData(data),
             success: function (response) {
                 var obj = JSON.parse(response);
@@ -557,7 +557,7 @@ $(document).on('click', '.btn-comment-like', function () {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/AjaxController/likeCommentPost',
+        url: TrConfig.baseURL + '/AjaxController/likeCommentPost',
         data: setAjaxData(data),
         success: function (response) {
             var obj = JSON.parse(response);
@@ -577,7 +577,7 @@ function loadMoreComments(postId) {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/AjaxController/loadMoreComments',
+        url: TrConfig.baseURL + '/AjaxController/loadMoreComments',
         data: setAjaxData(data),
         success: function (response) {
             var obj = JSON.parse(response);
@@ -599,7 +599,7 @@ function addRemoveReadingListItem(postId) {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/AjaxController/addRemoveReadingListItem',
+        url: TrConfig.baseURL + '/AjaxController/addRemoveReadingListItem',
         data: setAjaxData(data),
         success: function (response) {
             location.reload();
@@ -617,7 +617,7 @@ function deleteComment(commentId, postId, message) {
     swal({
         text: message,
         icon: 'warning',
-        buttons: [VrConfig.textCancel, VrConfig.textOk],
+        buttons: [TrConfig.textCancel, TrConfig.textOk],
         dangerMode: true,
     }).then(function (willDelete) {
         if (willDelete) {
@@ -629,7 +629,7 @@ function deleteComment(commentId, postId, message) {
             };
             $.ajax({
                 type: 'POST',
-                url: VrConfig.baseURL + '/AjaxController/deleteCommentPost',
+                url: TrConfig.baseURL + '/AjaxController/deleteCommentPost',
                 data: setAjaxData(data),
                 success: function (response) {
                     var obj = JSON.parse(response);
@@ -647,7 +647,7 @@ function closeCookiesWarning() {
     $('.cookies-warning').hide();
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/close-cookies-warning-post',
+        url: TrConfig.baseURL + '/close-cookies-warning-post',
         data: setAjaxData({}),
         success: function (response) {
         }

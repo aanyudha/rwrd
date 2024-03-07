@@ -52,7 +52,7 @@ function ui_multi_update_file_progress(id, percent, color, active) {
     if (percent === 0) {
         bar.html('');
     } else if (percent == 100) {
-        bar.html(VrConfig.textProcessing);
+        bar.html(TrConfig.textProcessing);
     } else {
         bar.html(percent + '%');
     }

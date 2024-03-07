@@ -1,8 +1,8 @@
 function setAjaxData(object = null) {
     var data = {
-        'sysLangId': VrConfig.sysLangId,
+        'sysLangId': TrConfig.sysLangId,
     };
-    data[VrConfig.csrfTokenName] = $('meta[name="X-CSRF-TOKEN"]').attr('content');
+    data[TrConfig.csrfTokenName] = $('meta[name="X-CSRF-TOKEN"]').attr('content');
     if (object != null) {
         Object.assign(data, object);
     }
@@ -10,8 +10,8 @@ function setAjaxData(object = null) {
 }
 
 function setSerializedData(serializedData) {
-    serializedData.push({name: 'sysLangId', value: VrConfig.sysLangId});
-    serializedData.push({name: VrConfig.csrfTokenName, value: $('meta[name="X-CSRF-TOKEN"]').attr('content')});
+    serializedData.push({name: 'sysLangId', value: TrConfig.sysLangId});
+    serializedData.push({name: TrConfig.csrfTokenName, value: $('meta[name="X-CSRF-TOKEN"]').attr('content')});
     return serializedData;
 }
 
@@ -67,7 +67,7 @@ function deleteItem(url, id, message) {
     swal({
         text: message,
         icon: "warning",
-        buttons: [VrConfig.textCancel, VrConfig.textOk],
+        buttons: [TrConfig.textCancel, TrConfig.textOk],
         dangerMode: true,
     }).then(function (willDelete) {
         if (willDelete) {
@@ -76,7 +76,7 @@ function deleteItem(url, id, message) {
             };
             $.ajax({
                 type: 'POST',
-                url: VrConfig.baseURL + '/' + url,
+                url: TrConfig.baseURL + '/' + url,
                 data: setAjaxData(data),
                 success: function (response) {
                     location.reload();
@@ -93,7 +93,7 @@ function getMenuLinksByLang(val) {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/AdminController/getMenuLinksByLang',
+        url: TrConfig.baseURL + '/AdminController/getMenuLinksByLang',
         data: setAjaxData(data),
         success: function (response) {
             $('#parent_links').children('option:not(:first)').remove();
@@ -109,7 +109,7 @@ function getParentCategoriesByLang(val, deleteFirst = true) {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/CategoryController/getParentCategoriesByLang',
+        url: TrConfig.baseURL + '/CategoryController/getParentCategoriesByLang',
         data: setAjaxData(data),
         success: function (response) {
             if (deleteFirst) {
@@ -131,7 +131,7 @@ function setAsAlbumCover(val) {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/GalleryController/setAsAlbumCover',
+        url: TrConfig.baseURL + '/GalleryController/setAsAlbumCover',
         data: setAjaxData(data),
         success: function (response) {
             location.reload();
@@ -146,7 +146,7 @@ function getAlbumsByLang(val) {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/GalleryController/getAlbumsByLang',
+        url: TrConfig.baseURL + '/GalleryController/getAlbumsByLang',
         data: setAjaxData(data),
         success: function (response) {
             $('#albums').children('option:not(:first)').remove();
@@ -163,7 +163,7 @@ function getCategoriesByAlbum(val) {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/GalleryController/getCategoriesByAlbum',
+        url: TrConfig.baseURL + '/GalleryController/getCategoriesByAlbum',
         data: setAjaxData(data),
         success: function (response) {
             $('#categories').children('option:not(:first)').remove();
@@ -183,7 +183,7 @@ function approveSelectedComments() {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/AdminController/approveSelectedComments',
+        url: TrConfig.baseURL + '/AdminController/approveSelectedComments',
         data: setAjaxData(data),
         success: function (response) {
             location.reload();
@@ -196,7 +196,7 @@ function deleteSelectedComments(message) {
     swal({
         text: message,
         icon: "warning",
-        buttons: [VrConfig.textCancel, VrConfig.textOk],
+        buttons: [TrConfig.textCancel, TrConfig.textOk],
         dangerMode: true,
     }).then(function (willDelete) {
         if (willDelete) {
@@ -209,7 +209,7 @@ function deleteSelectedComments(message) {
             };
             $.ajax({
                 type: 'POST',
-                url: VrConfig.baseURL + '/AdminController/deleteSelectedComments',
+                url: TrConfig.baseURL + '/AdminController/deleteSelectedComments',
                 data: setAjaxData(data),
                 success: function (response) {
                     location.reload();
@@ -224,7 +224,7 @@ function deleteSelectedContactMessages(message) {
     swal({
         text: message,
         icon: "warning",
-        buttons: [VrConfig.textCancel, VrConfig.textOk],
+        buttons: [TrConfig.textCancel, TrConfig.textOk],
         dangerMode: true,
     }).then(function (willDelete) {
         if (willDelete) {
@@ -237,7 +237,7 @@ function deleteSelectedContactMessages(message) {
             };
             $.ajax({
                 type: 'POST',
-                url: VrConfig.baseURL + '/AdminController/deleteSelectedContactMessages',
+                url: TrConfig.baseURL + '/AdminController/deleteSelectedContactMessages',
                 data: setAjaxData(data),
                 success: function (response) {
                     location.reload();
@@ -254,7 +254,7 @@ function getSubCategories(val) {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/CategoryController/getSubCategories',
+        url: TrConfig.baseURL + '/CategoryController/getSubCategories',
         data: setAjaxData(data),
         success: function (response) {
             $('#subcategories').children('option:not(:first)').remove();
@@ -268,7 +268,7 @@ $(document).on('click', '#btn_delete_post_main_image', function () {
     var content = '<a class="btn-select-image" data-toggle="modal" data-target="#file_manager_image" data-image-type="main">' +
         '<div class="btn-select-image-inner">' +
         '<i class="fa fa-image"></i>' +
-        '<button class="btn">' + VrConfig.textSelectImage + '</button>' +
+        '<button class="btn">' + TrConfig.textSelectImage + '</button>' +
         '</div>' +
         '</a>';
     document.getElementById("post_select_image_container").innerHTML = content;
@@ -283,13 +283,13 @@ $(document).on('click', '#btn_delete_post_main_image_database', function () {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/PostController/deletePostMainImage',
+        url: TrConfig.baseURL + '/PostController/deletePostMainImage',
         data: setAjaxData(data),
         success: function (response) {
             var content = '<a class="btn-select-image" data-toggle="modal" data-target="#file_manager_image" data-image-type="main">' +
                 '<div class="btn-select-image-inner">' +
                 '<i class="fa fa-image"></i>' +
-                '<button class="btn">' + VrConfig.textSelectImage + '</button>' +
+                '<button class="btn">' + TrConfig.textSelectImage + '</button>' +
                 '</div>' +
                 '</a>';
             document.getElementById("post_select_image_container").innerHTML = content;
@@ -314,7 +314,7 @@ $(document).on('click', '.btn-delete-additional-image-database', function () {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/PostController/deletePostAdditionalImage',
+        url: TrConfig.baseURL + '/PostController/deletePostAdditionalImage',
         data: setAjaxData(data),
         success: function (response) {
         }
@@ -331,7 +331,7 @@ $(document).on('input', '.input-slider-post-order', function () {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + "/PostController/setHomeSliderPostOrderPost",
+        url: TrConfig.baseURL + "/PostController/setHomeSliderPostOrderPost",
         data: setAjaxData(data),
         success: function (response) {
         }
@@ -348,7 +348,7 @@ $(document).on('input', '.input-featured-post-order', function () {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + "/PostController/setFeaturedPostOrderPost",
+        url: TrConfig.baseURL + "/PostController/setFeaturedPostOrderPost",
         data: setAjaxData(data),
         success: function (response) {
         }
@@ -360,7 +360,7 @@ function deleteSelectePosts(message) {
     swal({
         text: message,
         icon: "warning",
-        buttons: [VrConfig.textCancel, VrConfig.textOk],
+        buttons: [TrConfig.textCancel, TrConfig.textOk],
         dangerMode: true,
     }).then(function (willDelete) {
         if (willDelete) {
@@ -373,7 +373,7 @@ function deleteSelectePosts(message) {
             };
             $.ajax({
                 type: 'POST',
-                url: VrConfig.baseURL + '/PostController/deleteSelectedPosts',
+                url: TrConfig.baseURL + '/PostController/deleteSelectedPosts',
                 data: setAjaxData(data),
                 success: function (response) {
                     location.reload();
@@ -395,7 +395,7 @@ function postBulkOptions(operation) {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/PostController/postBulkOptionsPost',
+        url: TrConfig.baseURL + '/PostController/postBulkOptionsPost',
         data: setAjaxData(data),
         success: function (response) {
             location.reload();
@@ -436,7 +436,7 @@ function getVideoFromURL() {
         };
         $.ajax({
             type: 'POST',
-            url: VrConfig.baseURL + '/PostController/getVideoFromURL',
+            url: TrConfig.baseURL + '/PostController/getVideoFromURL',
             data: setAjaxData(data),
             success: function (response) {
                 var obj = JSON.parse(response);
@@ -467,7 +467,7 @@ function deletePostVideo(postId) {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/PostController/deletePostVideo',
+        url: TrConfig.baseURL + '/PostController/deletePostVideo',
         data: setAjaxData(data),
         success: function (response) {
             document.getElementById("post_selected_video").innerHTML = " ";
@@ -491,7 +491,7 @@ $(document).on('click', '.btn-delete-selected-audio-database', function () {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/PostController/deletePostAudio',
+        url: TrConfig.baseURL + '/PostController/deletePostAudio',
         data: setAjaxData(data),
         success: function (response) {
         }
@@ -513,7 +513,7 @@ $(document).on('click', '.btn-delete-selected-file-database', function () {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/PostController/deletePostFile',
+        url: TrConfig.baseURL + '/PostController/deletePostFile',
         data: setAjaxData(data),
         success: function (response) {
         }

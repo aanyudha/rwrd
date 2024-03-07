@@ -39,7 +39,7 @@ $(document).on('click', '#file_manager_image .file-box', function () {
 function refresh_images() {
     $.ajax({
         type: "POST",
-        url: VrConfig.baseURL + "/FileController/getImages",
+        url: TrConfig.baseURL + "/FileController/getImages",
         data: setAjaxData({}),
         success: function (response) {
             var obj = JSON.parse(response);
@@ -59,7 +59,7 @@ $(document).on('click', '#file_manager_image #btn_img_delete', function () {
     };
     $.ajax({
         type: "POST",
-        url: VrConfig.baseURL + "/FileController/deleteImage",
+        url: TrConfig.baseURL + "/FileController/deleteImage",
         data: setAjaxData(data),
         success: function (response) {
             $('#btn_img_delete').hide();
@@ -160,7 +160,7 @@ jQuery(function ($) {
                 };
                 $.ajax({
                     type: "POST",
-                    url: VrConfig.baseURL + "/FileController/loadMoreImages",
+                    url: TrConfig.baseURL + "/FileController/loadMoreImages",
                     data: setAjaxData(data),
                     success: function (response) {
                         setTimeout(function () {
@@ -184,7 +184,7 @@ $(document).on('input', '#input_search_image', function () {
     };
     $.ajax({
         type: "POST",
-        url: VrConfig.baseURL + "/FileController/searchImage",
+        url: TrConfig.baseURL + "/FileController/searchImage",
         data: setAjaxData(data),
         success: function (response) {
             if (search.length > 1) {
@@ -236,7 +236,7 @@ $(document).on('click', '#file_manager_quiz_image .file-box', function () {
 function refresh_quiz_images() {
     $.ajax({
         type: "POST",
-        url: VrConfig.baseURL + "/FileController/getQuizImages",
+        url: TrConfig.baseURL + "/FileController/getQuizImages",
         data: setAjaxData({}),
         success: function (response) {
             var obj = JSON.parse(response);
@@ -256,7 +256,7 @@ $(document).on('click', '#file_manager_quiz_image #btn_quiz_img_delete', functio
     };
     $.ajax({
         type: "POST",
-        url: VrConfig.baseURL + "/FileController/deleteQuizImage",
+        url: TrConfig.baseURL + "/FileController/deleteQuizImage",
         data: setAjaxData(data),
         success: function (response) {
             $('#btn_quiz_img_delete').hide();
@@ -356,7 +356,7 @@ jQuery(function ($) {
                 };
                 $.ajax({
                     type: "POST",
-                    url: VrConfig.baseURL + "/FileController/loadMoreQuizImages",
+                    url: TrConfig.baseURL + "/FileController/loadMoreQuizImages",
                     data: setAjaxData(data),
                     success: function (response) {
                         setTimeout(function () {
@@ -380,7 +380,7 @@ $(document).on('input', '#input_search_quiz_image', function () {
     };
     $.ajax({
         type: "POST",
-        url: VrConfig.baseURL + "/FileController/searchQuizImage",
+        url: TrConfig.baseURL + "/FileController/searchQuizImage",
         data: setAjaxData(data),
         success: function (response) {
             if (search.length > 1) {
@@ -423,7 +423,7 @@ $(document).on('click', '#file_manager #btn_file_delete', function () {
     };
     $.ajax({
         type: "POST",
-        url: VrConfig.baseURL + "/FileController/deleteFile",
+        url: TrConfig.baseURL + "/FileController/deleteFile",
         data: setAjaxData(data),
         success: function (response) {
             $('#btn_file_delete').hide();
@@ -470,7 +470,7 @@ function select_file() {
 function refresh_files() {
     $.ajax({
         type: "POST",
-        url: VrConfig.baseURL + "/FileController/getFiles",
+        url: TrConfig.baseURL + "/FileController/getFiles",
         data: setAjaxData({}),
         success: function (response) {
             var obj = JSON.parse(response);
@@ -502,7 +502,7 @@ jQuery(function ($) {
                 };
                 $.ajax({
                     type: "POST",
-                    url: VrConfig.baseURL + "/FileController/loadMoreFiles",
+                    url: TrConfig.baseURL + "/FileController/loadMoreFiles",
                     data: setAjaxData(data),
                     success: function (response) {
                         setTimeout(function () {
@@ -526,7 +526,7 @@ $(document).on('input', '#input_search_file', function () {
     };
     $.ajax({
         type: "POST",
-        url: VrConfig.baseURL + "/FileController/searchFiles",
+        url: TrConfig.baseURL + "/FileController/searchFiles",
         data: setAjaxData(data),
         success: function (response) {
             if (search.length > 1) {
@@ -577,7 +577,7 @@ $(document).on('click', '#file_manager_video #btn_video_delete', function () {
     };
     $.ajax({
         type: "POST",
-        url: VrConfig.baseURL + "/FileController/deleteVideo",
+        url: TrConfig.baseURL + "/FileController/deleteVideo",
         data: setAjaxData(data),
         success: function (response) {
             $('#btn_video_delete').hide();
@@ -618,7 +618,7 @@ function select_video() {
 function refresh_videos() {
     $.ajax({
         type: "POST",
-        url: VrConfig.baseURL + "/FileController/getVideos",
+        url: TrConfig.baseURL + "/FileController/getVideos",
         data: setAjaxData({}),
         success: function (response) {
             var obj = JSON.parse(response);
@@ -650,7 +650,7 @@ jQuery(function ($) {
                 };
                 $.ajax({
                     type: "POST",
-                    url: VrConfig.baseURL + "/FileController/loadMoreVideos",
+                    url: TrConfig.baseURL + "/FileController/loadMoreVideos",
                     data: setAjaxData(data),
                     success: function (response) {
                         setTimeout(function () {
@@ -674,7 +674,7 @@ $(document).on('input', '#input_search_video', function () {
     };
     $.ajax({
         type: "POST",
-        url: VrConfig.baseURL + "/FileController/searchVideos",
+        url: TrConfig.baseURL + "/FileController/searchVideos",
         data: setAjaxData(data),
         success: function (response) {
             if (search.length > 1) {
@@ -717,7 +717,7 @@ $(document).on('click', '#file_manager_audio #btn_audio_delete', function () {
     };
     $.ajax({
         type: "POST",
-        url: VrConfig.baseURL + "/FileController/deleteAudio",
+        url: TrConfig.baseURL + "/FileController/deleteAudio",
         data: setAjaxData(data),
         success: function (response) {
             $('#btn_audio_delete').hide();
@@ -764,7 +764,7 @@ function select_audio() {
 function refresh_audios() {
     $.ajax({
         type: "POST",
-        url: VrConfig.baseURL + "/FileController/getAudios",
+        url: TrConfig.baseURL + "/FileController/getAudios",
         data: setAjaxData({}),
         success: function (response) {
             var obj = JSON.parse(response);
@@ -796,7 +796,7 @@ jQuery(function ($) {
                 };
                 $.ajax({
                     type: "POST",
-                    url: VrConfig.baseURL + "/FileController/loadMoreAudios",
+                    url: TrConfig.baseURL + "/FileController/loadMoreAudios",
                     data: setAjaxData(data),
                     success: function (response) {
                         setTimeout(function () {
@@ -820,7 +820,7 @@ $(document).on('input', '#input_search_audio', function () {
     };
     $.ajax({
         type: "POST",
-        url: VrConfig.baseURL + "/FileController/searchAudios",
+        url: TrConfig.baseURL + "/FileController/searchAudios",
         data: setAjaxData(data),
         success: function (response) {
             if (search.length > 1) {

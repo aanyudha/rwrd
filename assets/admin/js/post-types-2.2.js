@@ -12,7 +12,7 @@ $(document).on('click', '#btn_append_post_list_item', function () {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/PostController/getListItemHTML',
+        url: TrConfig.baseURL + '/PostController/getListItemHTML',
         data: setAjaxData(data),
         success: function (response) {
             var obj = JSON.parse(response);
@@ -32,7 +32,7 @@ $(document).on('click', '#btn_add_post_list_item_database', function () {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/PostController/addListItem',
+        url: TrConfig.baseURL + '/PostController/addListItem',
         data: setAjaxData(data),
         success: function (response) {
             var obj = JSON.parse(response);
@@ -59,7 +59,7 @@ $(document).on('click', '.btn-delete-list-item-image', function () {
     var content = '<input type="hidden" name="list_item_image_id[]" value="0">' +
         '<a class="btn-post-list-item-image" data-toggle="modal" data-target="#file_manager_image" data-image-type="list_item" data-list-item-id="' + itemId + '">' +
         '<i class="fa fa-plus"></i>' +
-        '<p class="select-img-text">' + VrConfig.textSelectImage + '</p>' +
+        '<p class="select-img-text">' + TrConfig.textSelectImage + '</p>' +
         '</a>';
     document.getElementById("post_list_item_image_container_" + itemId).innerHTML = content;
 });
@@ -69,7 +69,7 @@ function deletePostListItem(itemId, message) {
     swal({
         text: message,
         icon: 'warning',
-        buttons: [VrConfig.textCancel, VrConfig.textOk],
+        buttons: [TrConfig.textCancel, TrConfig.textOk],
         dangerMode: true,
     }).then(function (willDelete) {
         if (willDelete) {
@@ -83,7 +83,7 @@ function deletePostListItemDatabase(itemId, postType, message) {
     swal({
         text: message,
         icon: 'warning',
-        buttons: [VrConfig.textCancel, VrConfig.textOk],
+        buttons: [TrConfig.textCancel, TrConfig.textOk],
         dangerMode: true,
     }).then(function (willDelete) {
         if (willDelete) {
@@ -93,7 +93,7 @@ function deletePostListItemDatabase(itemId, postType, message) {
             };
             $.ajax({
                 type: 'POST',
-                url: VrConfig.baseURL + '/PostController/deletePostListItemPost',
+                url: TrConfig.baseURL + '/PostController/deletePostListItemPost',
                 data: setAjaxData(data),
                 success: function (response) {
                     $('#panel_list_item_' + itemId).remove();
@@ -118,7 +118,7 @@ $(document).on('click', '.btn-delete-selected-list-item-image', function () {
         '<a class="btn-select-image" data-toggle="modal" data-target="#file_manager_image" data-image-type="list_item" data-list-item-id="' + listItemId + '" data-is-update="' + isUpdate + '">' +
         '<div class="btn-select-image-inner">' +
         '<i class="fa fa-image"></i>' +
-        '<button class="btn">' + VrConfig.textSelectImage + '</button>' +
+        '<button class="btn">' + TrConfig.textSelectImage + '</button>' +
         '</div>' +
         '</a>' +
         '</div>';
@@ -146,7 +146,7 @@ $(document).on('click', '#btn_append_quiz_question', function () {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/PostController/getQuizQuestionHTML',
+        url: TrConfig.baseURL + '/PostController/getQuizQuestionHTML',
         data: setAjaxData(data),
         success: function (response) {
             var obj = JSON.parse(response);
@@ -166,7 +166,7 @@ $(document).on('click', '#btn_add_quiz_question_database', function () {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/PostController/addQuizQuestion',
+        url: TrConfig.baseURL + '/PostController/addQuizQuestion',
         data: setAjaxData(data),
         success: function (response) {
             var obj = JSON.parse(response);
@@ -233,7 +233,7 @@ $(document).on('click', '#btn_add_quiz_answer', function () {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/PostController/getQuizAnswerHTML',
+        url: TrConfig.baseURL + '/PostController/getQuizAnswerHTML',
         data: setAjaxData(data),
         success: function (response) {
             var obj = JSON.parse(response);
@@ -253,7 +253,7 @@ $(document).on('click', '#btn_add_quiz_answer_database', function () {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/PostController/addQuizQuestionAnswer',
+        url: TrConfig.baseURL + '/PostController/addQuizQuestionAnswer',
         data: setAjaxData(data),
         success: function (response) {
             var obj = JSON.parse(response);
@@ -269,7 +269,7 @@ function deleteQuizQuestion(questionId, message) {
     swal({
         text: message,
         icon: 'warning',
-        buttons: [VrConfig.textCancel, VrConfig.textOk],
+        buttons: [TrConfig.textCancel, TrConfig.textOk],
         dangerMode: true,
     }).then(function (willDelete) {
         if (willDelete) {
@@ -283,7 +283,7 @@ function deleteQuizQuestionDatabase(questionId, message) {
     swal({
         text: message,
         icon: 'warning',
-        buttons: [VrConfig.textCancel, VrConfig.textOk],
+        buttons: [TrConfig.textCancel, TrConfig.textOk],
         dangerMode: true,
     }).then(function (willDelete) {
         if (willDelete) {
@@ -292,7 +292,7 @@ function deleteQuizQuestionDatabase(questionId, message) {
             };
             $.ajax({
                 type: 'POST',
-                url: VrConfig.baseURL + '/PostController/deleteQuizQuestion',
+                url: TrConfig.baseURL + '/PostController/deleteQuizQuestion',
                 data: setAjaxData(data),
                 success: function (response) {
                     $('#panel_quiz_question_' + questionId).remove();
@@ -307,7 +307,7 @@ function deleteQuizAnswer(answerId, message) {
     swal({
         text: message,
         icon: 'warning',
-        buttons: [VrConfig.textCancel, VrConfig.textOk],
+        buttons: [TrConfig.textCancel, TrConfig.textOk],
         dangerMode: true,
     }).then(function (willDelete) {
         if (willDelete) {
@@ -321,7 +321,7 @@ function deleteQuizAnswerDatabase(answerId, message) {
     swal({
         text: message,
         icon: 'warning',
-        buttons: [VrConfig.textCancel, VrConfig.textOk],
+        buttons: [TrConfig.textCancel, TrConfig.textOk],
         dangerMode: true,
     }).then(function (willDelete) {
         if (willDelete) {
@@ -330,7 +330,7 @@ function deleteQuizAnswerDatabase(answerId, message) {
             };
             $.ajax({
                 type: 'POST',
-                url: VrConfig.baseURL + '/PostController/deleteQuizQuestionAnswer',
+                url: TrConfig.baseURL + '/PostController/deleteQuizQuestionAnswer',
                 data: setAjaxData(data),
                 success: function (response) {
                     $('#quiz_answer_' + answerId).remove();
@@ -347,7 +347,7 @@ $(document).on('click', '#btn_append_quiz_result', function () {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/PostController/getQuizResultHTML',
+        url: TrConfig.baseURL + '/PostController/getQuizResultHTML',
         data: setAjaxData(data),
         success: function (response) {
             var obj = JSON.parse(response);
@@ -368,7 +368,7 @@ $(document).on('click', '#btn_add_quiz_result_database', function () {
     };
     $.ajax({
         type: 'POST',
-        url: VrConfig.baseURL + '/PostController/addQuizResult',
+        url: TrConfig.baseURL + '/PostController/addQuizResult',
         data: setAjaxData(data),
         success: function (response) {
             var obj = JSON.parse(response);
@@ -385,7 +385,7 @@ function deleteQuizResult(resultId, message) {
     swal({
         text: message,
         icon: 'warning',
-        buttons: [VrConfig.textCancel, VrConfig.textOk],
+        buttons: [TrConfig.textCancel, TrConfig.textOk],
         dangerMode: true,
     }).then(function (willDelete) {
         if (willDelete) {
@@ -400,7 +400,7 @@ function deleteQuizResultDatabase(resultId, message) {
     swal({
         text: message,
         icon: 'warning',
-        buttons: [VrConfig.textCancel, VrConfig.textOk],
+        buttons: [TrConfig.textCancel, TrConfig.textOk],
         dangerMode: true,
     }).then(function (willDelete) {
         if (willDelete) {
@@ -409,7 +409,7 @@ function deleteQuizResultDatabase(resultId, message) {
             };
             $.ajax({
                 type: 'POST',
-                url: VrConfig.baseURL + '/PostController/deleteQuizResult',
+                url: TrConfig.baseURL + '/PostController/deleteQuizResult',
                 data: setAjaxData(data),
                 success: function (response) {
                     $('#panel_quiz_' + resultId).remove();
@@ -458,7 +458,7 @@ $(document).on('click', '.btn-delete-selected-quiz-question-image', function () 
         '<a class="btn-select-image" data-toggle="modal" data-target="#file_manager_quiz_image" data-quiz-image-type="question" data-question-id="' + questionId + '" data-answer-id="" data-is-update="' + isUpdate + '">' +
         '<div class="btn-select-image-inner">' +
         '<i class="fa fa-image"></i>' +
-        '<button class="btn">' + VrConfig.textSelectImage + '</button>' +
+        '<button class="btn">' + TrConfig.textSelectImage + '</button>' +
         '</div>' +
         '</a>' +
         '</div>';
@@ -479,7 +479,7 @@ $(document).on('click', '.btn-delete-selected-quiz-answer-image', function () {
         '<a class="btn-select-image" data-toggle="modal" data-target="#file_manager_quiz_image" data-quiz-image-type="answer" data-question-id="' + questionId + '" data-answer-id="' + answeIid + '" data-is-update="' + isUpdate + '">' +
         '<div class="btn-select-image-inner">' +
         '<i class="fa fa-image"></i>' +
-        '<button class="btn">' + VrConfig.textSelectImage + '</button>' +
+        '<button class="btn">' + TrConfig.textSelectImage + '</button>' +
         '</div>' +
         '</a>' +
         '</div>';
@@ -499,7 +499,7 @@ $(document).on('click', '.btn-delete-selected-quiz-result-image', function () {
         '<a class="btn-select-image" data-toggle="modal" data-target="#file_manager_quiz_image" data-quiz-image-type="result" data-result-id="' + resultId + '" data-is-update="' + isUpdate + '">' +
         '<div class="btn-select-image-inner">' +
         '<i class="fa fa-image"></i>' +
-        '<button class="btn">' + VrConfig.textSelectImage + '</button>' +
+        '<button class="btn">' + TrConfig.textSelectImage + '</button>' +
         '</div>' +
         '</a>' +
         '</div>';

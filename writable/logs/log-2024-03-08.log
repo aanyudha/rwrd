@@ -1,0 +1,56 @@
+INFO - 2024-03-08 00:03:03 --> CSRF token verified.
+INFO - 2024-03-08 00:06:35 --> CSRF token verified.
+CRITICAL - 2024-03-08 00:06:38 --> Error: Class "App\Models\CategoryModel" not found
+in APPPATH\Common.php on line 1620.
+ 1 APPPATH\Controllers\BaseAdminController.php(106): getCategories()
+ 2 APPPATH\Controllers\AdminController.php(30): App\Controllers\BaseAdminController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 3 SYSTEMPATH\CodeIgniter.php(914): App\Controllers\AdminController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 4 SYSTEMPATH\CodeIgniter.php(493): CodeIgniter\CodeIgniter->createController()
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-08 00:07:43 --> Error: Call to undefined function App\Controllers\getCategories()
+in APPPATH\Controllers\BaseAdminController.php on line 106.
+ 1 APPPATH\Controllers\AdminController.php(30): App\Controllers\BaseAdminController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 2 SYSTEMPATH\CodeIgniter.php(914): App\Controllers\AdminController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 3 SYSTEMPATH\CodeIgniter.php(493): CodeIgniter\CodeIgniter->createController()
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-08 00:08:02 --> Error: Class "App\Models\NewsletterModel" not found
+in APPPATH\Controllers\AdminController.php on line 36.
+ 1 SYSTEMPATH\CodeIgniter.php(914): App\Controllers\AdminController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 2 SYSTEMPATH\CodeIgniter.php(493): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-08 00:08:47 --> ErrorException: Undefined variable $pager
+in APPPATH\Views\common\_pagination.php on line 1.
+ 1 APPPATH\Views\common\_pagination.php(1): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $pager', 'C:\\xampp82\\htdocs\\rwrd\\app\\Views\\common\\_pagination.php', 1)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\xampp82\\htdocs\\rwrd\\app\\Views\\common\\_pagination.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1194): CodeIgniter\View\View->render('common/_pagination', [], true)
+ 5 APPPATH\Views\admin\users\users.php(141): view('common/_pagination')
+ 6 SYSTEMPATH\View\View.php(228): include('C:\\xampp82\\htdocs\\rwrd\\app\\Views\\admin\\users\\users.php')
+ 7 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1194): CodeIgniter\View\View->render('admin/users/users', [], true)
+ 9 APPPATH\Controllers\AdminController.php(923): view('admin/users/users')
+10 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\AdminController->users()
+11 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+12 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-08 00:10:17 --> Error: Class "App\Models\CategoryModel" not found
+in APPPATH\Controllers\HomeController.php on line 259.
+ 1 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\HomeController->subCategory('assets', 'admin', 'css', 'custom.css')
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\HomeController))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-08 00:10:19 --> Error: Class "App\Models\CategoryModel" not found
+in APPPATH\Controllers\HomeController.php on line 259.
+ 1 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\HomeController->subCategory('assets', 'admin', 'css', 'custom.css')
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\HomeController))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-08 00:10:20 --> Error: Class "App\Models\CategoryModel" not found
+in APPPATH\Controllers\HomeController.php on line 259.
+ 1 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\HomeController->subCategory('assets', 'admin', 'css', 'custom.css')
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\HomeController))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
