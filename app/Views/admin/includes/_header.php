@@ -97,13 +97,13 @@
                     <a href="#"><i class="fa fa-circle text-success"></i> <?= trans("online"); ?></a>
                 </div>
             </div>
-            <dv class="sidebar-scrollbar" style="display: block; height: 100%; min-height: 100%;">
+            <div class="sidebar-scrollbar" style="display: block; height: 100%; min-height: 100%;">
                 <ul class="sidebar-menu" data-widget="tree" style="padding-bottom: 160px;">
                     <li class="header"><?= trans("main_navigation"); ?></li>
                     <li class="nav-home">
                         <a href="<?= adminUrl(); ?>"><i class="fa fa-home"></i><span><?= trans("home"); ?></span></a>
                     </li>
-                    <?php if (checkUserPermission('navigation')): ?>
+                  <!--   <?php if (checkUserPermission('navigation')): ?>
                         <li class="nav-navigation">
                             <a href="<?= adminUrl('navigation?lang=' . $activeLang->id); ?>"><i class="fa fa-th"></i><span><?= trans("navigation"); ?></span></a>
                         </li>
@@ -194,7 +194,7 @@
                     if (checkUserPermission('ad_spaces')): ?>
                         <li class="nav-ad-spaces">
                             <a href="<?= adminUrl('ad-spaces'); ?>"><i class="fa fa-dollar" aria-hidden="true"></i><span><?= trans("ad_spaces"); ?></span></a>
-                        </li>
+                        </li>-->
                     <?php endif;
                     if (checkUserPermission('users')): ?>
                         <li class="treeview<?php isAdminNavActive(['users', 'add-user', 'administrators', 'edit-user']); ?>">
@@ -214,33 +214,34 @@
                         </li>
                     <?php endif;
                     if (checkUserPermission('seo_tools')): ?>
-                        <li class="nav-seo-tools">
+                      <!--  <li class="nav-seo-tools">
                             <a href="<?= adminUrl('seo-tools'); ?>"><i class="fa fa-wrench"></i><span><?= trans("seo_tools"); ?></span></a>
-                        </li>
+                        </li> -->
                     <?php endif;
                     if (isAdmin()): ?>
-                        <li class="nav-storage">
+                        <!--<li class="nav-storage">
                             <a href="<?= adminUrl('storage'); ?>"><i class="fa fa-cloud-upload"></i><span><?= trans("storage"); ?></span></a>
-                        </li>
-                        <li class="nav-cache-system">
-                            <a href="<?= adminUrl('cache-system'); ?>"><i class="fa fa-database"></i><span><?= trans("cache_system"); ?></span></a>
-                        </li>
-                        <li class="nav-google-news">
+                        </li>-->
+                        
+                       <!-- <li class="nav-google-news">
                             <a href="<?= adminUrl('google-news'); ?>"><i class="fa fa-newspaper-o"></i><span><?= trans("google_news"); ?></span></a>
-                        </li>
+                        </li> -->
                     <?php endif;
                     if (checkUserPermission('settings')): ?>
                         <li class="header"><?= trans("settings"); ?></li>
-                        <li class="nav-preferences">
+                        <!-- <li class="nav-preferences">
                             <a href="<?= adminUrl('preferences'); ?>"><i class="fa fa-check-square-o"></i><span><?= trans("preferences"); ?></span></a>
+                        </li> -->
+						<li class="nav-cache-system">
+                            <a href="<?= adminUrl('cache-system'); ?>"><i class="fa fa-database"></i><span><?= trans("cache_system"); ?></span></a>
                         </li>
-                        <li class="nav-route-settings">
+                       <!-- <li class="nav-route-settings">
                             <a href="<?= adminUrl('route-settings'); ?>"><i class="fa fa-map-signs"></i><span><?= trans("route_settings"); ?></span></a>
-                        </li>
+                        </li> -->
                         <li class="nav-email-settings">
                             <a href="<?= adminUrl('email-settings'); ?>"><i class="fa fa-cog"></i><span><?= trans("email_settings"); ?></span></a>
                         </li>
-                        <li class="nav-font-settings">
+                       <!-- <li class="nav-font-settings">
                             <a href="<?= adminUrl('font-settings'); ?>"><i class="fa fa-font" aria-hidden="true"></i><span><?= trans("font_settings"); ?></span></a>
                         </li>
                         <li class="nav-social-login-settings">
@@ -248,7 +249,7 @@
                         </li>
                         <li class="nav-language-settings">
                             <a href="<?= adminUrl('language-settings'); ?>"><i class="fa fa-language"></i><span><?= trans("language_settings"); ?></span></a>
-                        </li>
+                        </li> -->
                         <li class="nav-general-settings">
                             <a href="<?= adminUrl('general-settings'); ?>"><i class="fa fa-cogs"></i><span><?= trans("general_settings"); ?></span></a>
                         </li>
