@@ -1230,7 +1230,8 @@ abstract class BaseModel
         // Since multiple models may use the Pager, the Pager must be shared.
         $pager = Services::pager();
 
-        if ($segment !== 0) {
+        //if ($segment !== 0) { 
+        if ($segment) {
             $pager->setSegment($segment, $group);
         }
 

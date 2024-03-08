@@ -11,17 +11,17 @@
                             <?= esc($baseSettings->about_footer); ?>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-6 col-lg-4 footer-widget">
-                        <h4 class="widget-title"><?= trans("most_viewed_posts"); ?></h4>
+                    <!--<div class="col-sm-12 col-md-6 col-lg-4 footer-widget">
+                        <h4 class="widget-title">?= trans("most_viewed_posts"); ?></h4>
                         <div class="footer-posts">
-                            <?php $mostViewedPosts = getMostViewedPosts(3);
+                            ?php $mostViewedPosts = getMostViewedPosts(3);
                             if (!empty($mostViewedPosts)):
                                 foreach ($mostViewedPosts as $item): ?>
-                                    <?= loadView('post/_post_item_small', ['postItem' => $item, 'showLabel' => false]); ?>
-                                <?php endforeach;
+                                    ?= loadView('post/_post_item_small', ['postItem' => $item, 'showLabel' => false]); ?>
+                                ?php endforeach;
                             endif; ?>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="col-sm-12 col-md-6 col-lg-4 footer-widget">
                         <?php if ($generalSettings->newsletter_status == 1): ?>
                             <h4 class="widget-title"><?= trans("newsletter"); ?></h4>
@@ -41,7 +41,7 @@
                         <?php endif; ?>
                         <div class="footer-social-links">
                             <ul>
-                                <?= view('common/_social_media_links', ['rssHide' => false]); ?>
+                                <?= view('common/_social_media_links', ['rssHide' => true]); ?>
                             </ul>
                         </div>
                     </div>

@@ -124,8 +124,7 @@ class Pager implements PagerInterface
 
         $pager = new PagerRenderer($this->getDetails($group));
 
-        return $this->view->setVar('pager', $pager)
-            ->render($this->config->templates[$template]);
+        return $this->view->setVar('pager', $pager)->render($this->config->templates[$template]);
     }
 
     /**
@@ -136,7 +135,8 @@ class Pager implements PagerInterface
      */
     public function store(string $group, int $page, ?int $perPage, int $total, int $segment = 0)
     {
-        if ($segment !== 0) {
+        //if ($segment !== 0) {
+        if ($segment) {
             $this->setSegment($segment, $group);
         }
 

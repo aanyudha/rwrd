@@ -24,7 +24,7 @@ class PostController extends BaseAdminController
         $this->postAdminModel = new PostAdminModel();
         $this->postItemModel = new PostItemModel();
         $this->categoryModel = new CategoryModel();
-        $this->quizModel = new QuizModel();
+        //$this->quizModel = new QuizModel();
         $this->authModel = new AuthModel();
         if ($this->generalSettings->email_verification == 1 && user()->email_status == 0 && user()->role != 'admin') {
             $this->session->setFlashdata('error', trans("msg_confirmed_required"));
