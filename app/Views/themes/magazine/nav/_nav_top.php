@@ -27,10 +27,10 @@ if (authCheck()): ?>
 <li><a href="<?= adminUrl(); ?>" class="dropdown-item"><?= user()->role == "admin" || user()->role == "moderator" ? trans("admin_panel") : trans("dashboard"); ?></a></li>
 <?php endif; ?>
 <li><a href="<?= generateProfileURL(user()->slug); ?>" class="dropdown-item"><?= trans("profile"); ?></a></li>
-<?php if (user()->reward_system_enabled == 1): ?>
-<li><a href="<?= generateURL('earnings'); ?>" class="dropdown-item"><?= trans("earnings"); ?>&nbsp;(<strong class="lbl-earnings"><?= priceFormatted(user()->balance); ?></strong>)</a></li>
-<?php endif; ?>
-<li><a href="<?= generateURL('reading_list'); ?>" class="dropdown-item"><?= trans("reading_list"); ?></a></li>
+<!--?php if (user()->reward_system_enabled == 1): ?>
+<li><a href="?= generateURL('earnings'); ?>" class="dropdown-item">?= trans("earnings"); ?>&nbsp;(<strong class="lbl-earnings">?= priceFormatted(user()->balance); ?></strong>)</a></li>
+?php endif; ?>
+<li><a href="?= generateURL('reading_list'); ?>" class="dropdown-item">?= trans("reading_list"); ?></a></li>-->
 <li><a href="<?= generateURL('settings'); ?>" class="dropdown-item"><?= trans("settings"); ?></a></li>
 <li><a href="<?= generateURL('logout'); ?>" class="dropdown-item"><?= trans("logout"); ?></a></li>
 </ul>

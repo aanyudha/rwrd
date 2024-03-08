@@ -79,7 +79,7 @@
                                         </div>
                                     <?php endif; ?>
                                 </div>
-                                <div class="d-flex flex-row mb-4">
+                                <!--<div class="d-flex flex-row mb-4">
                                     <ul class="profile-social-links">
                                         <?php $socialLinks = getSocialLinksArray($user, true);
                                         if (!empty($socialLinks)):
@@ -91,10 +91,10 @@
                                             <li><a href="<?= langBaseUrl('rss/author/' . $user->slug); ?>"><i class="icon-rss"></i></a></li>
                                         <?php endif; ?>
                                     </ul>
-                                </div>
+                                </div>-->
                             </div>
                         </div>
-                        <div class="col-12">
+                        <!--<div class="col-12">
                             <div class="sidebar-widget">
                                 <div class="widget-head"><h4 class="title"><?= trans('following'); ?>&nbsp;(<?= countItems($following); ?>)</h4></div>
                                 <div class="widget-body">
@@ -133,7 +133,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -152,9 +152,9 @@
                         endforeach;
                     endif;
                     echo loadView('partials/_ad_spaces', ['adSpace' => 'posts_bottom', 'class' => 'mb-3']); ?>
-                    <div class="col-12 mt-3">
-                        <?= view('common/_pagination'); ?>
-                    </div>
+                    <!--<div class="col-12 mt-3">
+                        ?= view('common/_pagination'); ?>
+                    </div>-->
                 </div>
             </div>
         </div>
