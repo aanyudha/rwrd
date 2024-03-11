@@ -30,7 +30,7 @@ class ProfileModel extends BaseModel
             @unlink(FCPATH . user()->cover_image);
             $uploadModel->deleteTempFile($imageCover['path']);
         }
-        $this->session->set('vr_user_old_email', user()->email);
+        $this->session->set('tr_user_old_email', user()->email);
         return $this->builder->where('id', cleanNumber(user()->id))->update($data);
     }
 
@@ -40,14 +40,14 @@ class ProfileModel extends BaseModel
         if ($this->generalSettings->email_verification == 1) {
             $user = getUserById($userId);
             if (!empty($user)) {
-                if (!empty($this->session->get('vr_user_old_email')) && $this->session->get('vr_user_old_email') != $user->email) {
+                if (!empty($this->session->get('tr_user_old_email')) && $this->session->get('vr_user_old_email') != $user->email) {
                     $emailModel = new EmailModel();
                     $emailModel->sendEmailActivation($user->id);
                     return $this->builder->where('id', $user->id)->update(['email_status' => 0]);
                 }
             }
-            if (!empty($this->session->get('vr_user_old_email'))) {
-                $this->session->remove('vr_user_old_email');
+            if (!empty($this->session->get('tr_user_old_email'))) {
+                $this->session->remove('tr_user_old_email');
             }
         }
         return false;
@@ -105,7 +105,7 @@ class ProfileModel extends BaseModel
             }
             $password = password_hash($data['password'], PASSWORD_DEFAULT);
             if ($this->builder->where('id', $user->id)->update(['password' => $password])) {
-                $this->session->set('vr_ses_pass', md5($password ?? ''));
+                $this->session->set('tr_ses_pass', md5($password ?? ''));
                 return true;
             }
         }

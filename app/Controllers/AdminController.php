@@ -1721,7 +1721,7 @@ class AdminController extends BaseAdminController
         $languageModel = new LanguageModel();
         $language = $languageModel->getLanguage($langId);
         if (!empty($language)) {
-            $this->session->set('vr_control_panel_lang', $language->id);
+            $this->session->set('tr_control_panel_lang', $language->id);
         }
         redirectToBackURL();
     }
