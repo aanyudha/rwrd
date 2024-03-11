@@ -165,7 +165,11 @@ $routes->get($customRoutes->admin . '/general-settings', 'AdminController::gener
 $routes->get($customRoutes->admin . '/language-settings', 'LanguageController::languages');
 $routes->get($customRoutes->admin . '/edit-language/(:num)', 'LanguageController::editLanguage/$1');
 $routes->get($customRoutes->admin . '/edit-translations/(:num)', 'LanguageController::editTranslations/$1');
-
+//hotels
+$routes->get($customRoutes->admin . '/ref-hotel', 'AdminController::refHotel');
+$routes->get($customRoutes->admin . '/edit-hotel/(:num)', 'AdminController::editHotel/$1');
+//countries
+$routes->get($customRoutes->admin . '/ref-negara', 'AdminController::refNegara');
 /*
  * --------------------------------------------------------------------
  * DYNAMIC ROUTES

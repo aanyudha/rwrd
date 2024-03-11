@@ -1737,4 +1737,69 @@ class AdminController extends BaseAdminController
         $name = 'db_backup-' . date('Y-m-d H-i-s') . '.sql';
         return $response->download($name, $data);
     }
+	
+	//REWARDS TENTREM
+	
+	/**
+     * ref_hotel
+     */
+    public function refHotel()
+    {
+        checkAdmin();
+        $data['title'] = trans("hotels_setting");
+        $data['panelSettings'] = panelSettings();
+		$numRows = $this->settingsModel->getHotelsCount();
+        $pager = paginate($this->perPage, $numRows);
+        $data['hotels'] = $this->settingsModel->getHotelsPaginated($this->perPage, $pager->offset);
+
+        echo view('admin/includes/_header', $data);
+        echo view('admin/hotel/hotels');
+        echo view('admin/includes/_footer');
+    }
+	/**
+     * Edit hotels
+     */
+    public function editHotel($id)
+    {
+        checkAdmin();
+        $data['panelSettings'] = panelSettings();
+        $data['title'] = trans("edit_role");
+        $data['role'] = $this->settingsModel->getRole($id);
+        if (empty($data['role'])) {
+            return redirect()->to(adminUrl('roles-permissions'));
+        }
+
+        echo view('admin/includes/_header', $data);
+        echo view('admin/hotel/edit_hotels', $data);
+        echo view('admin/includes/_footer');
+    }
+
+    /**
+     * Edit Hotels Post
+     */
+    public function editHotelPost()
+    {
+        checkAdmin();
+        $id = inputPost('id');
+        if ($this->settingsModel->editHotel($id)) {
+            $this->session->setFlashdata('success', trans("msg_updated"));
+        } else {
+            $this->session->setFlashdata('error', trans("msg_error"));
+        }
+        return redirect()->to(adminUrl('ref-hotel'));
+    }
+	/**
+     * mst_member
+     */
+    public function mstMember()
+    {
+        checkAdmin();
+        $data['title'] = trans("roles_permissions");
+        $data['panelSettings'] = panelSettings();
+        $data['roles'] = $this->settingsModel->getRolesPermissions();
+
+        echo view('admin/includes/_header', $data);
+        echo view('admin/users/roles_permissions');
+        echo view('admin/includes/_footer');
+    }
 }

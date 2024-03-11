@@ -144,7 +144,7 @@ abstract class BaseController extends Controller
         //$this->adSpaces = $this->commonModel->getAdSpacesByLang($this->activeLang->id);
 
         //update last seen
-        //updateLastSeen();
+        updateLastSeen();
 
         //view variables
         $view = \Config\Services::renderer();

@@ -8,6 +8,8 @@ class SettingsModel extends BaseModel
     protected $builderGeneral;
     protected $builderWidgets;
     protected $builderFonts;
+    protected $builderNegara;
+    protected $builderHotels;
 
     public function __construct()
     {
@@ -16,6 +18,8 @@ class SettingsModel extends BaseModel
         $this->builderGeneral = $this->db->table('general_settings');
         $this->builderWidgets = $this->db->table('widgets');
         $this->builderFonts = $this->db->table('fonts');
+        $this->builderNegara = $this->db->table('ref_negara');
+        $this->builderHotels = $this->db->table('ref_hotel');
     }
 
     //input values
@@ -697,5 +701,28 @@ class SettingsModel extends BaseModel
             return $this->builderFonts->where('id', $font->id)->delete();
         }
         return false;
+    }
+	
+	//REWARDS TENTREM
+	//hotels filter
+    public function filterHotels()
+    {
+        $q = inputGet('q');
+        if (!empty($q)) {
+            $this->builderHotels->groupStart()->like('nama', cleanStr($q))->orLike('alamat', cleanStr($q))->groupEnd();
+        }
+    }
+	 //get paginated hotels count
+    public function getHotelsCount()
+    {
+        $this->filterHotels();
+        return $this->builderHotels->countAllResults();
+    }
+
+    //get paginated hotels
+    public function getHotelsPaginated($perPage, $offset)
+    {
+        $this->filterHotels();
+        return $this->builderHotels->orderBy('id_hotel ASC')->limit($perPage, $offset)->get()->getResult();
     }
 }

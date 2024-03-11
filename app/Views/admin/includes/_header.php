@@ -229,11 +229,17 @@
                     <?php endif;
                     if (checkUserPermission('settings')): ?>
                         <li class="header"><?= trans("settings"); ?></li>
-                        <!-- <li class="nav-preferences">
+                        <!--<li class="nav-preferences">
                             <a href="<?= adminUrl('preferences'); ?>"><i class="fa fa-check-square-o"></i><span><?= trans("preferences"); ?></span></a>
                         </li> -->
 						<li class="nav-cache-system">
                             <a href="<?= adminUrl('cache-system'); ?>"><i class="fa fa-database"></i><span><?= trans("cache_system"); ?></span></a>
+                        </li>
+						<li class="nav-cache-system">
+                            <a href="<?= adminUrl('ref-hotel'); ?>"><i class="fa fa-database"></i><span><?= trans("hotels_setting"); ?></span></a>
+                        </li>
+						<li class="nav-cache-system">
+                            <a href="<?= adminUrl('ref-negara'); ?>"><i class="fa fa-database"></i><span><?= trans("negara_setting"); ?></span></a>
                         </li>
                        <!-- <li class="nav-route-settings">
                             <a href="<?= adminUrl('route-settings'); ?>"><i class="fa fa-map-signs"></i><span><?= trans("route_settings"); ?></span></a>
