@@ -1763,14 +1763,14 @@ class AdminController extends BaseAdminController
     {
         checkAdmin();
         $data['panelSettings'] = panelSettings();
-        $data['title'] = trans("edit_role");
-        $data['role'] = $this->settingsModel->getRole($id);
-        if (empty($data['role'])) {
-            return redirect()->to(adminUrl('roles-permissions'));
+        $data['title'] = trans("edit_hotel");
+        $data['hotel'] = getHotelById($id);
+        if (empty($data['hotel'])) {
+            return redirect()->to(adminUrl('ref-hotel'));
         }
 
         echo view('admin/includes/_header', $data);
-        echo view('admin/hotel/edit_hotels', $data);
+        echo view('admin/hotel/edit_hotel', $data);
         echo view('admin/includes/_footer');
     }
 
@@ -1780,13 +1780,62 @@ class AdminController extends BaseAdminController
     public function editHotelPost()
     {
         checkAdmin();
-        $id = inputPost('id');
-        if ($this->settingsModel->editHotel($id)) {
+        $id_hotel = inputPost('id_hotel');
+        if ($this->settingsModel->editHotel($id_hotel)) {
             $this->session->setFlashdata('success', trans("msg_updated"));
         } else {
             $this->session->setFlashdata('error', trans("msg_error"));
         }
         return redirect()->to(adminUrl('ref-hotel'));
+    }
+	/**
+     * Add User
+     */
+    public function addHotel()
+    {
+        checkAdmin();
+        $data['title'] = trans("hotels_setting_add");
+
+        echo view('admin/includes/_header', $data);
+        echo view('admin/hotel/add_hotel');
+        echo view('admin/includes/_footer');
+    }
+
+    /**
+     * Add User Post
+     */
+    public function addHotelPost()
+    {
+        checkAdmin();
+        $val = \Config\Services::validation();
+        $val->setRule('kode_hotel', trans("kode_hotel"), 'required|max_length[255]');
+        $val->setRule('nama', trans("nama"), 'required|max_length[255]');
+        $val->setRule('alamat', trans("alamat"), 'required|max_length[255]');
+        $val->setRule('email_admin', trans("email_admin"), 'required|max_length[255]');
+        if (!$this->validate(getValRules($val))) {
+            $this->session->setFlashdata('errors', $val->getErrors());
+            return redirect()->to(adminUrl('add-hotel'))->withInput();
+        } else {
+            $id_hotel = inputPost('id_hotel');
+            $kode_hotel = inputPost('kode_hotel');
+            $email_admin = inputPost('email_admin');
+            $nama = inputPost('nama');
+            if (!$this->settingsModel->isUniqueHotelCode($kode_hotel, $id_hotel)) {
+                $this->session->setFlashdata('error', trans("msg_hotel_kode_unique_error"));
+                return redirect()->to(adminUrl('add-hotel'))->withInput();
+            }
+            if (!$this->settingsModel->isEmailAdminUnique($email_admin, $id_hotel)) {
+                $this->session->setFlashdata('error', trans("message_email_unique_error"));
+                return redirect()->to(adminUrl('add-hotel'))->withInput();
+            }
+            if ($this->settingsModel->addHotel()) {
+                $this->session->setFlashdata('success', trans("msg_updated"));
+            } else {
+                $this->session->setFlashdata('error', trans("msg_error"));
+                return redirect()->to(adminUrl('add-hotel'))->withInput();
+            }
+        }
+        return redirect()->to(adminUrl('add-hotel'));
     }
 	/**
      * mst_member

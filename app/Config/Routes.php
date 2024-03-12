@@ -168,6 +168,7 @@ $routes->get($customRoutes->admin . '/edit-translations/(:num)', 'LanguageContro
 //hotels
 $routes->get($customRoutes->admin . '/ref-hotel', 'AdminController::refHotel');
 $routes->get($customRoutes->admin . '/edit-hotel/(:num)', 'AdminController::editHotel/$1');
+$routes->get($customRoutes->admin . '/add-hotel', 'AdminController::addHotel');
 //countries
 $routes->get($customRoutes->admin . '/ref-negara', 'AdminController::refNegara');
 /*

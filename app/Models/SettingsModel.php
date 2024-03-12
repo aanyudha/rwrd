@@ -47,6 +47,17 @@ class SettingsModel extends BaseModel
             'cookies_warning_text' => inputPost('cookies_warning_text')
         ];
     }
+	
+	//input values hotel
+    public function inputValuesHotel()
+    {
+        return [
+            'kode_hotel' => inputPost('kode_hotel'),
+            'nama' => inputPost('nama'),
+            'alamat' => inputPost('alamat'),
+            'email_admin' => inputPost('email_admin')
+        ];
+    }
 
     //update settings
     public function updateSettings($langId)
@@ -724,5 +735,74 @@ class SettingsModel extends BaseModel
     {
         $this->filterHotels();
         return $this->builderHotels->orderBy('id_hotel ASC')->limit($perPage, $offset)->get()->getResult();
+    }
+	//get hotel by id
+    public function getHotel($id)
+    {
+        return $this->builderHotels->where('id_hotel', cleanNumber($id))->get()->getRow();
+    }
+	 //get hotel by hotel kode
+    public function getHotelByHotelCode($kode_hotel)
+    {
+        return $this->builderHotels->where('kode_hotel', removeForbiddenCharacters($kode_hotel))->get()->getRow();
+    }
+	//get hotel by email admin
+    public function getHotelByAdminEmail($email_admin)
+    {
+        return $this->builderHotels->where('email_admin', removeForbiddenCharacters($email_admin))->get()->getRow();
+    }
+	//edit hotel
+    public function editHotel($id)
+    {
+        $hotel = $this->getHotel($id);
+        if (!empty($hotel)) {
+            $data = [
+                'kode_hotel' => inputPost('kode_hotel'),
+                'nama' => inputPost('nama'),
+                'alamat' => inputPost('alamat'),
+                'email_admin' => inputPost('email_admin')
+            ];
+            return $this->builderHotels->where('id_hotel', $hotel->id_hotel)->update($data);
+        }
+        return false;
+    }
+	 //check if hotel kode is unique
+    public function isUniqueHotelCode($kode_hotel, $hotelId = 0)
+    {
+        $hotel = $this->getHotelByHotelCode($kode_hotel);
+        if ($hotelId == 0) {
+            if (!empty($hotel)) {
+                return false;
+            }
+            return true;
+        } else {
+            if (!empty($hotel) && $hotel->id_hotel != $hotelId) {
+                return false;
+            }
+            return true;
+        }
+    }
+	//check if email_admin is unique
+    public function isEmailAdminUnique($email_admin, $hotelId = 0)
+    {
+        $hotel = $this->getHotelByAdminEmail($email_admin);
+        if ($hotelId == 0) {
+            if (!empty($hotel)) {
+                return false;
+            }
+            return true;
+        } else {
+            if (!empty($hotel) && $hotel->id != $hotelId) {
+                return false;
+            }
+            return true;
+        }
+    }
+	//add hotel
+    public function addHotel()
+    {
+		$data = $this->inputValuesHotel();
+        $data['created_at'] = date('Y-m-d H:i:s');
+        return $this->builderHotels->insert($data);
     }
 }

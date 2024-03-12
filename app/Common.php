@@ -2194,4 +2194,13 @@ if (!function_exists('isBot')) {
         }
         return false;
     }
+	
+	//get hotel by id
+if (!function_exists('getHotelById')) {
+    function getHotelById($id)
+    {
+        $model = new \App\Models\SettingsModel();
+        return $model->getHotel($id);
+    }
+}
 }
