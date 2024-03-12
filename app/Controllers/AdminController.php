@@ -23,7 +23,7 @@ class AdminController extends BaseAdminController
     protected $pageModel;
     protected $authModel;
     protected $commonModel;
-    protected $newsletterModel;
+    //protected $newsletterModel;
 
     public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
     {
@@ -1789,7 +1789,7 @@ class AdminController extends BaseAdminController
         return redirect()->to(adminUrl('ref-hotel'));
     }
 	/**
-     * Add User
+     * Add hotel
      */
     public function addHotel()
     {
@@ -1802,7 +1802,7 @@ class AdminController extends BaseAdminController
     }
 
     /**
-     * Add User Post
+     * Add hotel Post
      */
     public function addHotelPost()
     {
@@ -1836,6 +1836,94 @@ class AdminController extends BaseAdminController
             }
         }
         return redirect()->to(adminUrl('add-hotel'));
+    }
+	/**
+     * ref_negara
+     */
+    public function refCountries()
+    {
+        checkAdmin();
+        $data['title'] = trans("negara_setting");
+        $data['panelSettings'] = panelSettings();
+		$numRows = $this->settingsModel->getCountriesCount();
+        $pager = paginate($this->perPage, $numRows);
+        $data['countries'] = $this->settingsModel->getCountriesPaginated($this->perPage, $pager->offset);
+
+        echo view('admin/includes/_header', $data);
+        echo view('admin/countries/countries');
+        echo view('admin/includes/_footer');
+    }
+	/**
+     * Edit countries
+     */
+    public function editCountries($id)
+    {
+        checkAdmin();
+        $data['panelSettings'] = panelSettings();
+        $data['title'] = trans("edit_countries");
+        $data['country'] = getCountriesById($id);
+        if (empty($data['country'])) {
+            return redirect()->to(adminUrl('ref-countries'));
+        }
+
+        echo view('admin/includes/_header', $data);
+        echo view('admin/countries/edit_countries', $data);
+        echo view('admin/includes/_footer');
+    }
+
+    /**
+     * Edit countries Post
+     */
+    public function editCountriesPost()
+    {
+        checkAdmin();
+        $id_negara = inputPost('id_negara');
+        if ($this->settingsModel->editCountriesM($id_negara)) {
+            $this->session->setFlashdata('success', trans("msg_updated"));
+        } else {
+            $this->session->setFlashdata('error', trans("msg_error"));
+        }
+        return redirect()->to(adminUrl('ref-countries'));
+    }
+	/**
+     * Add countries
+     */
+    public function addCountries()
+    {
+        checkAdmin();
+        $data['title'] = trans("add_countries");
+
+        echo view('admin/includes/_header', $data);
+        echo view('admin/countries/add_countries');
+        echo view('admin/includes/_footer');
+    }
+
+    /**
+     * Add countries Post
+     */
+    public function addCountriesPost()
+    {
+        checkAdmin();
+        $val = \Config\Services::validation();
+        $val->setRule('nama', trans("nama"), 'required|max_length[255]');
+        if (!$this->validate(getValRules($val))) {
+            $this->session->setFlashdata('errors', $val->getErrors());
+            return redirect()->to(adminUrl('add-hotel'))->withInput();
+        } else {
+            $id_negara = inputPost('id_negara');
+            $nama = inputPost('nama');
+            if (!$this->settingsModel->isUniqueCountriesName($nama, $id_negara)) {
+                $this->session->setFlashdata('error', trans("msg_country_kode_unique_error"));
+                return redirect()->to(adminUrl('add-countries'))->withInput();
+            }
+            if ($this->settingsModel->addCountries()) {
+                $this->session->setFlashdata('success', trans("msg_updated"));
+            } else {
+                $this->session->setFlashdata('error', trans("msg_error"));
+                return redirect()->to(adminUrl('add-countries'))->withInput();
+            }
+        }
+        return redirect()->to(adminUrl('add-countries'));
     }
 	/**
      * mst_member

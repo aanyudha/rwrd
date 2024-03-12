@@ -170,7 +170,9 @@ $routes->get($customRoutes->admin . '/ref-hotel', 'AdminController::refHotel');
 $routes->get($customRoutes->admin . '/edit-hotel/(:num)', 'AdminController::editHotel/$1');
 $routes->get($customRoutes->admin . '/add-hotel', 'AdminController::addHotel');
 //countries
-$routes->get($customRoutes->admin . '/ref-negara', 'AdminController::refNegara');
+$routes->get($customRoutes->admin . '/ref-countries', 'AdminController::refCountries');
+$routes->get($customRoutes->admin . '/edit-countries/(:num)', 'AdminController::editCountries/$1');
+$routes->get($customRoutes->admin . '/add-countries', 'AdminController::addCountries');
 /*
  * --------------------------------------------------------------------
  * DYNAMIC ROUTES

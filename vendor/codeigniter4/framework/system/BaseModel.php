@@ -486,7 +486,7 @@ abstract class BaseModel
      *
      * @return BaseResult|false|Query|string
      */
-    abstract protected function doReplace(?array $row = null, bool $returnSQL = false);
+    abstract protected function doReplace(?array $data = null, bool $returnSQL = false);
 
     /**
      * Grabs the last error(s) that occurred from the Database connection.
@@ -518,9 +518,9 @@ abstract class BaseModel
      *
      * @todo: Make abstract in version 5.0
      */
-    public function getIdValue($row)
+    public function getIdValue($data)
     {
-        return $this->idValue($row);
+        return $this->idValue($data);
     }
 
     /**

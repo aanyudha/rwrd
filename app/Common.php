@@ -1241,6 +1241,7 @@ if (!function_exists('timeAgo')) {
 }
 
 //paginate
+
 if (!function_exists('paginate')) {
     function paginate($perPage, $total)
     {
@@ -1257,6 +1258,22 @@ if (!function_exists('paginate')) {
         return $pageObject;
     }
 }
+/*
+//paginate
+if (!function_exists('paginate')) {
+    function paginate($perPage, $total)
+    {
+        $page = @intval(inputGet('page'));
+        if (empty($page) || $page < 1) {
+            $page = 1;
+        }
+        $pager = \Config\Services::pager();
+        $pager->makeLinks($page, $perPage, $total);
+        $pager->page = $page;
+        $pager->offset = ($page - 1) * $perPage;
+        return $pager;
+    }
+}*/
 
 //paginate
 if (!function_exists('getIPAddress')) {
@@ -2196,11 +2213,19 @@ if (!function_exists('isBot')) {
     }
 	
 	//get hotel by id
-if (!function_exists('getHotelById')) {
-    function getHotelById($id)
-    {
-        $model = new \App\Models\SettingsModel();
-        return $model->getHotel($id);
-    }
-}
+	if (!function_exists('getHotelById')) {
+		function getHotelById($id)
+		{
+			$model = new \App\Models\SettingsModel();
+			return $model->getHotel($id);
+		}
+	}
+	//get countries by id
+	if (!function_exists('getCountriesById')) {
+		function getCountriesById($id)
+		{
+			$model = new \App\Models\SettingsModel();
+			return $model->getCountries($id);
+		}
+	}
 }

@@ -10,6 +10,7 @@ class SettingsModel extends BaseModel
     protected $builderFonts;
     protected $builderNegara;
     protected $builderHotels;
+    protected $builderCountries;
 
     public function __construct()
     {
@@ -20,6 +21,7 @@ class SettingsModel extends BaseModel
         $this->builderFonts = $this->db->table('fonts');
         $this->builderNegara = $this->db->table('ref_negara');
         $this->builderHotels = $this->db->table('ref_hotel');
+        $this->builderCountries = $this->db->table('ref_negara');
     }
 
     //input values
@@ -56,6 +58,13 @@ class SettingsModel extends BaseModel
             'nama' => inputPost('nama'),
             'alamat' => inputPost('alamat'),
             'email_admin' => inputPost('email_admin')
+        ];
+    }
+	//input values countries
+    public function inputValuesCountries()
+    {
+        return [
+            'nama' => inputPost('nama')
         ];
     }
 
@@ -715,6 +724,7 @@ class SettingsModel extends BaseModel
     }
 	
 	//REWARDS TENTREM
+	//HOTEL MENU
 	//hotels filter
     public function filterHotels()
     {
@@ -804,5 +814,71 @@ class SettingsModel extends BaseModel
 		$data = $this->inputValuesHotel();
         $data['created_at'] = date('Y-m-d H:i:s');
         return $this->builderHotels->insert($data);
+    }
+	//COUNTRIES MENU
+	//countries filter
+    public function filterCountries()
+    {
+        $q = inputGet('q');
+        if (!empty($q)) {
+            $this->builderCountries->groupStart()->like('nama', cleanStr($q))->orLike('id_negara', cleanStr($q))->groupEnd();
+        }
+    }
+	 //get paginated Countries count
+    public function getCountriesCount()
+    {
+        $this->filterCountries();
+        return $this->builderCountries->countAllResults();
+    }
+
+    //get paginated Countries
+    public function getCountriesPaginated($perPage, $offset)
+    {
+        $this->filterCountries();
+        return $this->builderCountries->limit($perPage, $offset)->get()->getResult();
+    }
+	//get Countries by id
+    public function getCountries($id)
+    {
+        return $this->builderCountries->where('id_negara', cleanNumber($id))->get()->getRow();
+    }
+	 //get hotel by Countries kode
+    public function getCountriesByNama($nama)
+    {
+        return $this->builderCountries->where('nama', removeForbiddenCharacters($nama))->get()->getRow();
+    }
+	//edit countries
+    public function editCountriesM($id)
+    {
+        $country = $this->getCountries($id);
+        if (!empty($country)) {
+            $data = [
+                'nama' => inputPost('nama')
+            ];
+            return $this->builderCountries->where('id_negara', $country->id_negara)->update($data);
+        }
+        return false;
+    }
+	//add countries
+    public function addCountries()
+    {
+		$data = $this->inputValuesCountries();
+        return $this->builderCountries->insert($data);
+    }
+	//check if country name is unique
+    public function isUniqueCountriesName($nama, $countryId = 0)
+    {
+        $country = $this->getCountriesByNama($nama);
+        if ($countryId == 0) {
+            if (!empty($country)) {
+                return false;
+            }
+            return true;
+        } else {
+            if (!empty($country) && $country->id_negara != $countryId) {
+                return false;
+            }
+            return true;
+        }
     }
 }

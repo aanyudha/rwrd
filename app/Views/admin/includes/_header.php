@@ -84,10 +84,15 @@
     </header>
     <aside class="main-sidebar">
         <section class="sidebar">
-            <a href="<?= adminUrl(); ?>" class="logo">
-                <span class="logo-mini"></span>
-                <span class="logo-lg"><b><?= esc($baseSettings->application_name); ?></b> <?= trans("panel"); ?></span>
-            </a>
+			<div class="sidebar-menu">
+				<div class="pull-left">
+					<a href="<?= adminUrl(); ?>" class="logo">
+						<span class="logo-mini"></span>
+						<!--<span class="logo-lg"><b>?= esc($baseSettings->application_name); ?></b> ?= trans("panel"); ?></span>-->
+						<span class="logo-lg"><b><?= esc($baseSettings->application_name); ?></b></span>
+					</a>
+				</div>
+			</div>
             <div class="user-panel">
                 <div class="pull-left image">
                     <img src="<?= getUserAvatar(user()->avatar); ?>" class="img-circle" alt="User Image">
@@ -239,7 +244,7 @@
                             <a href="<?= adminUrl('ref-hotel'); ?>"><i class="fa fa-database"></i><span><?= trans("hotels_setting"); ?></span></a>
                         </li>
 						<li class="nav-cache-system">
-                            <a href="<?= adminUrl('ref-negara'); ?>"><i class="fa fa-database"></i><span><?= trans("negara_setting"); ?></span></a>
+                            <a href="<?= adminUrl('ref-countries'); ?>"><i class="fa fa-database"></i><span><?= trans("negara_setting"); ?></span></a>
                         </li>
                        <!-- <li class="nav-route-settings">
                             <a href="<?= adminUrl('route-settings'); ?>"><i class="fa fa-map-signs"></i><span><?= trans("route_settings"); ?></span></a>

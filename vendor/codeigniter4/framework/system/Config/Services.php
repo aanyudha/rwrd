@@ -462,10 +462,11 @@ class Services extends BaseService
         if ($getShared) {
             return static::getSharedInstance('pager', $config, $view);
         }
-
-        $config ??= config(PagerConfig::class);
-        $view ??= AppServices::renderer(null, null, false);
-
+		//yg asli 2 baris di bawah yg di comment ini, ubah jadi yg dibawah sesuai config pager render nya :)
+        //$config ??= config(PagerConfig::class);
+        //$view ??= AppServices::renderer(null, null, false);
+		$config ??= config('Pager');
+        $view ??= AppServices::renderer();
         return new Pager($config, $view);
     }
 
