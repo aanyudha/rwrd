@@ -139,7 +139,7 @@ $routes->get($customRoutes->admin . '/reward-system/pageviews', 'RewardControlle
 $routes->get($customRoutes->admin . '/reward-system/ref-tipe-member', 'RewardController::refMemberTypes');
 $routes->get($customRoutes->admin . '/reward-system/edit-tipe-member/(:num)', 'RewardController::editMemberTypes/$1');
 $routes->get($customRoutes->admin . '/reward-system/add-tipe-member', 'RewardController::addMemberTypes');
-//TntrRewards
+//Tntr Rewards
 $routes->get($customRoutes->admin . '/reward-system/ref-reward', 'RewardController::refReward');
 $routes->get($customRoutes->admin . '/reward-system/edit-reward/(:num)', 'RewardController::editReward/$1');
 $routes->get($customRoutes->admin . '/reward-system/add-reward', 'RewardController::addReward');

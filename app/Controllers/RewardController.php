@@ -165,7 +165,9 @@ class RewardController extends BaseAdminController
         echo view('admin/reward/pageviews', $data);
         echo view('admin/includes/_footer');
     }
-	
+	/**
+     * View MemberTypes
+     */
 	public function refMemberTypes()
     {
         $data['title'] = trans("ref-tipe-member");
@@ -249,10 +251,25 @@ class RewardController extends BaseAdminController
             if ($this->rewardModel->addMemberTypes()) {
                 $this->session->setFlashdata('success', trans("msg_updated"));
             } else {
-                $this->session->setFlashdata('error', trans("err_1"));
+                $this->session->setFlashdata('error', trans("msg_error"));
                 return redirect()->to(adminUrl('reward-system/add-tipe-member'))->withInput();
             }
         }
         return redirect()->to(adminUrl('reward-system/add-tipe-member'))->withInput();
+    }
+	/**
+     * View RefReward
+     */
+	public function refReward()
+    {
+        $data['title'] = trans("rewards-list");
+        $numRows = $this->rewardModel->getRefRewardCount();
+        $pager = paginate($this->perPage, $numRows);
+        $data['userSession'] = getUserSession();
+        $data['refrewarddd'] = $this->rewardModel->getRefRewardPaginated($this->perPage, $pager->offset);
+
+        echo view('admin/includes/_header', $data);
+        echo view('admin/rwrdd/ref_reward', $data);
+        echo view('admin/includes/_footer');
     }
 }

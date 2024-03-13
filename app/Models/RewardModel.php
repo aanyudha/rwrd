@@ -10,6 +10,7 @@ class RewardModel extends BaseModel
     protected $builderGeneral;
     protected $builderPageviews;
     protected $builderRefTipeMember;
+    protected $builderRefReward;
 
     public function __construct()
     {
@@ -20,6 +21,7 @@ class RewardModel extends BaseModel
         $this->builderGeneral = $this->db->table('general_settings');
         $this->builderPageviews = $this->db->table('post_pageviews_month');
         $this->builderRefTipeMember = $this->db->table('ref_tipe_member');
+        $this->builderRefReward = $this->db->table('ref_reward');
     }
 	
 	//input values hotel
@@ -380,5 +382,34 @@ class RewardModel extends BaseModel
             return $this->builderRefTipeMember->where('id_tipe_member', $membertyp->id_tipe_member)->update($data);
         }
         return false;
+    }
+	//REF_REWARD
+	//get ref reward
+    public function getRefReward($id)
+    {
+		return $this->builderRefReward->where('id_reward', cleanNumber($id))->get()->getRow();
+	}
+
+    //getref reward count
+    public function getRefRewardCount()
+    {
+        $this->filterRefReward();
+        return $this->builderRefReward->countAllResults();
+    }
+
+    //get ref reward paginated
+    public function getRefRewardPaginated($perPage, $offset)
+    {
+        $this->filterRefReward();
+        return $this->builderRefReward->orderBy('id_reward ASC')->limit($perPage, $offset)->get()->getResult();
+    }
+
+    //ref reward filter
+    public function filterRefReward()
+    {
+        $q = cleanStr(inputGet('q'));
+        if (!empty($q)) {
+            $this->builderRefReward->groupStart()->like('nama', cleanStr($q))->orLike('id_reward', cleanStr($q))->groupEnd();
+        }
     }
 }

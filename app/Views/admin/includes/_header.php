@@ -190,7 +190,7 @@
                             <a href="#"><i class="fa fa-money"></i> <span><?= trans("reward_system"); ?></span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
                             <ul class="treeview-menu">
                                 <li class="nav-reward-system"><a href="<?= adminUrl('reward-system/ref-tipe-member'); ?>"><?= trans("ref-tipe-member"); ?></a></li>
-                                <li class="nav-reward-system-earnings"><a href="<?= adminUrl('reward-system/add-tipe-member'); ?>"><?= trans("rewards-list"); ?></a></li>
+                                <li class="nav-reward-system-earnings"><a href="<?= adminUrl('reward-system/ref-reward'); ?>"><?= trans("rewards-list"); ?></a></li>
                                 <!--<li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/payouts'); ?>"><?= trans("payouts"); ?></a></li>
                                 <li class="nav-reward-system-pageviews"><a href="<?= adminUrl('reward-system/pageviews'); ?>"><?= trans("pageviews"); ?></a></li>
                             --></ul>
