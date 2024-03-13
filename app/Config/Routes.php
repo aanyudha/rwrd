@@ -135,6 +135,14 @@ $routes->get($customRoutes->admin . '/reward-system/earnings', 'RewardController
 $routes->get($customRoutes->admin . '/reward-system/payouts', 'RewardController::payouts');
 $routes->get($customRoutes->admin . '/reward-system/add-payout', 'RewardController::addPayout');
 $routes->get($customRoutes->admin . '/reward-system/pageviews', 'RewardController::pageviews');
+//Tntr member types
+$routes->get($customRoutes->admin . '/reward-system/ref-tipe-member', 'RewardController::refMemberTypes');
+$routes->get($customRoutes->admin . '/reward-system/edit-tipe-member/(:num)', 'RewardController::editMemberTypes/$1');
+$routes->get($customRoutes->admin . '/reward-system/add-tipe-member', 'RewardController::addMemberTypes');
+//TntrRewards
+$routes->get($customRoutes->admin . '/reward-system/ref-reward', 'RewardController::refReward');
+$routes->get($customRoutes->admin . '/reward-system/edit-reward/(:num)', 'RewardController::editReward/$1');
+$routes->get($customRoutes->admin . '/reward-system/add-reward', 'RewardController::addReward');
 //ad spaces
 $routes->get($customRoutes->admin . '/ad-spaces', 'AdminController::adSpaces');
 //users
@@ -173,6 +181,8 @@ $routes->get($customRoutes->admin . '/add-hotel', 'AdminController::addHotel');
 $routes->get($customRoutes->admin . '/ref-countries', 'AdminController::refCountries');
 $routes->get($customRoutes->admin . '/edit-countries/(:num)', 'AdminController::editCountries/$1');
 $routes->get($customRoutes->admin . '/add-countries', 'AdminController::addCountries');
+
+
 /*
  * --------------------------------------------------------------------
  * DYNAMIC ROUTES

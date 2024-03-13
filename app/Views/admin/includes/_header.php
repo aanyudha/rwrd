@@ -183,21 +183,21 @@
                     if (checkUserPermission('newsletter')): ?>
                         <li class="nav-newsletter">
                             <a href="<?= adminUrl('newsletter'); ?>"><i class="fa fa-envelope" aria-hidden="true"></i><span><?= trans("newsletter"); ?></span></a>
-                        </li>
+                        </li>-->
                     <?php endif;
                     if (checkUserPermission('reward_system')): ?>
                         <li class="treeview<?php isAdminNavActive(['reward-system']); ?>">
                             <a href="#"><i class="fa fa-money"></i> <span><?= trans("reward_system"); ?></span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
                             <ul class="treeview-menu">
-                                <li class="nav-reward-system"><a href="<?= adminUrl('reward-system'); ?>"><?= trans("reward_system"); ?></a></li>
-                                <li class="nav-reward-system-earnings"><a href="<?= adminUrl('reward-system/earnings'); ?>"><?= trans("earnings"); ?></a></li>
-                                <li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/payouts'); ?>"><?= trans("payouts"); ?></a></li>
+                                <li class="nav-reward-system"><a href="<?= adminUrl('reward-system/ref-tipe-member'); ?>"><?= trans("ref-tipe-member"); ?></a></li>
+                                <li class="nav-reward-system-earnings"><a href="<?= adminUrl('reward-system/add-tipe-member'); ?>"><?= trans("rewards-list"); ?></a></li>
+                                <!--<li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/payouts'); ?>"><?= trans("payouts"); ?></a></li>
                                 <li class="nav-reward-system-pageviews"><a href="<?= adminUrl('reward-system/pageviews'); ?>"><?= trans("pageviews"); ?></a></li>
-                            </ul>
+                            --></ul>
                         </li>
                     <?php endif;
                     if (checkUserPermission('ad_spaces')): ?>
-                        <li class="nav-ad-spaces">
+                      <!--  <li class="nav-ad-spaces">
                             <a href="<?= adminUrl('ad-spaces'); ?>"><i class="fa fa-dollar" aria-hidden="true"></i><span><?= trans("ad_spaces"); ?></span></a>
                         </li>-->
                     <?php endif;
@@ -240,11 +240,11 @@
 						<li class="nav-cache-system">
                             <a href="<?= adminUrl('cache-system'); ?>"><i class="fa fa-database"></i><span><?= trans("cache_system"); ?></span></a>
                         </li>
-						<li class="nav-cache-system">
-                            <a href="<?= adminUrl('ref-hotel'); ?>"><i class="fa fa-database"></i><span><?= trans("hotels_setting"); ?></span></a>
+						<li class="nav-storage">
+                            <a href="<?= adminUrl('ref-hotel'); ?>"><i class="fa fa-check-square-o"></i><span><?= trans("hotels_setting"); ?></span></a>
                         </li>
-						<li class="nav-cache-system">
-                            <a href="<?= adminUrl('ref-countries'); ?>"><i class="fa fa-database"></i><span><?= trans("negara_setting"); ?></span></a>
+						<li class="nav-ad-spaces">
+                            <a href="<?= adminUrl('ref-countries'); ?>"><i class="fa fa-font"></i><span><?= trans("negara_setting"); ?></span></a>
                         </li>
                        <!-- <li class="nav-route-settings">
                             <a href="<?= adminUrl('route-settings'); ?>"><i class="fa fa-map-signs"></i><span><?= trans("route_settings"); ?></span></a>

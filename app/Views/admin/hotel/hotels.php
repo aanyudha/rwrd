@@ -57,9 +57,9 @@
                     <?php endif; ?>
                 </div>
             </div>
-            <!--<div class="col-sm-12 text-right">
-                ?= view('common/_pagination'); ?>
-            </div>-->
+            <div class="col-sm-12 text-right">
+                <?= view('common/_pagination'); ?>
+            </div>
         </div>
     </div>
 </div>

@@ -842,7 +842,7 @@ class SettingsModel extends BaseModel
     {
         return $this->builderCountries->where('id_negara', cleanNumber($id))->get()->getRow();
     }
-	 //get hotel by Countries kode
+	 //get hotel by Countries nama
     public function getCountriesByNama($nama)
     {
         return $this->builderCountries->where('nama', removeForbiddenCharacters($nama))->get()->getRow();

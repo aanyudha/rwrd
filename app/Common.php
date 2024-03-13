@@ -2228,4 +2228,12 @@ if (!function_exists('isBot')) {
 			return $model->getCountries($id);
 		}
 	}
+	//get TipeMember by id
+	if (!function_exists('getMemberTypesById')) {
+		function getMemberTypesById($id)
+		{
+			$model = new \App\Models\RewardModel();
+			return $model->getMemberTypes($id);
+		}
+	}
 }
