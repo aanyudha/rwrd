@@ -1,4 +1,4 @@
-# Hotel Tentrem Rewards Reborn
+# Hotel Tentrem Rewards Reborn v2.2.1
 
 ## Setup
 
