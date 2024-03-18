@@ -2236,4 +2236,12 @@ if (!function_exists('isBot')) {
 			return $model->getMemberTypes($id);
 		}
 	}
+	//get trnHotel by id
+	if (!function_exists('getTrnHotelById')) {
+		function getTrnHotelById($id)
+		{
+			$model = new \App\Models\RewardModel();
+			return $model->getTrnHotelById($id);
+		}
+	}
 }

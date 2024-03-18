@@ -1,6 +1,7 @@
 <div class="row table-filter-container">
     <div class="col-sm-12">
         <form action="<?= $url; ?>" method="get">
+		<?= csrf_field(); ?>
             <div class="item-table-filter" style="width: 80px; min-width: 80px;">
                 <label><?= trans("show"); ?></label>
                 <select name="show" class="form-control">

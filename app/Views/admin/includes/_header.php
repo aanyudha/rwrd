@@ -191,6 +191,12 @@
                             <ul class="treeview-menu">
                                 <li class="nav-reward-system"><a href="<?= adminUrl('reward-system/ref-tipe-member'); ?>"><?= trans("ref-tipe-member"); ?></a></li>
                                 <li class="nav-reward-system-earnings"><a href="<?= adminUrl('reward-system/ref-reward'); ?>"><?= trans("rewards-list"); ?></a></li>
+								<li class="divider"></li>
+                                <li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/trn-hotel'); ?>"><?= trans("trn-hotel"); ?></a></li>
+                                <li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/trn-hotel-upl'); ?>"><?= trans("trn-hotel-upl"); ?></a></li>
+                                <li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/trn-point-out'); ?>"><?= trans("trn-point-out"); ?></a></li>
+                                <li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/mmbr-type-mtr'); ?>"><?= trans("mmbr-type-mtr"); ?></a></li>
+                                <li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/rpt-point-mmbr'); ?>"><?= trans("rpt-point-mmbr"); ?></a></li>
                                 <!--<li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/payouts'); ?>"><?= trans("payouts"); ?></a></li>
                                 <li class="nav-reward-system-pageviews"><a href="<?= adminUrl('reward-system/pageviews'); ?>"><?= trans("pageviews"); ?></a></li>
                             --></ul>
@@ -241,16 +247,16 @@
                             <a href="<?= adminUrl('cache-system'); ?>"><i class="fa fa-database"></i><span><?= trans("cache_system"); ?></span></a>
                         </li>
 						<li class="nav-storage">
-                            <a href="<?= adminUrl('ref-hotel'); ?>"><i class="fa fa-check-square-o"></i><span><?= trans("hotels_setting"); ?></span></a>
+                            <a href="<?= adminUrl('ref-hotel'); ?>"><i class="fa fa-hotel"></i><span><?= trans("hotels_setting"); ?></span></a>
                         </li>
 						<li class="nav-ad-spaces">
-                            <a href="<?= adminUrl('ref-countries'); ?>"><i class="fa fa-font"></i><span><?= trans("negara_setting"); ?></span></a>
+                            <a href="<?= adminUrl('ref-countries'); ?>"><i class="fa fa-empire"></i><span><?= trans("negara_setting"); ?></span></a>
                         </li>
                        <!-- <li class="nav-route-settings">
                             <a href="<?= adminUrl('route-settings'); ?>"><i class="fa fa-map-signs"></i><span><?= trans("route_settings"); ?></span></a>
                         </li> -->
                         <li class="nav-email-settings">
-                            <a href="<?= adminUrl('email-settings'); ?>"><i class="fa fa-cog"></i><span><?= trans("email_settings"); ?></span></a>
+                            <a href="<?= adminUrl('email-settings'); ?>"><i class="fa fa-mail-forward"></i><span><?= trans("email_settings"); ?></span></a>
                         </li>
                        <!-- <li class="nav-font-settings">
                             <a href="<?= adminUrl('font-settings'); ?>"><i class="fa fa-font" aria-hidden="true"></i><span><?= trans("font_settings"); ?></span></a>

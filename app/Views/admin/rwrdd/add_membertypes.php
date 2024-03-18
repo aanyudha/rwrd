@@ -31,7 +31,7 @@
                         <div class="form-post-right">
                             <div class="row">
                                <div class="col-sm-12">
-                                    <?= view('admin/rwrdd/_submit_box'); ?>
+                                    <?= view('admin/rwrdd/_submit_box', ['url' => adminUrl('reward-system/edit-tipe-member')]); ?>
                                 </div>
                             </div>
                         </div>

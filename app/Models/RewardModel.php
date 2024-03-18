@@ -11,6 +11,10 @@ class RewardModel extends BaseModel
     protected $builderPageviews;
     protected $builderRefTipeMember;
     protected $builderRefReward;
+    protected $builderTrnHotel;
+    protected $builderTrnOut;
+    protected $builderMemberType;
+    protected $builderRptPointMmbr;
 
     public function __construct()
     {
@@ -22,6 +26,10 @@ class RewardModel extends BaseModel
         $this->builderPageviews = $this->db->table('post_pageviews_month');
         $this->builderRefTipeMember = $this->db->table('ref_tipe_member');
         $this->builderRefReward = $this->db->table('ref_reward');
+        $this->builderTrnHotel = $this->db->table('trn_hotel');
+        $this->builderTrnOut = $this->db->table('trn_point_out');
+        $this->builderMemberType = $this->db->table('v_member_type');
+        $this->builderRptPointMmbr = $this->db->table('v_member_point');
     }
 	
 	//input values hotel
@@ -410,6 +418,140 @@ class RewardModel extends BaseModel
         $q = cleanStr(inputGet('q'));
         if (!empty($q)) {
             $this->builderRefReward->groupStart()->like('nama', cleanStr($q))->orLike('id_reward', cleanStr($q))->groupEnd();
+        }
+    }
+	//TRN-hotel
+	//get trnHotel
+    public function getTrnHotel($id)
+    {
+		return $this->builderTrnHotel->where('id_trn', cleanNumber($id))->get()->getRow();
+	}
+
+    //getref trnHotel count
+    public function getTrnHotelCount()
+    {
+        $this->filterTrnHotel();
+        return $this->builderTrnHotel->countAllResults();
+    }
+
+    //get ref trnHotel paginated
+    public function getTrnHotelPaginated($perPage, $offset)
+    {
+        $this->filterTrnHotel();
+        return $this->builderTrnHotel->orderBy('id_trn ASC')->limit($perPage, $offset)->get()->getResult();
+    }
+
+    //ref trnHotel filter
+    public function filterTrnHotel()
+    {
+        $q = cleanStr(inputGet('q'));
+        if (!empty($q)) {
+            $this->builderTrnHotel->groupStart()->like('id_member', cleanStr($q))->orLike('id_trn', cleanStr($q))->groupEnd();
+        }
+    }
+	//get trnHotel by id
+    public function getTrnHotelById($id)
+    {
+		return $this->builderTrnHotel->where('id_trn', cleanNumber($id))->get()->getRow();
+	}
+	//delete trnHotel
+    public function deleteTrnHotelPost($id)
+    {
+        $trnHotel = $this->getTrnHotel($id);
+        if (!empty($trnHotel)) {
+            //if (!checkPostOwnership($trnHotel->user_id)) {
+            //    return false;
+            //}
+            //delete trnHotel
+            return $this->builderTrnHotel->where('id_trn', $trnHotel->id_trn)->delete();
+        }
+        return false;
+    }
+	//TRN_POINT_OUT
+	//get trn point out
+    public function getTrnPointOut($id)
+    {
+		return $this->builderTrnOut->where('id_point_out', cleanNumber($id))->get()->getRow();
+	}
+
+    //get TrnPointOut count
+    public function getTrnPointOutCount()
+    {
+        $this->filterTrnPointOut();
+        return $this->builderTrnOut->countAllResults();
+    }
+
+    //get TrnPointOut paginated
+    public function getTrnPointOutPaginated($perPage, $offset)
+    {
+        $this->filterTrnPointOut();
+        return $this->builderTrnOut->orderBy('id_point_out ASC')->limit($perPage, $offset)->get()->getResult();
+    }
+
+    //ref TrnPointOut filter
+    public function filterTrnPointOut()
+    {
+        $q = cleanStr(inputGet('q'));
+        if (!empty($q)) {
+            $this->builderTrnOut->groupStart()->like('id_member', cleanStr($q))->orLike('id_point_out', cleanStr($q))->groupEnd();
+        }
+    }
+	//Mmbr_type_mtr
+	//get Mmbr_type_monitor
+    public function getMmbrTypeMtr($id)
+    {
+		return $this->builderMemberType->where('id_member', cleanNumber($id))->get()->getRow();
+	}
+
+    //get Mmbr_type_mtr count
+    public function getMmbrTypeMtrCount()
+    {
+        $this->filterMmbrTypeMtr();
+        return $this->builderMemberType->countAllResults();
+    }
+
+    //get Mmbr_type_mtr paginated
+    public function getMmbrTypeMtrPaginated($perPage, $offset)
+    {
+        $this->filterMmbrTypeMtr();
+        return $this->builderMemberType->orderBy('id_member ASC')->limit($perPage, $offset)->get()->getResult();
+    }
+
+    //ref Mmbr_type_mtr filter
+    public function filterMmbrTypeMtr()
+    {
+        $q = cleanStr(inputGet('q'));
+        if (!empty($q)) {
+            $this->builderMemberType->groupStart()->like('id_member', cleanStr($q))->orLike('name_on_card', cleanStr($q))->groupEnd();
+        }
+    }
+	//Report Point by member
+	//get rptPointMmbr
+    public function getRptPointMmbr($id)
+    {
+		return $this->builderRptPointMmbr->where('id_member', cleanNumber($id))->get()->getRow();
+	}
+
+    //get RptPointMmbr count
+    public function getRptPointMmbrCount()
+    {
+        $this->filterRptPointMmbr();
+        return $this->builderRptPointMmbr->countAllResults();
+    }
+
+    //get RptPointMmbr paginated
+    public function getRptPointMmbrPaginated($perPage, $offset)
+    {
+        $this->filterRptPointMmbr();
+        return $this->builderRptPointMmbr->orderBy('id_member ASC')->limit($perPage, $offset)->get()->getResult();
+    }
+
+    //ref RptPointMmbr filter
+    public function filterRptPointMmbr()
+    {
+        $q = cleanStr(inputGet('q'));
+        if (!empty($q)) {
+            $this->builderRptPointMmbr->groupStart()->like('id_member', cleanStr($q))->orLike('name_on_card', cleanStr($q))->groupEnd();
         }
     }
 }
