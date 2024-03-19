@@ -89,15 +89,15 @@ endif; ?>
 <hr class="d-md-none text-white-50">
 <ul class="navbar-nav navbar-right flex-row flex-wrap align-items-center ms-md-auto">
 <li class="nav-item col-6 col-lg-auto position-relative">
-<button type="button" class="btn-link nav-link py-2 px-0 px-lg-2 search-icon display-flex align-items-center" aria-label="search">
+<!--<button type="button" class="btn-link nav-link py-2 px-0 px-lg-2 search-icon display-flex align-items-center" aria-label="search">
 <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 <circle cx="11" cy="11" r="8"></circle>
 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
 </svg>
 </button>
 <div class="search-form">
-<form action="<?= generateURL('search'); ?>" method="get" id="search_validate">
-<input type="text" name="q" maxlength="300" pattern=".*\S+.*" class="form-control form-input" placeholder="<?= trans("placeholder_search"); ?>" <?= $rtl == true ? 'dir="rtl"' : ''; ?> required>
+<form action="?= generateURL('search'); ?>" method="get" id="search_validate">
+<input type="text" name="q" maxlength="300" pattern=".*\S+.*" class="form-control form-input" placeholder="?= trans("placeholder_search"); ?>" ?= $rtl == true ? 'dir="rtl"' : ''; ?> required>
 <button class="btn btn-custom" aria-label="search">
 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 <circle cx="11" cy="11" r="8"></circle>
@@ -105,7 +105,7 @@ endif; ?>
 </svg>
 </button>
 </form>
-</div>
+</div>-->
 </li>
 </ul>
 </div>

@@ -36,16 +36,16 @@
                                             <?php endif;
                                             if ($role->add_post == 1): ?>
                                                 <label class="label label-success"><?= trans("add_post") ?></label>
-                                            <?php endif;
-                                            if ($role->manage_all_posts == 1): ?>
+                                            <?php endif; 
+                                            /*if ($role->manage_all_posts == 1): ?>
                                                 <label class="label label-success"><?= trans("manage_all_posts") ?></label>
                                             <?php endif;
                                             if ($role->navigation == 1): ?>
                                                 <label class="label label-success"><?= trans("navigation") ?></label>
-                                            <?php endif;
+                                            <?php endif;*/
                                             if ($role->pages == 1): ?>
                                                 <label class="label label-success"><?= trans("pages") ?></label>
-                                            <?php endif;
+                                            <?php endif;/*
                                             if ($role->rss_feeds == 1): ?>
                                                 <label class="label label-success"><?= trans("rss_feeds") ?></label>
                                             <?php endif;
@@ -63,20 +63,20 @@
                                             <?php endif;
                                             if ($role->comments_contact == 1): ?>
                                                 <label class="label label-success"><?= trans("comments") ?>, <?= trans("contact_messages") ?></label>
-                                            <?php endif;
-                                            if ($role->newsletter == 1): ?>
+                                            <?php endif;*/?>
+                                           <?php if ($role->newsletter == 1): ?>
                                                 <label class="label label-success"><?= trans("newsletter") ?></label>
                                             <?php endif;
-                                            if ($role->ad_spaces == 1): ?>
+                                            /*if ($role->ad_spaces == 1): ?>
                                                 <label class="label label-success"><?= trans("ad_spaces") ?></label>
-                                            <?php endif;
-                                            if ($role->users == 1): ?>
+                                            <?php endif;*/?>
+                                            <?php if ($role->users == 1): ?>
                                                 <label class="label label-success"><?= trans("users") ?></label>
                                             <?php endif;
-                                            if ($role->seo_tools == 1): ?>
+                                            /*if ($role->seo_tools == 1): ?>
                                                 <label class="label label-success"><?= trans("seo_tools") ?></label>
-                                            <?php endif;
-                                            if ($role->settings == 1): ?>
+                                            <?php endif;*/ ?>
+                                            <?php if ($role->settings == 1): ?>
                                                 <label class="label label-success"><?= trans("settings") ?></label>
                                             <?php endif;
                                         endif; ?>

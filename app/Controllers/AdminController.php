@@ -33,7 +33,7 @@ class AdminController extends BaseAdminController
         $this->pageModel = new PageModel();
         $this->authModel = new AuthModel();
         $this->commonModel = new CommonModel();
-       // $this->newsletterModel = new NewsletterModel();
+        $this->newsletterModel = new NewsletterModel();
 
         if(checkCronTime(1)){
             //delete old posts

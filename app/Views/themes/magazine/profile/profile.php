@@ -19,40 +19,7 @@
                                     </svg>
                                     <?= trans("last_seen"); ?>&nbsp;<?= timeAgo($user->last_seen); ?>
                                 </div>
-                                <?php if (authCheck()):
-                                    if (user()->id != $user->id): ?>
-                                        <form action="<?= base_url('follow-user-post'); ?>" method="post">
-                                            <?= csrf_field(); ?>
-                                            <input type="hidden" name="profile_id" value="<?= $user->id; ?>">
-                                            <input type="hidden" name="back_url" value="<?= currentFullURL(); ?>">
-                                            <?php if (isUserFollows($user->id, user()->id)): ?>
-                                                <button type="submit" class="btn btn-lg btn-custom btn-follow">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-dash-fill" viewBox="0 0 16 16">
-                                                        <path fill-rule="evenodd" d="M11 7.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
-                                                        <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                                                    </svg>
-                                                    <span><?= trans("unfollow"); ?></span>
-                                                </button>
-                                            <?php else: ?>
-                                                <button type="submit" class="btn btn-lg btn-custom btn-follow">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
-                                                        <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                                                        <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
-                                                    </svg>
-                                                    <span><?= trans("follow"); ?></span>
-                                                </button>
-                                            <?php endif; ?>
-                                        </form>
-                                    <?php endif;
-                                else: ?>
-                                    <button type="submit" class="btn btn-lg btn-custom btn-follow" data-bs-toggle="modal" data-bs-target="#modalLogin">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
-                                            <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                                            <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
-                                        </svg>
-                                        <span><?= trans("follow"); ?></span>
-                                    </button>
-                                <?php endif; ?>
+                                
                             </div>
                         </div>
                     </div>
@@ -79,82 +46,9 @@
                                         </div>
                                     <?php endif; ?>
                                 </div>
-                                <!--<div class="d-flex flex-row mb-4">
-                                    <ul class="profile-social-links">
-                                        <?php $socialLinks = getSocialLinksArray($user, true);
-                                        if (!empty($socialLinks)):
-                                            foreach ($socialLinks as $socialLink): ?>
-                                                <li><a href="<?= $socialLink['url']; ?>" target="_blank"><i class="icon-<?= esc($socialLink['key']); ?>"></i></a></li>
-                                            <?php endforeach;
-                                        endif;
-                                        if ($user->show_rss_feeds): ?>
-                                            <li><a href="<?= langBaseUrl('rss/author/' . $user->slug); ?>"><i class="icon-rss"></i></a></li>
-                                        <?php endif; ?>
-                                    </ul>
-                                </div>-->
                             </div>
                         </div>
-                        <!--<div class="col-12">
-                            <div class="sidebar-widget">
-                                <div class="widget-head"><h4 class="title"><?= trans('following'); ?>&nbsp;(<?= countItems($following); ?>)</h4></div>
-                                <div class="widget-body">
-                                    <div class="row">
-                                        <div class="col-12 list-followers">
-                                            <?php if (!empty($following)):
-                                                foreach ($following as $item):?>
-                                                    <div class="img-follower">
-                                                        <a href="<?= generateProfileURL($item->slug); ?>">
-                                                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=" data-src="<?= getUserAvatar($item->avatar); ?>" alt="<?= esc($item->username); ?>" class="img-fluid lazyload" width="48" height="48" onerror="this.src='<?= base_url('assets/img/user.png'); ?>'">
-                                                        </a>
-                                                    </div>
-                                                <?php endforeach;
-                                            endif; ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 mb-4">
-                            <div class="sidebar-widget">
-                                <div class="widget-head"><h4 class="title"><?= trans('followers'); ?>&nbsp;(<?= countItems($followers); ?>)</h4></div>
-                                <div class="widget-body">
-                                    <div class="row">
-                                        <div class="col-12 list-followers">
-                                            <?php if (!empty($followers)):
-                                                foreach ($followers as $item):?>
-                                                    <div class="img-follower">
-                                                        <a href="<?= generateProfileURL($item->slug); ?>">
-                                                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=" data-src="<?= getUserAvatar($item->avatar); ?>" alt="<?= esc($item->username); ?>" class="img-fluid lazyload" width="48" height="48" onerror="this.src='<?= base_url('assets/img/user.png'); ?>'">
-                                                        </a>
-                                                    </div>
-                                                <?php endforeach;
-                                            endif; ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>-->
                     </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-12 col-lg-8 pt-2">
-                <div class="row">
-                    <?php $i = 0;
-                    if (!empty($posts)):
-                        foreach ($posts as $item):
-                            if ($i == 2):
-                                echo loadView('partials/_ad_spaces', ['adSpace' => 'posts_top', 'class' => 'mb-4']);
-                            endif; ?>
-                            <div class="col-sm-12 col-md-6 col-lg-6">
-                                <?= loadView("post/_post_item", ['postItem' => $item, 'showLabel' => false]); ?>
-                            </div>
-                            <?php $i++;
-                        endforeach;
-                    endif;
-                    echo loadView('partials/_ad_spaces', ['adSpace' => 'posts_bottom', 'class' => 'mb-3']); ?>
-                    <!--<div class="col-12 mt-3">
-                        ?= view('common/_pagination'); ?>
-                    </div>-->
                 </div>
             </div>
         </div>

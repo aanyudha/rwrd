@@ -1,9 +1,9 @@
 <div class="profile-list-group">
     <ul class="list-group">
-        <!--<li class="list-group-item <?= $activeTab == 'update_profile' ? 'active' : ''; ?>">
+        <li class="list-group-item <?= $activeTab == 'update_profile' ? 'active' : ''; ?>">
             <a href="<?= generateURL('settings'); ?>"><?= trans("update_profile"); ?></a>
         </li>
-        <li class="list-group-item <?= $activeTab == 'social_accounts' ? 'active' : ''; ?>">
+       <!-- <li class="list-group-item <?= $activeTab == 'social_accounts' ? 'active' : ''; ?>">
             <a href="<?= generateURL('settings', 'social_accounts'); ?>"><?= trans("social_accounts"); ?></a>
         </li>
         <li class="list-group-item <?= $activeTab == 'preferences' ? 'active' : ''; ?>">

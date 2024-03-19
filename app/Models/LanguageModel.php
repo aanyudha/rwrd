@@ -89,11 +89,11 @@ class LanguageModel extends BaseModel
         //add settings
         $settings = [
             'lang_id' => $langId,
-            'site_title' => 'Varient - News Magazine',
+            'site_title' => 'HT - News Magazine',
             'home_title' => 'Index',
-            'site_description' => 'Varient - News Magazine',
-            'keywords' => 'Varient, News, Magazine',
-            'application_name' => 'Varient',
+            'site_description' => 'HT - News Magazine',
+            'keywords' => 'HT, News, Magazine',
+            'application_name' => 'HT',
             'primary_font' => 20,
             'secondary_font' => 10,
             'tertiary_font' => 34,
@@ -121,13 +121,13 @@ class LanguageModel extends BaseModel
     //add language pages
     public function addLanguagePages($langId)
     {
-        $page = ['lang_id' => $langId, 'title' => 'Gallery', 'slug' => 'gallery', 'description' => 'Varient Gallery Page', 'keywords' => 'varient, gallery , page', 'is_custom' => 0, 'page_default_name' => 'gallery', 'page_content' => '', 'page_order' => 2, 'visibility' => 1, 'title_active' => 1, 'breadcrumb_active' => 1, 'right_column_active' => 0, 'need_auth' => 0, 'location' => 'main', 'link' => '', 'parent_id' => 0, 'page_type' => 'page',];
+        $page = ['lang_id' => $langId, 'title' => 'Gallery', 'slug' => 'gallery', 'description' => 'HT Gallery Page', 'keywords' => 'ht, gallery , page', 'is_custom' => 0, 'page_default_name' => 'gallery', 'page_content' => '', 'page_order' => 2, 'visibility' => 1, 'title_active' => 1, 'breadcrumb_active' => 1, 'right_column_active' => 0, 'need_auth' => 0, 'location' => 'main', 'link' => '', 'parent_id' => 0, 'page_type' => 'page',];
         $this->db->table('pages')->insert($page);
 
-        $page = ['lang_id' => $langId, 'title' => 'Contact', 'slug' => 'contact', 'description' => 'Varient Contact Page', 'keywords' => 'varient, contact, page', 'is_custom' => 0, 'page_default_name' => 'contact', 'page_content' => '', 'page_order' => 1, 'visibility' => 1, 'title_active' => 1, 'breadcrumb_active' => 1, 'right_column_active' => 0, 'need_auth' => 0, 'location' => 'top', 'link' => '', 'parent_id' => 0, 'page_type' => 'page',];
+        $page = ['lang_id' => $langId, 'title' => 'Contact', 'slug' => 'contact', 'description' => 'HT Contact Page', 'keywords' => 'ht, contact, page', 'is_custom' => 0, 'page_default_name' => 'contact', 'page_content' => '', 'page_order' => 1, 'visibility' => 1, 'title_active' => 1, 'breadcrumb_active' => 1, 'right_column_active' => 0, 'need_auth' => 0, 'location' => 'top', 'link' => '', 'parent_id' => 0, 'page_type' => 'page',];
         $this->db->table('pages')->insert($page);
 
-        $page = ['lang_id' => $langId, 'title' => 'Terms & Conditions', 'slug' => 'terms-conditions', 'description' => 'Varient Terms Conditions Page', 'keywords' => 'varient, terms, conditions', 'is_custom' => 0, 'page_default_name' => 'terms_conditions', 'page_content' => '', 'page_order' => 1, 'visibility' => 1, 'title_active' => 1, 'breadcrumb_active' => 1, 'right_column_active' => 0, 'need_auth' => 0, 'location' => 'footer', 'link' => '', 'parent_id' => 0, 'page_type' => 'page',];
+        $page = ['lang_id' => $langId, 'title' => 'Terms & Conditions', 'slug' => 'terms-conditions', 'description' => 'HT Terms Conditions Page', 'keywords' => 'ht, terms, conditions', 'is_custom' => 0, 'page_default_name' => 'terms_conditions', 'page_content' => '', 'page_order' => 1, 'visibility' => 1, 'title_active' => 1, 'breadcrumb_active' => 1, 'right_column_active' => 0, 'need_auth' => 0, 'location' => 'footer', 'link' => '', 'parent_id' => 0, 'page_type' => 'page',];
         $this->db->table('pages')->insert($page);
     }
 

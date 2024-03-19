@@ -6,8 +6,17 @@
         <li class="list-group-item <?= $activeTab == 'payouts' ? 'active' : ''; ?>">
             <a href="<?= generateURL('payouts'); ?>"><span><?= trans("payouts"); ?></span></a>
         </li>
-        <li class="list-group-item <?= $activeTab == 'setPayoutAccount' ? 'active' : ''; ?>">
-            <a class="nav-link" href="<?= generateURL("set_payout_account") . '?payout=paypal'; ?>"><span><?= trans("set_payout_account"); ?></span></a>
+		<li class="list-group-item <?= $activeTab == 'payouts' ? 'active' : ''; ?>">
+            <a href="<?= generateURL('payouts'); ?>"><span><?= trans("point_hist"); ?></span></a>
         </li>
+		<li class="list-group-item <?= $activeTab == 'payouts' ? 'active' : ''; ?>">
+            <a href="<?= generateURL('payouts'); ?>"><span><?= trans("redeem_stat"); ?></span></a>
+        </li>
+		<li class="list-group-item <?= $activeTab == 'payouts' ? 'active' : ''; ?>">
+            <a href="<?= generateURL('payouts'); ?>"><span><?= trans("gift_4_you"); ?></span></a>
+        </li>
+        <!--<li class="list-group-item ?= $activeTab == 'setPayoutAccount' ? 'active' : ''; ?>">
+            <a class="nav-link" href="?= generateURL("set_payout_account") . '?payout=paypal'; ?>"><span>?= trans("set_payout_account"); ?></span></a>
+        </li>-->
     </ul>
 </div>

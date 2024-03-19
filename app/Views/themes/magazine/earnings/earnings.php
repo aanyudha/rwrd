@@ -48,7 +48,6 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-
                                 <script src="<?= base_url('assets/vendor/chart/chart.min.js'); ?>"></script>
                                 <script src="<?= base_url('assets/vendor/chart/utils.js'); ?>"></script>
                                 <script src="<?= base_url('assets/vendor/chart/analyser.js'); ?>"></script>

@@ -41,10 +41,12 @@
                                 <tr>
                                     <td><?= $user->id; ?></td>
                                     <td class="td-user">
-                                        <a href="<?= generateProfileURL($user->slug); ?>" target="_blank" class="table-link">
-                                            <img src="<?= getUserAvatar($user->avatar); ?>" alt="" class="img-responsive">
-                                            <strong><?= esc($user->username); ?></strong>
-                                        </a>
+										<img src="<?= getUserAvatar($user->avatar); ?>" alt="" class="img-responsive">
+                                        <strong><?= esc($user->username); ?></strong>
+                                        <!--<a href="?= generateProfileURL($user->slug); ?>" target="_blank" class="table-link">
+                                            <img src="?= getUserAvatar($user->avatar); ?>" alt="" class="img-responsive">
+                                            <strong>?= esc($user->username); ?></strong>
+                                        </a>-->
                                         <?php if ($user->reward_system_enabled == 1): ?>
                                             <p><label class="label bg-primary"><?= trans('reward_system'); ?></label></p>
                                         <?php endif; ?>

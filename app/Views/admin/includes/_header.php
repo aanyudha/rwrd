@@ -116,7 +116,7 @@
                     if (isAdmin()): ?>
                         <li class="nav-themes">
                             <a href="<?= adminUrl('themes'); ?>"><i class="fa fa-leaf"></i><span><?= trans("themes"); ?></span></a>
-                        </li>
+                        </li>-->
                     <?php endif;
                     if (checkUserPermission('pages')): ?>
                         <li class="nav-pages">
@@ -124,25 +124,25 @@
                         </li>
                     <?php endif;
                     if (checkUserPermission('add_post')): ?>
-                        <li class="nav-post-format nav-add-post">
-                            <a href="<?= adminUrl('post-format'); ?>"><i class="fa fa-file"></i><span><?= trans("add_post"); ?></span></a>
+                        <!--<li class="nav-post-format nav-add-post">
+                            <a href="?= adminUrl('post-format'); ?>"><i class="fa fa-file"></i><span>?= trans("add_post"); ?></span></a>
                         </li>
                         <li class="nav-import-posts">
-                            <a href="<?= adminUrl('bulk-post-upload'); ?>"><i class="fa fa-cloud-upload"></i><span><?= trans("bulk_post_upload"); ?></span></a>
+                            <a href="?= adminUrl('bulk-post-upload'); ?>"><i class="fa fa-cloud-upload"></i><span>?= trans("bulk_post_upload"); ?></span></a>
                         </li>
-                        <li class="treeview<?php isAdminNavActive(['posts', 'slider-posts', 'featured-posts', 'breaking-news', 'recommended-posts', 'pending-posts', 'scheduled-posts', 'drafts', 'update-post']); ?>">
-                            <a href="#"><i class="fa fa-bars"></i> <span><?= trans("posts"); ?></span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+                        <li class="treeview?php isAdminNavActive(['posts', 'slider-posts', 'featured-posts', 'breaking-news', 'recommended-posts', 'pending-posts', 'scheduled-posts', 'drafts', 'update-post']); ?>">
+                            <a href="#"><i class="fa fa-bars"></i> <span>?= trans("posts"); ?></span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
                             <ul class="treeview-menu">
-                                <li class="nav-posts"><a href="<?= adminUrl('posts'); ?>"><?= trans("posts"); ?></a></li>
-                                <?php if (checkUserPermission('manage_all_posts')): ?>
-                                    <li class="nav-slider-posts"><a href="<?= adminUrl('slider-posts'); ?>"><?= trans("slider_posts"); ?></a></li>
-                                    <li class="nav-featured-posts"><a href="<?= adminUrl('featured-posts'); ?>"><?= trans("featured_posts"); ?></a></li>
-                                    <li class="nav-breaking-news"><a href="<?= adminUrl('breaking-news'); ?>"><?= trans("breaking_news"); ?></a></li>
-                                    <li class="nav-recommended-posts"><a href="<?= adminUrl('recommended-posts'); ?>"><?= trans("recommended_posts"); ?></a></li>
-                                <?php endif; ?>
-                                <li class="nav-pending-posts"><a href="<?= adminUrl('pending-posts'); ?>"><?= trans("pending_posts"); ?></a></li>
-                                <li class="nav-scheduled-posts"><a href="<?= adminUrl('scheduled-posts'); ?>"><?= trans("scheduled_posts"); ?></a></li>
-                                <li class="nav-drafts"><a href="<?= adminUrl('drafts'); ?>"><?= trans("drafts"); ?></a></li>
+                                <li class="nav-posts"><a href="?= adminUrl('posts'); ?>">?= trans("posts"); ?></a></li>
+                                ?php if (checkUserPermission('manage_all_posts')): ?>
+                                    <li class="nav-slider-posts"><a href="?= adminUrl('slider-posts'); ?>">?= trans("slider_posts"); ?></a></li>
+                                    <li class="nav-featured-posts"><a href="?= adminUrl('featured-posts'); ?>">?= trans("featured_posts"); ?></a></li>
+                                    <li class="nav-breaking-news"><a href="?= adminUrl('breaking-news'); ?>">?= trans("breaking_news"); ?></a></li>
+                                    <li class="nav-recommended-posts"><a href="?= adminUrl('recommended-posts'); ?>">?= trans("recommended_posts"); ?></a></li>
+                                ?php endif; ?>
+                                <li class="nav-pending-posts"><a href="?= adminUrl('pending-posts'); ?>">?= trans("pending_posts"); ?></a></li>
+                                <li class="nav-scheduled-posts"><a href="?= adminUrl('scheduled-posts'); ?>">?= trans("scheduled_posts"); ?></a></li>
+                                <li class="nav-drafts"><a href="?= adminUrl('drafts'); ?>">?= trans("drafts"); ?></a></li>
                             </ul>
                         </li>
                     <?php endif;
@@ -178,12 +178,12 @@
                                 <li class="nav-pending-comments"><a href="<?= adminUrl('pending-comments'); ?>"><?= trans("pending_comments"); ?></a></li>
                                 <li class="nav-comments"><a href="<?= adminUrl('comments'); ?>"><?= trans("approved_comments"); ?></a></li>
                             </ul>
-                        </li>
+                        </li>-->
                     <?php endif;
                     if (checkUserPermission('newsletter')): ?>
                         <li class="nav-newsletter">
                             <a href="<?= adminUrl('newsletter'); ?>"><i class="fa fa-envelope" aria-hidden="true"></i><span><?= trans("newsletter"); ?></span></a>
-                        </li>-->
+                        </li>
                     <?php endif;
                     if (checkUserPermission('reward_system')): ?>
                         <li class="treeview<?php isAdminNavActive(['reward-system']); ?>">

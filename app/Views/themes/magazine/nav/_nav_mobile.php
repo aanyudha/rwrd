@@ -15,7 +15,7 @@
 </a>
 </div>
 <div class="mobile-search">
-<button type="button" class="menu-button mobile-search-button" aria-label="search">
+<!--<button type="button" class="menu-button mobile-search-button" aria-label="search">
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 <circle cx="11" cy="11" r="8"></circle>
 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -24,9 +24,9 @@
 </div>
 </div>
 <div class="mobile-search-form">
-<form action="<?= generateURL('search'); ?>" method="get" id="search_validate">
+<form action="?= generateURL('search'); ?>" method="get" id="search_validate">
 <div class="display-flex align-items-center">
-<input type="text" name="q" maxlength="300" pattern=".*\S+.*" class="form-control form-input" placeholder="<?= trans("placeholder_search"); ?>" <?= $rtl == true ? 'dir="rtl"' : ''; ?> required>
+<input type="text" name="q" maxlength="300" pattern=".*\S+.*" class="form-control form-input" placeholder="?= trans("placeholder_search"); ?>" <?= $rtl == true ? 'dir="rtl"' : ''; ?> required>
 <button class="btn btn-custom" aria-label="search">
 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 <circle cx="11" cy="11" r="8"></circle>
@@ -35,7 +35,7 @@
 </button>
 </div>
 </form>
-</div>
+</div>-->
 </div>
 </div>
 </div>
@@ -99,7 +99,6 @@ endif; ?>
 <?php if (user()->reward_system_enabled == 1): ?>
 <li><a href="<?= generateURL('earnings'); ?>" class="dropdown-item"><?= trans("earnings"); ?>&nbsp;(<strong class="lbl-earnings"><?= priceFormatted(user()->balance); ?></strong>)</a></li>
 <?php endif; ?>
-<li><a href="<?= generateURL('reading_list'); ?>" class="dropdown-item"><?= trans("reading_list"); ?></a></li>
 <li><a href="<?= generateURL('settings'); ?>" class="dropdown-item"><?= trans("settings"); ?></a></li>
 <li><a href="<?= generateURL('logout'); ?>" class="dropdown-item"><?= trans("logout"); ?></a></li>
 </ul>
@@ -112,34 +111,7 @@ endif; ?>
 <ul class="nav navbar-nav">
 <?php if ($generalSettings->show_home_link == 1): ?>
 <li class="nav-item"><a href="<?= langBaseUrl(); ?>" class="nav-link"><?= trans("home"); ?></a></li>
-<?php endif;
-if (!empty($baseMenuLinks)):
-foreach ($baseMenuLinks as $item):
-if ($item->item_visibility == 1 && ($item->item_location == "top" || $item->item_location == "main") && $item->item_parent_id == "0"):
-$subLinks = getSubMenuLinks($baseMenuLinks, $item->item_id, $item->item_type);
-if (!empty($subLinks)): ?>
-<li class="nav-item dropdown">
-<a href="#" class="dropdown-toggle d-flex justify-content-between nav-link" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
-<span><?= esc($item->item_name) ?></span>
-<i class="icon-arrow-down"></i>
-</a>
-<ul class="dropdown-menu menu-sub-items">
-<?php if ($item->item_type == "category"): ?>
-<li class="nav-item"><a href="<?= generateMenuItemURL($item, $baseCategories); ?>" class="nav-link"><?= trans("all"); ?></a></li>
-<?php endif;
-foreach ($subLinks as $sub):
-if ($sub->item_visibility == 1):?>
-<li class="nav-item"><a href="<?= generateMenuItemURL($sub, $baseCategories); ?>" class="nav-link"><?= esc($sub->item_name) ?></a></li>
-<?php endif;
-endforeach; ?>
-</ul>
-</li>
-<?php else: ?>
-<li class="nav-item"><a href="<?= generateMenuItemURL($item, $baseCategories); ?>" class="nav-link"><?= esc($item->item_name) ?></a></li>
-<?php endif;
-endif;
-endforeach;
-endif; ?>
+<?php endif; ?>
 </ul>
 </div>
 

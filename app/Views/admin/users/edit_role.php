@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <div class="row">
                                 <div class="col-md-1 col-sm-2 col-xs-2">
                                     <input type="checkbox" name="navigation" value="1" id="role_navigation" class="square-purple" <?= $role->navigation == 1 ? 'checked' : ''; ?>>
@@ -60,7 +60,7 @@
                                     <label for="role_navigation" class="control-label cursor-pointer"><?= trans('navigation'); ?></label>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-1 col-sm-2 col-xs-2">
@@ -70,7 +70,7 @@
                                     <label for="role_pages" class="control-label cursor-pointer"><?= trans('pages'); ?></label>
                                 </div>
                             </div>
-                        </div>
+                        </div><!--
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-1 col-sm-2 col-xs-2">
@@ -130,7 +130,7 @@
                                     <label for="role_comments_contact" class="control-label cursor-pointer"><?= trans("comments") ?>, <?= trans("contact_messages") ?></label>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-1 col-sm-2 col-xs-2">
@@ -140,7 +140,7 @@
                                     <label for="role_newsletter" class="control-label cursor-pointer"><?= trans("newsletter") ?></label>
                                 </div>
                             </div>
-                        </div>
+                        </div><!--
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-1 col-sm-2 col-xs-2">
@@ -150,7 +150,7 @@
                                     <label for="role_ad_spaces" class="control-label cursor-pointer"><?= trans("ad_spaces") ?></label>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-1 col-sm-2 col-xs-2">
@@ -161,7 +161,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
+                      <!--  <div class="form-group">
                             <div class="row">
                                 <div class="col-md-1 col-sm-2 col-xs-2">
                                     <input type="checkbox" name="seo_tools" value="1" id="role_seo_tools" class="square-purple" <?= $role->seo_tools == 1 ? 'checked' : ''; ?>>
@@ -170,7 +170,7 @@
                                     <label for="role_seo_tools" class="control-label cursor-pointer"><?= trans("seo_tools") ?></label>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-1 col-sm-2 col-xs-2">
