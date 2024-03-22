@@ -6,12 +6,14 @@ class AuthModel extends BaseModel
 {
     protected $builder;
     protected $builderRoles;
+    protected $builderMstMember;
 
     public function __construct()
     {
         parent::__construct();
         $this->builder = $this->db->table('users');
         $this->builderRoles = $this->db->table('roles_permissions');
+        $this->builderMstMember = $this->db->table('mst_member');
     }
 
     //input values
@@ -50,6 +52,37 @@ class AuthModel extends BaseModel
                 'tr_ses_id' => $user->id,
                 'tr_ses_role' => $user->role,
                 'tr_ses_pass' => md5($user->password ?? '')
+            );
+            $this->session->set($userData);
+        }
+    }
+	
+	//login m
+    public function mlogin()
+    {
+        $data = $this->inputValues();
+        $muser = $this->getUserByEmailm($data['email']);
+        if (!empty($muser)) {
+            if (!password_verify($data['password'], $muser->password)) {
+                return false;
+            }
+			if ($muser->status == 'Non Aktif') {
+                return 'banned';
+            }
+            $this->mloginUser($muser);
+            return "success";
+        }
+        return false;
+    }
+
+    //login user m
+    public function mloginUser($muser)
+    {
+        if (!empty($muser)) {
+            $userData = array(
+                'tr_ses_id' => $muser->id_member,
+                'tr_ses_role' => 'user', //'tr_ses_role' => $user->role, asli
+                'tr_ses_pass' => md5($muser->password ?? '')
             );
             $this->session->set($userData);
         }
@@ -349,6 +382,12 @@ class AuthModel extends BaseModel
     {
         return $this->builder->where('email', removeForbiddenCharacters($email))->get()->getRow();
     }
+	
+	//get user by email m
+    public function getUserByEmailm($email)
+    {
+        return $this->builderMstMember->where('email', removeForbiddenCharacters($email))->get()->getRow();
+    }
 
     //get user by username
     public function getUserByUsername($username)
@@ -555,7 +594,11 @@ class AuthModel extends BaseModel
     public function updateLastSeen()
     {
         if (authCheck()) {
-            $this->builder->where('id', user()->id)->update(['last_seen' => date('Y-m-d H:i:s')]);
+			if (checkUserPermission('admin_panel')){
+				$this->builder->where('id', user()->id)->update(['last_seen' => date('Y-m-d H:i:s')]);
+			}else{
+				$this->builderMstMember->where('id_member', user()->id_member)->update(['last_seen' => date('Y-m-d H:i:s')]);
+			}
         }
     }
 

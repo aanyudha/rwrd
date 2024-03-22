@@ -15,6 +15,7 @@ class RewardModel extends BaseModel
     protected $builderTrnOut;
     protected $builderMemberType;
     protected $builderRptPointMmbr;
+    protected $builderPointHist;
 
     public function __construct()
     {
@@ -30,6 +31,7 @@ class RewardModel extends BaseModel
         $this->builderTrnOut = $this->db->table('trn_point_out');
         $this->builderMemberType = $this->db->table('v_member_type');
         $this->builderRptPointMmbr = $this->db->table('v_member_point');
+        $this->builderPointHist = $this->db->table('lpe');
     }
 	
 	//input values hotel
@@ -553,5 +555,16 @@ class RewardModel extends BaseModel
         if (!empty($q)) {
             $this->builderRptPointMmbr->groupStart()->like('id_member', cleanStr($q))->orLike('name_on_card', cleanStr($q))->groupEnd();
         }
+    }
+	//get user point hist count
+    public function geUserPointHistCount($userId)
+    {
+        return $this->builderPayouts->where('user_id', cleanNumber($userId))->countAllResults();
+    }
+
+    //get paginated user point hist
+    public function getUserPointHistPaginated($userId, $perPage, $offset)
+    {
+        return $this->builderPayouts->where('user_id', cleanNumber($userId))->orderBy('created_at DESC')->limit($perPage, $offset)->get()->getResult();
     }
 }

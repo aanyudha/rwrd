@@ -166,13 +166,13 @@
                                 <li class="nav-gallery-albums"><a href="<?= adminUrl('gallery-albums'); ?>"><?= trans("albums"); ?></a></li>
                                 <li class="nav-gallery-categories"><a href="<?= adminUrl('gallery-categories'); ?>"><?= trans("categories"); ?></a></li>
                             </ul>
-                        </li>
+                        </li>-->
                     <?php endif;
                     if (checkUserPermission('comments_contact')): ?>
                         <li class="nav-contact-messages">
                             <a href="<?= adminUrl('contact-messages'); ?>"><i class="fa fa-paper-plane" aria-hidden="true"></i><span><?= trans("contact_messages"); ?></span></a>
                         </li>
-                        <li class="treeview<?php isAdminNavActive(['comments', 'pending-comments']); ?>">
+                        <!--<li class="treeview<?php isAdminNavActive(['comments', 'pending-comments']); ?>">
                             <a href="#"><i class="fa fa-comments"></i> <span><?= trans("comments"); ?></span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
                             <ul class="treeview-menu">
                                 <li class="nav-pending-comments"><a href="<?= adminUrl('pending-comments'); ?>"><?= trans("pending_comments"); ?></a></li>

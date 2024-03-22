@@ -205,11 +205,12 @@ $(document).ready(function () {
         var serializedData = form.serializeArray();
         serializedData = setSerializedData(serializedData);
         $.ajax({
-            url: TrConfig.baseURL + '/AuthController/loginPost',
+            url: TrConfig.baseURL + '/AuthController/mloginPost',
             type: 'POST',
             data: serializedData,
             success: function (response) {
                 var obj = JSON.parse(response);
+				console.log(obj.result);
                 if (obj.result == 1) {
                     location.reload();
                 } else if (obj.result == 0) {

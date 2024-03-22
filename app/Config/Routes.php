@@ -222,6 +222,7 @@ if (!empty($languages)) {
         $routes->get($key . $customRoutes->reading_list, 'HomeController::readingList');
         $routes->get($key . $customRoutes->earnings, 'EarningsController::earnings');
         $routes->get($key . $customRoutes->payouts, 'EarningsController::payouts');
+        $routes->get($key . $customRoutes->pointhist, 'EarningsController::pointHist');
         $routes->get($key . $customRoutes->set_payout_account, 'EarningsController::setPayoutAccount');
         $routes->get($key . $customRoutes->rss_feeds, 'HomeController::rssFeeds');
         $routes->get($key . 'rss/latest-posts', 'HomeController::rssLatestPosts');

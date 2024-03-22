@@ -1191,6 +1191,15 @@ if (!function_exists('updateLastSeen')) {
     }
 }
 
+//update last seen M
+if (!function_exists('updateLastSeenM')) {
+    function updateLastSeenM()
+    {
+        $model = new \App\Models\AuthModel();
+        $model->updateLastSeenM();
+    }
+}
+
 if (!function_exists('timeAgo')) {
     function timeAgo($timestamp)
     {

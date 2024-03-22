@@ -254,6 +254,7 @@ class SettingsModel extends BaseModel
             'gallery_album' => inputPost('gallery_album'),
             'earnings' => inputPost('earnings'),
             'payouts' => inputPost('payouts'),
+            'pointhist' => inputPost('pointhist'),
             'set_payout_account' => inputPost('set_payout_account'),
             'logout' => inputPost('logout')
         ];

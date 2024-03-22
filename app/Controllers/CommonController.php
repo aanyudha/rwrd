@@ -57,6 +57,10 @@ class CommonController extends Controller
                 $this->session->setFlashdata('error', "Site under construction! Please try again later.");
                 return redirect()->to(adminUrl('login'));
             }
+			if (!empty($user) && $user->role == 'user') {
+                $this->session->setFlashdata('error', "Bajingan metu o su");
+                return redirect()->to(adminUrl('login'));
+            }
             if ($authModel->login() == 'success') {
                 return redirect()->to(adminUrl());
             } else {

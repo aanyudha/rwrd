@@ -95,7 +95,7 @@ endif; ?>
 <?php if (checkUserPermission('admin_panel')): ?>
 <li><a href="<?= adminUrl(); ?>" class="dropdown-item"><?= trans("admin_panel"); ?></a></li>
 <?php endif; ?>
-<li><a href="<?= generateProfileURL(user()->slug); ?>" class="dropdown-item"><?= trans("profile"); ?></a></li>
+<!--<li><a href="?= generateProfileURL(user()->slug); ?>" class="dropdown-item">?= trans("profile"); ?></a></li>-->
 <?php if (user()->reward_system_enabled == 1): ?>
 <li><a href="<?= generateURL('earnings'); ?>" class="dropdown-item"><?= trans("earnings"); ?>&nbsp;(<strong class="lbl-earnings"><?= priceFormatted(user()->balance); ?></strong>)</a></li>
 <?php endif; ?>

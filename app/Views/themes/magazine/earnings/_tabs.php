@@ -1,13 +1,13 @@
 <div class="profile-list-group">
     <ul class="list-group">
-        <li class="list-group-item <?= $activeTab == 'earnings' ? 'active' : ''; ?>">
+        <!--<li class="list-group-item <?= $activeTab == 'earnings' ? 'active' : ''; ?>">
             <a href="<?= generateURL('earnings'); ?>"><span><?= trans("earnings"); ?></span></a>
         </li>
         <li class="list-group-item <?= $activeTab == 'payouts' ? 'active' : ''; ?>">
             <a href="<?= generateURL('payouts'); ?>"><span><?= trans("payouts"); ?></span></a>
-        </li>
-		<li class="list-group-item <?= $activeTab == 'payouts' ? 'active' : ''; ?>">
-            <a href="<?= generateURL('payouts'); ?>"><span><?= trans("point_hist"); ?></span></a>
+        </li>-->
+		<li class="list-group-item <?= $activeTab == 'point_hist' ? 'active' : ''; ?>">
+            <a href="<?= generateURL('pointhist'); ?>"><span><?= trans("point_hist"); ?></span></a>
         </li>
 		<li class="list-group-item <?= $activeTab == 'payouts' ? 'active' : ''; ?>">
             <a href="<?= generateURL('payouts'); ?>"><span><?= trans("redeem_stat"); ?></span></a>

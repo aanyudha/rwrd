@@ -26,7 +26,7 @@ class EarningsController extends BaseController
 
     /**
      * Earnings Page
-     */
+     
     public function earnings()
     {
         $data['title'] = trans("earnings");
@@ -49,7 +49,7 @@ class EarningsController extends BaseController
 
     /**
      * Payouts Page
-     */
+     
     public function payouts()
     {
         $data['title'] = trans("payouts");
@@ -69,7 +69,7 @@ class EarningsController extends BaseController
 
     /**
      * Set Payout Account
-     */
+     
     public function setPayoutAccount()
     {
         $data['title'] = trans("set_payout_account");
@@ -91,7 +91,7 @@ class EarningsController extends BaseController
 
     /**
      * Set Paypal Payout Account Post
-     */
+     
     public function setPaypalPayoutAccountPost()
     {
         if ($this->rewardModel->setPaypalPayoutAccount()) {
@@ -104,7 +104,7 @@ class EarningsController extends BaseController
 
     /**
      * Set IBAN Payout Account Post
-     */
+     
     public function setIbanPayoutAccountPost()
     {
         if ($this->rewardModel->setIbanPayoutAccount()) {
@@ -117,7 +117,7 @@ class EarningsController extends BaseController
 
     /**
      * Set SWIFT Payout Account Post
-     */
+     
     public function setSwiftPayoutAccountPost()
     {
         if ($this->rewardModel->setSwiftPayoutAccount()) {
@@ -126,5 +126,25 @@ class EarningsController extends BaseController
             $this->session->setFlashdata('error', trans("msg_error"));
         }
         redirectToBackURL();
+    }
+	//TNTR
+	/**
+     * PointHist Page
+     */
+    public function pointHist()
+    {
+        $data['title'] = trans("point_hist");
+        $data['description'] = trans("point_hist") . " - " . $this->settings->site_title;
+        $data['keywords'] = trans("point_hist") . ', ' . $this->settings->application_name;
+        $data['activeTab'] = 'point_hist';
+        $data['userSession'] = getUserSession();
+        //$data['userPostsCount'] = $this->postModel->getUserPostsCount(user()->id);
+        $data['numRows'] = $this->rewardModel->geUserPointHistCount(user()->id_member);
+        $pager = paginate($this->perPage, $data['numRows']);
+        $data['point_hist'] = $this->rewardModel->getUserPointHistPaginated(user()->id_member, $this->perPage, $pager->offset);
+
+        echo loadView('partials/_header', $data);
+        echo loadView('earnings/pointhist', $data);
+        echo loadView('partials/_footer');
     }
 }

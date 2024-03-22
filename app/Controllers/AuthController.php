@@ -56,6 +56,46 @@ class AuthController extends BaseController
         $this->session->setFlashdata('error', '');
         $this->session->setFlashdata('success', '');
     }
+	
+	/**
+     * mLogin Post
+     */
+    public function mloginPost()
+    {
+        if (authCheck()) {
+            return redirect()->to(langBaseUrl());
+        }
+        $val = \Config\Services::validation();
+        $val->setRule('email', trans("email"), 'required|max_length[255]');
+        $val->setRule('password', trans("password"), 'required|max_length[255]');
+        if (!$this->validate(getValRules($val))) {
+            $this->session->setFlashdata('errors', $val->getErrors());
+            echo loadView('partials/_messages');
+        } else {
+            $model = new AuthModel();
+            $result = $model->mlogin();
+            if ($result == "success") {
+                echo json_encode(['result' => 1]);
+            } elseif ($result == "banned") {
+                $this->session->setFlashdata('error', trans("message_ban_error"));
+                $data = [
+                    'result' => 0,
+                    'error_message' => loadView('partials/_messages')
+                ];
+                echo json_encode($data);
+            } else {
+                $this->session->setFlashdata('error', trans("login_error"));
+                $data = [
+                    'result' => 0,
+                    'error_message' => loadView('partials/_messages')
+                ];
+                echo json_encode($data);
+            }
+        }
+        $this->session->setFlashdata('errors', '');
+        $this->session->setFlashdata('error', '');
+        $this->session->setFlashdata('success', '');
+    }
 
     /**
      * Connect with Facebook

@@ -73,13 +73,24 @@ class Globals extends BaseConfig
         //set settings
         self::$settings = self::$db->table('settings')->where('lang_id', self::$activeLang->id)->get()->getRow();
         //authentication
-        if (!empty($session->get('tr_ses_id')) && !empty($session->get('tr_ses_role')) && !empty($session->get('tr_ses_pass'))) {
-            $user = self::$db->table('users')->where('id', cleanNumber($session->get('tr_ses_id')))->get()->getRow();
-            if (!empty($user) && md5($user->password ?? '') == $session->get('tr_ses_pass')) {
-                self::$authCheck = true;
-                self::$authUser = $user;
-            }
-        }
+		if($session->get('tr_ses_role')=='user'){
+			if (!empty($session->get('tr_ses_id')) && !empty($session->get('tr_ses_role')) && !empty($session->get('tr_ses_pass'))) {
+				$user = self::$db->table('mst_member')->where('id_member', cleanNumber($session->get('tr_ses_id')))->get()->getRow();
+				if (!empty($user) && md5($user->password ?? '') == $session->get('tr_ses_pass')) {
+					self::$authCheck = true;
+					self::$authUser = $user;
+					}	
+			}
+		}else{
+			if (!empty($session->get('tr_ses_id')) && !empty($session->get('tr_ses_role')) && !empty($session->get('tr_ses_pass'))) {
+				$user = self::$db->table('users')->where('id', cleanNumber($session->get('tr_ses_id')))->get()->getRow();
+				if (!empty($user) && md5($user->password ?? '') == $session->get('tr_ses_pass')) {
+					self::$authCheck = true;
+					self::$authUser = $user;
+				}
+			}
+		}
+        
         //set dark mode
         $mode = self::$generalSettings->theme_mode;
         if (!empty(helperGetCookie('theme_mode'))) {

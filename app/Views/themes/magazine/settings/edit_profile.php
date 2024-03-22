@@ -40,7 +40,8 @@
                             </div>
                             <?php if (!empty(user()->cover_image)): ?><style>#edit_profile_cover {background-image: url('<?= base_url((user()->cover_image)); ?>');}</style><?php endif; ?>
                             <p class="mb-5"><small class="text-muted">*<?= trans("warning_edit_profile_image"); ?></small></p>
-                            <div class="mb-3">
+                            <?php if (checkUserPermission('admin_panel')): ?>
+							<div class="mb-3">
                                 <label class="form-label"><?= trans("email"); ?></label>
                                 <?php if ($generalSettings->email_verification == 1):
                                     if (user()->email_status == 1): ?>
@@ -64,6 +65,24 @@
                                 <label class="form-label"><?= trans("about_me"); ?></label>
                                 <textarea name="about_me" class="form-control form-textarea" placeholder="<?= trans("about_me"); ?>"><?= esc(user()->about_me); ?></textarea>
                             </div>
+							<?php else: ?>
+							<div class="mb-3">
+                                <label class="form-label"><?= trans("email"); ?></label>
+                                <?php if ($generalSettings->email_verification == 1):
+                                    if (user()->email_status == 1): ?>
+                                        &nbsp;<small class="text-success">(<?= trans("confirmed"); ?>)</small>
+                                    <?php else: ?>
+                                        &nbsp;<small class="text-danger">(<?= trans("unconfirmed"); ?>)</small>
+                                        <button type="submit" name="submit" value="resend_activation_email" class="btn btn-sm btn-default display-inline-block mb-2"><?= trans("resend_activation_email"); ?></button>
+                                    <?php endif;
+                                endif; ?>
+                                <input type="email" name="email" class="form-control form-input" value="<?= esc(user()->email); ?>" placeholder="<?= trans("email"); ?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label"><?= trans("username"); ?></label>
+                                <input type="text" name="username" class="form-control form-input" value="<?= esc(user()->username); ?>" placeholder="<?= trans("username"); ?>" required>
+                            </div>
+							<?php endif; ?>
                             <button type="submit" name="submit" value="update" class="btn btn-md btn-custom"><?= trans("save_changes") ?></button>
                         </form>
                     </div>
