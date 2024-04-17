@@ -25,6 +25,26 @@ class AuthModel extends BaseModel
             'password' => inputPost('password')
         ];
     }
+	//input values Spc
+    public function inputValuesSpc()
+    {
+        return [
+            'id_member' => inputPost('id_member'),
+            'fullname' => inputPost('fullname'),
+            'name_on_card' => inputPost('namecard'),
+            'tanggal_lahir' => inputPost('dob'),
+            'id_negara' => inputPost('nationality'),
+            'alamat' => inputPost('mailingaddr'),
+            'kota' => inputPost('city'),
+            'propinsi' => inputPost('province'),
+            'kode_pos' => inputPost('postalcode'),
+            'telepon' => inputPost('hometelp'),
+            'handphone' => inputPost('mobilenomer'),
+            'email' => inputPost('email'),
+            'username' => inputPost('email'),
+            'password' => inputPost('password')
+        ];
+    }
 
     //login
     public function login()
@@ -257,6 +277,48 @@ class AuthModel extends BaseModel
         }
         return false;
     }
+	
+	public function memberID(){
+		$id_hotel=0;
+		$prefix=str_pad($id_hotel,2,"0",STR_PAD_LEFT).date("y");
+		$query = $this->db->query("select ifnull(max(substring(id_member,5,4)),0)+1 as hasil from mst_member where substring(id_member,3,2)=?",array(date("y")))->getResult();
+		$id_member=$prefix.str_pad($query[0]->hasil,4,"0",STR_PAD_LEFT);
+		return $id_member;
+	}
+	
+	
+	//register
+    public function registerSpc()
+    {
+        $data = $this->inputValuesSpc();
+        $data['id_member'] = $this->memberID();
+		$data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        $data['user_type'] = 'registered';
+        //$data["slug"] = $this->generateUniqueSlug($data['username']);
+        $data['status'] = 1;
+        $data['token'] = generateToken();
+        $data['role'] = 'user';
+        $data['last_seen'] = date('Y-m-d H:i:s');
+        $data['created_at'] = date('Y-m-d H:i:s');
+        if ($this->builderMstMember->insert($data)) {
+            //$id = $this->db->insertID(); //kalo pake autoincreement bisa pake ini :D
+            $id = $data['id_member']; //karena tidak pake autoincreement maka pake ini :)
+            $member = $this->getMember($id);
+			echo $member->id_member;
+            if ($this->generalSettings->email_verification == 1 && !empty($member)) {
+                $data['email_status'] = 0;
+                $emailModel = new EmailModel();
+                $emailModel->sendEmailActivationMember($member->id_member);
+            } else {
+                $data['email_status'] = 1;
+            }
+            if (!empty($member)) {
+                $this->mloginUser($member);
+            }
+            return true;
+        }
+        return false;
+    }
 
     //add user
     public function addUser()
@@ -346,7 +408,21 @@ class AuthModel extends BaseModel
         }
         return false;
     }
-
+	
+	//verify email member
+    public function verifyEmailMember($user)
+    {
+        if (!empty($user)) {
+            $data = [
+                'email_status' => 1,
+                'reward_system_enabled' => 1,
+                'token' => generateToken()
+            ];
+            return $this->builderMstMember->where('id_member', $user->id_member)->update($data);
+        }
+        return false;
+    }
+	
     //change user role
     public function changeUserRole($id, $role)
     {
@@ -376,11 +452,20 @@ class AuthModel extends BaseModel
     {
         return $this->builder->where('id', cleanNumber($id))->get()->getRow();
     }
-
+	//get Member by id
+    public function getMember($id_member)
+    {
+        return $this->builderMstMember->where('id_member', cleanNumber($id_member))->get()->getRow();
+    }
     //get user by email
     public function getUserByEmail($email)
     {
         return $this->builder->where('email', removeForbiddenCharacters($email))->get()->getRow();
+    }
+	//get member by email
+    public function getMemberByEmail($email)
+    {
+        return $this->builderMstMember->where('email', removeForbiddenCharacters($email))->get()->getRow();
     }
 	
 	//get user by email m
@@ -405,6 +490,12 @@ class AuthModel extends BaseModel
     public function getUserByToken($token)
     {
         return $this->builder->where('token', removeForbiddenCharacters($token))->get()->getRow();
+    }
+	
+	//get member by token
+    public function getMemberByToken($token)
+    {
+        return $this->builderMstMember->where('token', removeForbiddenCharacters($token))->get()->getRow();
     }
 
     //get user by vk id
@@ -567,6 +658,23 @@ class AuthModel extends BaseModel
             return true;
         } else {
             if (!empty($user) && $user->id != $userId) {
+                return false;
+            }
+            return true;
+        }
+    }
+	
+	//check if email is unique on mst member
+    public function isEmailUniqueMember($email, $memberId = 0)
+    {
+        $member = $this->getMemberByEmail($email);
+        if ($memberId == 0) {
+            if (!empty($member)) {
+                return false;
+            }
+            return true;
+        } else {
+            if (!empty($member) && $member->id != $memberId) {
                 return false;
             }
             return true;

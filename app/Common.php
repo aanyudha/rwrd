@@ -854,11 +854,6 @@ if (!function_exists('helperSetCookie')) {
         $config = config('App');
         $params = [
             'expires' => $time,
-            'path' => $config->cookiePath,
-            'domain' => $config->cookieDomain,
-            'secure' => $config->cookieSecure,
-            'httponly' => $config->cookieHTTPOnly,
-            'samesite' => $config->cookieSameSite,
         ];
         if (!empty(getenv('cookie.prefix'))) {
             $name = getenv('cookie.prefix') . $name;
@@ -2253,4 +2248,12 @@ if (!function_exists('isBot')) {
 			return $model->getTrnHotelById($id);
 		}
 	}
+	//get member by id
+if (!function_exists('getMemberById')) {
+    function getMemberById($id)
+    {
+        $model = new \App\Models\AuthModel();
+        return $model->getMember($id);
+    }
+}
 }

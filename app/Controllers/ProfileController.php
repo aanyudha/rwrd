@@ -83,13 +83,21 @@ class ProfileController extends BaseController
         if (!authCheck()) {
             return redirect()->to(langBaseUrl());
         }
+		$userRole = user()->role;
         $submit = inputPost('submit');
         if ($submit == 'resend_activation_email') {
             //send activation email
-            $emailModel = new EmailModel();
+			if ($userRole == 'user') {
+			$emailModel = new EmailModel();
+            $emailModel->sendEmailActivationMember(user()->id_member);
+            $this->session->setFlashdata('success', trans("msg_send_confirmation_email"));
+            redirectToBackURL();
+			}else{
+			$emailModel = new EmailModel();
             $emailModel->sendEmailActivation(user()->id);
             $this->session->setFlashdata('success', trans("msg_send_confirmation_email"));
             redirectToBackURL();
+			}
         }
         $val = \Config\Services::validation();
         $val->setRule('email', trans("email"), 'required|max_length[255]');
@@ -117,14 +125,25 @@ class ProfileController extends BaseController
                 $this->session->setFlashdata('error', trans("msg_slug_used"));
                 redirectToBackURL();
             }
-            if ($this->profileModel->editProfile($data)) {
+            if ($userRole == 'user') {
+                if ($this->profileModel->editProfileMember($data)) {
+                //check email changed
+                $this->session->setFlashdata('success', trans("msg_updated"));
+                if ($this->profileModel->checkEmailChanged(user()->id_member)) {
+                    $this->session->setFlashdata('success', trans("msg_send_confirmation_email"));
+                }
+                redirectToBackURL();
+				}
+            }else {
+				if ($this->profileModel->editProfile($data)) {
                 //check email changed
                 $this->session->setFlashdata('success', trans("msg_updated"));
                 if ($this->profileModel->checkEmailChanged(user()->id)) {
                     $this->session->setFlashdata('success', trans("msg_send_confirmation_email"));
                 }
                 redirectToBackURL();
-            }
+				}
+			}
         }
         $this->session->setFlashdata('error', trans("msg_error"));
         redirectToBackURL();

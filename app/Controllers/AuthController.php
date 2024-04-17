@@ -276,6 +276,9 @@ class AuthController extends BaseController
         $data['title'] = trans("register");
         $data['description'] = trans("register") . " - " . $this->settings->site_title;
         $data['keywords'] = trans("register") . "," . $this->settings->application_name;
+		$data['nationl'] = $this->settingsModel->getCountriesAll();
+		$data['jnsident'] = $this->settingsModel->enum_select_identityType();
+		$data['ttle'] = $this->settingsModel->enum_select_title();
         $data['userSession'] = getUserSession();
 
         echo loadView('partials/_header', $data);
@@ -316,6 +319,62 @@ class AuthController extends BaseController
                 return redirect()->to(generateURL('register'))->withInput();
             }
             if ($this->authModel->register()) {
+                if ($this->generalSettings->email_verification == 1) {
+                    $this->session->setFlashdata('success', trans("msg_send_confirmation_email"));
+                } else {
+                    $this->session->setFlashdata('success', trans("msg_register_success"));
+                }
+                return redirect()->to(generateURL('settings'));
+            } else {
+                $this->session->setFlashdata('error', trans("msg_error"));
+                return redirect()->to(generateURL('register'))->withInput();
+            }
+        }
+        return redirect()->to(generateURL('register'));
+    }
+	
+	/**
+     * Register Post spesial
+     */
+    public function registerPostSpc()
+    {
+        if ($this->generalSettings->registration_system != 1 || authCheck()) {
+            return redirect()->to(langBaseUrl());
+        }
+        $val = \Config\Services::validation();
+        $val->setRule('fullname', trans("fullname"), 'required|min_length[4]|max_length[100]');
+        $val->setRule('namecard', trans("namecard"), 'required|min_length[4]|max_length[100]');
+        $val->setRule('dob', trans("dob"), 'required|min_length[4]|max_length[100]');
+        $val->setRule('nationality', trans("nationality"), 'required');
+        $val->setRule('mailingaddr', trans("mailingaddr"), 'required|min_length[4]|max_length[200]');
+        $val->setRule('city', trans("city"), 'required|min_length[4]|max_length[100]');
+        $val->setRule('province', trans("province"), 'required|min_length[4]|max_length[100]');
+        $val->setRule('postalcode', trans("postalcode"), 'required|min_length[4]|max_length[100]');
+        $val->setRule('hometelp', trans("hometelp"), 'required|min_length[4]|max_length[100]');
+        $val->setRule('mobilenomer', trans("mobilenomer"), 'required|min_length[4]|max_length[100]');
+        $val->setRule('email', trans("email"), 'required|max_length[255]');
+        $val->setRule('password', trans("password"), 'required|min_length[4]|max_length[200]');
+        $val->setRule('confirm_password', trans("confirm_password"), 'required|matches[password]');
+        $val->setRule('terms_conditions', trans("terms_conditions"), 'required');
+        if (!$this->validate(getValRules($val))) {
+            $this->session->setFlashdata('errors', $val->getErrors());
+            return redirect()->to(generateURL('register'))->withInput();
+        } else {
+            if (reCAPTCHA('validate', $this->generalSettings) == 'invalid') {
+                $this->session->setFlashdata('error', trans("msg_recaptcha"));
+                return redirect()->to(generateURL('register'))->withInput();
+            }
+            $email = inputPost('email');
+           /* $username = inputPost('username');
+            if (!$this->authModel->isUniqueUsername($username)) {
+                $this->session->setFlashdata('error', trans("msg_username_unique_error"));
+                return redirect()->to(generateURL('register'))->withInput();
+            }*/
+            if (!$this->authModel->isEmailUniqueMember($email)) {
+                $this->session->setFlashdata('error', trans("message_email_unique_error"));
+                return redirect()->to(generateURL('register'))->withInput();
+            }
+            if ($this->authModel->registerSpc()) {
                 if ($this->generalSettings->email_verification == 1) {
                     $this->session->setFlashdata('success', trans("msg_send_confirmation_email"));
                 } else {
@@ -423,24 +482,40 @@ class AuthController extends BaseController
      */
     public function confirmEmail()
     {
+		$userRole = user()->role;
         $data['title'] = trans("confirm_your_email");
         $data['description'] = trans("confirm_your_email") . " - " . $this->settings->application_name;
         $data['keywords'] = trans("confirm_your_email") . "," . $this->settings->application_name;
 
         $token = cleanStr(inputGet('token'));
-        $data['user'] = $this->authModel->getUserByToken($token);
-        if (empty($data['user'])) {
-            return redirect()->to(langBaseUrl());
-        }
-        if ($data['user']->email_status == 1) {
-            return redirect()->to(langBaseUrl());
-        }
-        if ($this->authModel->verifyEmail($data['user'])) {
-            $data['success'] = trans("msg_confirmed");
-        } else {
-            $data['error'] = trans("msg_error");
-        }
-
+		if ($userRole == 'user') {
+			$data['user'] = $this->authModel->getMemberByToken($token);
+			if (empty($data['user'])) {
+				return redirect()->to(langBaseUrl());
+			}
+			if ($data['user']->email_status == 1) {
+				return redirect()->to(langBaseUrl());
+			}
+			if ($this->authModel->verifyEmailMember($data['user'])) {
+				$data['success'] = trans("msg_confirmed");
+			} else {
+				$data['error'] = trans("msg_error");
+			}
+		}else{
+			$data['user'] = $this->authModel->getUserByToken($token);
+			if (empty($data['user'])) {
+				return redirect()->to(langBaseUrl());
+			}
+			if ($data['user']->email_status == 1) {
+				return redirect()->to(langBaseUrl());
+			}
+			if ($this->authModel->verifyEmail($data['user'])) {
+				$data['success'] = trans("msg_confirmed");
+			} else {
+				$data['error'] = trans("msg_error");
+			}
+		}
+        
         echo loadView('partials/_header', $data);
         echo loadView('auth/confirm_email', $data);
         echo loadView('partials/_footer');

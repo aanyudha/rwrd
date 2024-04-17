@@ -196,7 +196,7 @@ if (authCheck()): ?>
                     <input type="text" name="url">
                     <div id="modal_newsletter_response" class="text-center modal-newsletter-response">
                         <div class="form-group text-center m-b-0 text-close">
-                            <button type="button" class="text-close" data-dismiss="modal"><?= trans("no_thanks"); ?></button>
+                            <button type="button" class="text-close" data-bs-dismiss="modal"><?= trans("no_thanks"); ?></button>
                         </div>
                     </div>
                 </form>

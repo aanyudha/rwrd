@@ -116,20 +116,20 @@
                             </div>
                         </div>
                     </div>
-                   <!-- <div class="form-group">
+                   <div class="form-group">
                         <div class="row">
                             <div class="col-sm-12 col-xs-12">
-                                <label>?= trans('newsletter_popup'); ?></label>
+                                <label><?= trans('newsletter_popup'); ?></label>
                             </div>
                             <div class="col-sm-4 col-xs-12 col-option">
-                                <input type="radio" name="newsletter_popup" value="1" id="newsletter_popup_1" class="square-purple" ?= $generalSettings->newsletter_popup == 1 ? 'checked' : ''; ?>>
-                                <label for="newsletter_popup_1" class="option-label">?= trans('enable'); ?></label>
+                                <input type="radio" name="newsletter_popup" value="1" id="newsletter_popup_1" class="square-purple" <?= $generalSettings->newsletter_popup == 1 ? 'checked' : ''; ?>>
+                                <label for="newsletter_popup_1" class="option-label"><?= trans('enable'); ?></label>
                             </div>
                             <div class="col-sm-4 col-xs-12 col-option">
-                                <input type="radio" name="newsletter_popup" value="0" id="newsletter_popup_2" class="square-purple" ?= $generalSettings->newsletter_popup != 1 ? 'checked' : ''; ?>>
-                                <label for="newsletter_popup_2" class="option-label">?= trans('disable'); ?></label>
+                                <input type="radio" name="newsletter_popup" value="0" id="newsletter_popup_2" class="square-purple" <?= $generalSettings->newsletter_popup != 1 ? 'checked' : ''; ?>>
+                                <label for="newsletter_popup_2" class="option-label"><?= trans('disable'); ?></label>
                             </div>
-                        </div>-->
+                        </div>
                     </div>
                 </div>
                 <div class="box-footer text-right">

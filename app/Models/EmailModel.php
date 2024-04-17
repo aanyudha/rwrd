@@ -45,6 +45,26 @@ class EmailModel extends BaseModel
             $this->sendEmail($data);
         }
     }
+	
+	 //send email activation Member
+    public function sendEmailActivationMember($memberId)
+    {
+        $member = getMemberById($memberId);
+        if (!empty($member)) {
+            $token = $member->token;
+            if (empty($token)) {
+                $token = generateToken();
+                $this->db->table('mst_member')->where('id_member', $member->id_member)->update(['token' => $token]);
+            }
+            $data = [
+                'subject' => trans("confirm_your_email"),
+                'to' => $member->email,
+                'template_path' => "email/email_activation",
+                'token' => $token
+            ];
+            $this->sendEmail($data);
+        }
+    }
 
     //send email contact message
     public function sendEmailContactMessage($name, $email, $message)

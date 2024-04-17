@@ -848,6 +848,11 @@ class SettingsModel extends BaseModel
     {
         return $this->builderCountries->where('nama', removeForbiddenCharacters($nama))->get()->getRow();
     }
+	//get Countries all
+    public function getCountriesAll()
+    {
+        return $this->builderCountries->get()->getResult();
+    }
 	//edit countries
     public function editCountriesM($id)
     {
@@ -882,4 +887,22 @@ class SettingsModel extends BaseModel
             return true;
         }
     }
+	
+	public function enum_select_identityType(){
+		$query = " SHOW COLUMNS FROM mst_member WHERE FIELD = 'jenis_identitas' ";
+		$row = $this->db->query(" SHOW COLUMNS FROM mst_member WHERE FIELD = 'jenis_identitas' ")->getRow()->Type;
+		$regex = "/'(.*?)'/";
+		preg_match_all( $regex , $row, $enum_array );
+		$enum_fields = $enum_array[1];
+		return( $enum_fields );
+	}
+	
+	public function enum_select_title(){
+		$query = " SHOW COLUMNS FROM mst_member WHERE FIELD = 'title' ";
+		$row = $this->db->query(" SHOW COLUMNS FROM mst_member WHERE FIELD = 'title' ")->getRow()->Type;
+		$regex = "/'(.*?)'/";
+		preg_match_all( $regex , $row, $enum_array );
+		$enum_fields = $enum_array[1];
+		return( $enum_fields );
+	}
 }

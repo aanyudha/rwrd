@@ -63,10 +63,12 @@ if ($generalSettings->pwa_status == 1): ?>
 <link href="<?= base_url('assets/vendor/bootstrap/css/bootstrap.rtl.min.css'); ?>" rel="stylesheet">
 <?php else: ?>
 <link href="<?= base_url('assets/vendor/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
 <?php endif; ?>
 <link href="<?= base_url($assetsPath . '/css/icons-2.2.min.css'); ?>" rel="stylesheet">
 <link href="<?= base_url($assetsPath . '/css/plugins-2.2.min.css'); ?>" rel="stylesheet">
 <link href="<?= base_url($assetsPath . '/css/style-2.2.min.css'); ?>" rel="stylesheet">
+
 <?php if ($rtl): ?>
 <link href="<?= base_url($assetsPath . '/css/rtl-2.2.min.css'); ?>" rel="stylesheet"/>
 <?php endif;

@@ -51,6 +51,7 @@ $routes->get('gnews/feed', 'HomeController::googleNewsFeeds');
  * --------------------------------------------------------------------
  */
 $routes->post('register-post', 'AuthController::registerPost');
+$routes->post('register-post-spc', 'AuthController::registerPostSpc');
 $routes->post('forgot-password-post', 'AuthController::forgotPasswordPost');
 $routes->post('reset-password-post', 'AuthController::resetPasswordPost');
 $routes->post('contact-post', 'HomeController::contactPost');

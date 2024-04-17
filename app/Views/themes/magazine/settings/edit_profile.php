@@ -67,6 +67,10 @@
                             </div>
 							<?php else: ?>
 							<div class="mb-3">
+                                <label class="form-label"><?= trans("id_member"); ?></label>
+                                <input type="text" name="id_member" class="form-control form-input" value="<?= esc(user()->id_member); ?>" placeholder="<?= trans("id_member"); ?>" required>
+                            </div>
+							<div class="mb-3">
                                 <label class="form-label"><?= trans("email"); ?></label>
                                 <?php if ($generalSettings->email_verification == 1):
                                     if (user()->email_status == 1): ?>
@@ -78,10 +82,10 @@
                                 endif; ?>
                                 <input type="email" name="email" class="form-control form-input" value="<?= esc(user()->email); ?>" placeholder="<?= trans("email"); ?>" required>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label"><?= trans("username"); ?></label>
-                                <input type="text" name="username" class="form-control form-input" value="<?= esc(user()->username); ?>" placeholder="<?= trans("username"); ?>" required>
-                            </div>
+                            <!--<div class="mb-3">
+                                <label class="form-label">?= trans("username"); ?></label>
+                                <input type="text" name="username" class="form-control form-input" value="?= esc(user()->username); ?>" placeholder="?= trans("username"); ?>" required>
+                            </div>-->
 							<?php endif; ?>
                             <button type="submit" name="submit" value="update" class="btn btn-md btn-custom"><?= trans("save_changes") ?></button>
                         </form>

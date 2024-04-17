@@ -5,12 +5,14 @@ use CodeIgniter\Model;
 class ProfileModel extends BaseModel
 {
     protected $builder;
+    protected $builderMember;
     protected $builderFollowers;
 
     public function __construct()
     {
         parent::__construct();
         $this->builder = $this->db->table('users');
+        $this->builderMember = $this->db->table('mst_member');
         $this->builderFollowers = $this->db->table('followers');
     }
 
@@ -33,6 +35,26 @@ class ProfileModel extends BaseModel
         $this->session->set('tr_user_old_email', user()->email);
         return $this->builder->where('id', cleanNumber(user()->id))->update($data);
     }
+	
+	//update profile Member
+    public function editProfileMember($data)
+    {
+        $uploadModel = new UploadModel();
+        $file = $uploadModel->uploadTempFile('file', true);
+        if (!empty($file) && !empty($file['path'])) {
+            $data['avatar'] = $uploadModel->uploadAvatar(user()->id_member, $file['path']);
+            @unlink(FCPATH . user()->avatar);
+            $uploadModel->deleteTempFile($file['path']);
+        }
+        $imageCover = $uploadModel->uploadTempFile('image_cover', true);
+        if (!empty($imageCover) && !empty($imageCover['path'])) {
+            $data['cover_image'] = $uploadModel->uploadCoverImage(user()->id_member, $imageCover['path']);
+            @unlink(FCPATH . user()->cover_image);
+            $uploadModel->deleteTempFile($imageCover['path']);
+        }
+        $this->session->set('tr_user_old_email', user()->email);
+        return $this->builderMember->where('id_member', cleanNumber(user()->id_member))->update($data);
+    }
 
     //check email updated
     public function checkEmailChanged($userId)
@@ -44,6 +66,25 @@ class ProfileModel extends BaseModel
                     $emailModel = new EmailModel();
                     $emailModel->sendEmailActivation($user->id);
                     return $this->builder->where('id', $user->id)->update(['email_status' => 0]);
+                }
+            }
+            if (!empty($this->session->get('tr_user_old_email'))) {
+                $this->session->remove('tr_user_old_email');
+            }
+        }
+        return false;
+    }
+	
+	//check email updated Member
+    public function checkEmailChangedMember($userId)
+    {
+        if ($this->generalSettings->email_verification == 1) {
+            $user = getUserById($userId);
+            if (!empty($user)) {
+                if (!empty($this->session->get('tr_user_old_email')) && $this->session->get('vr_user_old_email') != $user->email) {
+                    $emailModel = new EmailModel();
+                    $emailModel->sendEmailActivation($user->id_member);
+                    return $this->builderMember->where('id_member', $user->id_member)->update(['email_status' => 0]);
                 }
             }
             if (!empty($this->session->get('tr_user_old_email'))) {
@@ -86,6 +127,22 @@ class ProfileModel extends BaseModel
         }
         return $this->builder->where('id', cleanNumber(user()->id))->update($data);
     }
+	
+	//edit preferences Member
+    public function editPreferencesMember()
+    {
+        $data = [
+            'show_email_on_profile' => inputPost('show_email_on_profile'),
+            'show_rss_feeds' => inputPost('show_rss_feeds')
+        ];
+        if (empty($data['show_email_on_profile'])) {
+            $data['show_email_on_profile'] = 0;
+        }
+        if (empty($data['show_rss_feeds'])) {
+            $data['show_rss_feeds'] = 0;
+        }
+        return $this->id_member->where('id_member', cleanNumber(user()->id_member))->update($data);
+    }
 
     //change password
     public function changePassword()
@@ -105,6 +162,31 @@ class ProfileModel extends BaseModel
             }
             $password = password_hash($data['password'], PASSWORD_DEFAULT);
             if ($this->builder->where('id', $user->id)->update(['password' => $password])) {
+                $this->session->set('tr_ses_pass', md5($password ?? ''));
+                return true;
+            }
+        }
+        return false;
+    }
+	
+	//change password Member
+    public function changePasswordMember()
+    {
+        $data = [
+            'old_password' => inputPost('old_password'),
+            'password' => inputPost('password'),
+            'password_confirm' => inputPost('password_confirm')
+        ];
+        $user = user();
+        if (!empty($user)) {
+            if (!empty($user->password)) {
+                if (!password_verify($data['old_password'], $user->password)) {
+                    $this->session->setFlashdata('error', trans("wrong_password_error"));
+                    redirectToBackURL();
+                }
+            }
+            $password = password_hash($data['password'], PASSWORD_DEFAULT);
+            if ($this->id_member->where('id_member', $user->id_member)->update(['password' => $password])) {
                 $this->session->set('tr_ses_pass', md5($password ?? ''));
                 return true;
             }

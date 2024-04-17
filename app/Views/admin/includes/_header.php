@@ -191,10 +191,11 @@
                             <ul class="treeview-menu">
                                 <li class="nav-reward-system"><a href="<?= adminUrl('reward-system/ref-tipe-member'); ?>"><?= trans("ref-tipe-member"); ?></a></li>
                                 <li class="nav-reward-system-earnings"><a href="<?= adminUrl('reward-system/ref-reward'); ?>"><?= trans("rewards-list"); ?></a></li>
-								<li class="divider"></li>
+								<hr>
                                 <li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/trn-hotel'); ?>"><?= trans("trn-hotel"); ?></a></li>
                                 <li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/trn-hotel-upl'); ?>"><?= trans("trn-hotel-upl"); ?></a></li>
-                                <li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/trn-point-out'); ?>"><?= trans("trn-point-out"); ?></a></li>
+                                <hr>
+								<li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/trn-point-out'); ?>"><?= trans("trn-point-out"); ?></a></li>
                                 <li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/mmbr-type-mtr'); ?>"><?= trans("mmbr-type-mtr"); ?></a></li>
                                 <li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/rpt-point-mmbr'); ?>"><?= trans("rpt-point-mmbr"); ?></a></li>
                                 <!--<li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/payouts'); ?>"><?= trans("payouts"); ?></a></li>
