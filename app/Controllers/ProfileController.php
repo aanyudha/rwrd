@@ -100,14 +100,36 @@ class ProfileController extends BaseController
 			}
         }
         $val = \Config\Services::validation();
-        $val->setRule('email', trans("email"), 'required|max_length[255]');
-        $val->setRule('username', trans("username"), 'required|max_length[255]');
-        $val->setRule('slug', trans("slug'"), 'required|max_length[255]');
+		if ($userRole == 'user') {
+			 $val->setRule('email', trans("email"), 'required|max_length[255]');
+		}else{
+			$val->setRule('email', trans("email"), 'required|max_length[255]');
+			$val->setRule('username', trans("username"), 'required|max_length[255]');
+			$val->setRule('slug', trans("slug'"), 'required|max_length[255]');
+		}
+      
         if (!$this->validate(getValRules($val))) {
             $this->session->setFlashdata('errors', $val->getErrors());
             redirectToBackURL();
         } else {
-            $data = [
+            if ($userRole == 'user') {
+				$data = [
+                'email' => cleanStr(inputPost('email'))
+            ];
+            if (!$this->authModel->isEmailUniqueMember($data['email'], user()->id_member)) {
+                $this->session->setFlashdata('error', trans("message_email_unique_error"));
+                redirectToBackURL();
+            }
+                if ($this->profileModel->editProfileMember($data)) {
+                //check email changed
+                $this->session->setFlashdata('success', trans("msg_updated"));
+                if ($this->profileModel->checkEmailChangedMember(user()->id_member)) {
+                    $this->session->setFlashdata('success', trans("msg_send_confirmation_email"));
+                }
+                redirectToBackURL();
+				}
+            }else {
+				$data = [
                 'username' => cleanStr(inputPost('username')),
                 'slug' => cleanSlug(inputPost('slug')),
                 'email' => cleanStr(inputPost('email')),
@@ -125,16 +147,6 @@ class ProfileController extends BaseController
                 $this->session->setFlashdata('error', trans("msg_slug_used"));
                 redirectToBackURL();
             }
-            if ($userRole == 'user') {
-                if ($this->profileModel->editProfileMember($data)) {
-                //check email changed
-                $this->session->setFlashdata('success', trans("msg_updated"));
-                if ($this->profileModel->checkEmailChanged(user()->id_member)) {
-                    $this->session->setFlashdata('success', trans("msg_send_confirmation_email"));
-                }
-                redirectToBackURL();
-				}
-            }else {
 				if ($this->profileModel->editProfile($data)) {
                 //check email changed
                 $this->session->setFlashdata('success', trans("msg_updated"));
@@ -247,6 +259,7 @@ class ProfileController extends BaseController
             return redirect()->to(langBaseUrl());
         }
         $val = \Config\Services::validation();
+		$userRole = user()->role;
         if (!empty(user()->password)) {
             $val->setRule('old_password', trans("old_password"), 'required');
         }
@@ -256,11 +269,19 @@ class ProfileController extends BaseController
             $this->session->setFlashdata('errors', $val->getErrors());
             redirectToBackURL();
         } else {
-            if ($this->profileModel->changePassword()) {
-                $this->session->setFlashdata('success', trans("message_change_password_success"));
-            } else {
-                $this->session->setFlashdata('error', trans("message_change_password_error"));
-            }
+			if($userRole == 'user'){
+				if ($this->profileModel->changePasswordMember()) {
+					$this->session->setFlashdata('success', trans("message_change_password_success"));
+				} else {
+					$this->session->setFlashdata('error', trans("message_change_password_error"));
+				}
+			}else{
+				if ($this->profileModel->changePassword()) {
+					$this->session->setFlashdata('success', trans("message_change_password_success"));
+				} else {
+					$this->session->setFlashdata('error', trans("message_change_password_error"));
+				}
+			}
         }
         redirectToBackURL();
     }

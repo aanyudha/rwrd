@@ -68,8 +68,9 @@
 							<?php else: ?>
 							<div class="mb-3">
                                 <label class="form-label"><?= trans("id_member"); ?></label>
-                                <input type="text" name="id_member" class="form-control form-input" value="<?= esc(user()->id_member); ?>" placeholder="<?= trans("id_member"); ?>" required>
-                            </div>
+                                <input type="text" name="id_member" class="form-control form-input" value="<?= esc(user()->id_member); ?>" placeholder="<?= trans("id_member"); ?>" disabled>
+								<input type="hidden" name="id_member" value="<?= esc(user()->id_member); ?>">
+							</div>
 							<div class="mb-3">
                                 <label class="form-label"><?= trans("email"); ?></label>
                                 <?php if ($generalSettings->email_verification == 1):
@@ -81,7 +82,8 @@
                                     <?php endif;
                                 endif; ?>
                                 <input type="email" name="email" class="form-control form-input" value="<?= esc(user()->email); ?>" placeholder="<?= trans("email"); ?>" required>
-                            </div>
+								<input type="hidden" name="username" value="<?= esc(user()->email); ?>">
+							</div>
                             <!--<div class="mb-3">
                                 <label class="form-label">?= trans("username"); ?></label>
                                 <input type="text" name="username" class="form-control form-input" value="?= esc(user()->username); ?>" placeholder="?= trans("username"); ?>" required>

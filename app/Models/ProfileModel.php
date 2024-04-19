@@ -186,7 +186,7 @@ class ProfileModel extends BaseModel
                 }
             }
             $password = password_hash($data['password'], PASSWORD_DEFAULT);
-            if ($this->id_member->where('id_member', $user->id_member)->update(['password' => $password])) {
+            if ($this->builderMember->where('id_member', $user->id_member)->update(['password' => $password])) {
                 $this->session->set('tr_ses_pass', md5($password ?? ''));
                 return true;
             }

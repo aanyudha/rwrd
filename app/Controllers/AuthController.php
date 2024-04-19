@@ -482,14 +482,16 @@ class AuthController extends BaseController
      */
     public function confirmEmail()
     {
-		$userRole = user()->role;
         $data['title'] = trans("confirm_your_email");
         $data['description'] = trans("confirm_your_email") . " - " . $this->settings->application_name;
         $data['keywords'] = trans("confirm_your_email") . "," . $this->settings->application_name;
 
         $token = cleanStr(inputGet('token'));
-		if ($userRole == 'user') {
-			$data['user'] = $this->authModel->getMemberByToken($token);
+		$data['user'] = $this->authModel->getMemberByToken($token);
+		
+		if($data['user'] == null){
+			 return redirect()->to(langBaseUrl());
+		}else if ($data['user']->role == 'user' && $data['user'] != null) {
 			if (empty($data['user'])) {
 				return redirect()->to(langBaseUrl());
 			}
@@ -501,7 +503,7 @@ class AuthController extends BaseController
 			} else {
 				$data['error'] = trans("msg_error");
 			}
-		}else{
+		}else if ($data['user']->role != 'user' && $data['user'] != null){
 			$data['user'] = $this->authModel->getUserByToken($token);
 			if (empty($data['user'])) {
 				return redirect()->to(langBaseUrl());
@@ -514,7 +516,7 @@ class AuthController extends BaseController
 			} else {
 				$data['error'] = trans("msg_error");
 			}
-		}
+		} 
         
         echo loadView('partials/_header', $data);
         echo loadView('auth/confirm_email', $data);

@@ -88,11 +88,9 @@
     </div>
 <?php endif; ?>
     <script src="<?= base_url($assetsPath . '/js/jquery-3.6.1.min.js'); ?> "></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
     <script src="<?= base_url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js'); ?> "></script>
     <script src="<?= base_url($assetsPath . '/js/plugins.js'); ?> "></script>
     <script src="<?= base_url($assetsPath . '/js/main-2.2.min.js'); ?> "></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
 <?= loadView('partials/_js_footer'); ?>
     <script>$("form[method='post']").append("<input type='hidden' name='sys_lang_id' value='<?= $activeLang->id; ?>'>");</script>
 <?php if ($generalSettings->pwa_status == 1): ?>

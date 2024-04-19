@@ -48,7 +48,7 @@
                             </div>
 							<div class="mb-2">
 								<div class='input-group date' id='datetimepicker'>
-								<input type='text' class="form-control form-input input-account" name="dob" placeholder="<?= trans("dob"); ?>" value="<?= old("dob"); ?>" required autocomplete="off">
+								<input type='date' class="form-control form-input input-account" name="dob" placeholder="<?= trans("dob"); ?>" value="<?= old("dob"); ?>" required autocomplete="off">
 								<span class="input-group-addon">
 								<span class="glyphicon glyphicon-calendar"></span>
 								</span>
