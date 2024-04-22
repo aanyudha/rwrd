@@ -395,6 +395,20 @@ class AuthModel extends BaseModel
         }
         return false;
     }
+	
+	//reset password member
+    public function resetPasswordMember($token)
+    {
+        $member = $this->getMemberByToken($token);
+        if (!empty($member)) {
+            $data = [
+                'password' => password_hash(inputPost('password'), PASSWORD_DEFAULT),
+                'token' => generateToken()
+            ];
+            return $this->builderMstMember->where('id_member', $member->id_member)->update($data);
+        }
+        return false;
+    }
 
     //verify email
     public function verifyEmail($user)
@@ -770,4 +784,25 @@ class AuthModel extends BaseModel
         }
         return false;
     }
+	
+	 //check if table used
+    public function chkTabelUsed($email)
+    {
+        $user = $this->getUserByEmail($email);
+        $member = $this->getMemberByEmail($email);
+		
+            if (!empty($user)) {
+				if(!empty($user) && $user != null){
+					return $user->role;
+				}else if(empty($user) && $user == null){
+					return 'email nya tidak ada di DB user';
+				}
+            }else if(empty($user) && $member != null){
+				return $member->role;
+			}else if(empty($user) && $member == null){
+				return 'email nya tidak ada di DB member';
+			} else {
+				return 0;
+			}
+	}		
 }

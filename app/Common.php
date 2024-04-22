@@ -2266,4 +2266,12 @@ if (!function_exists('getMemberById')) {
         return $model->getMember($id);
     }
 }
+//get getMemberNyaByEmail
+if (!function_exists('getMemberNyaByEmail')) {
+    function getMemberNyaByEmail($email)
+    {
+        $model = new \App\Models\AuthModel();
+        return $model->getMemberByEmail($email);
+    }
+}
 }

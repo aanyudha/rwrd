@@ -119,6 +119,26 @@ class EmailModel extends BaseModel
             $this->sendEmail($data);
         }
     }
+	
+	 //send email reset password
+    public function sendEmailResetPasswordMember($userId)
+    {
+        $user = getMemberById($userId);
+        if (!empty($user)) {
+            $token = $user->token;
+            if (empty($token)) {
+                $token = generateToken();
+                $this->db->table('mst_member')->where('id_member', $user->id_member)->update(['token' => $token]);
+            }
+            $data = [
+                'subject' => trans("reset_password"),
+                'to' => $user->email,
+                'template_path' => "email/email_reset_password_member",
+                'token' => $token
+            ];
+            $this->sendEmail($data);
+        }
+    }
 
     //send email
     public function sendEmail($data)

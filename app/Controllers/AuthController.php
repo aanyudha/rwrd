@@ -416,15 +416,29 @@ class AuthController extends BaseController
             return redirect()->to(langBaseUrl());
         }
         $email = cleanStr(inputPost('email'));
-        $user = $this->authModel->getUserByEmail($email);
-        if (empty($user)) {
-            $this->session->setFlashdata('error', trans("reset_password_error"));
-        } else {
-            $emailModel = new EmailModel();
-            $emailModel->sendEmailResetPassword($user->id);
-            $this->session->setFlashdata('success', trans("reset_password_success"));
-        }
-        return redirect()->to(generateURL('forgot_password'));
+		$cekTabelNya = $this->authModel->chkTabelUsed($email);
+
+		if($cekTabelNya == 'user'){
+			$member = $this->authModel->getMemberByEmail($email);
+			if (empty($member)) {
+				$this->session->setFlashdata('error', trans("reset_password_error"));
+			} else {
+				$emailModel = new EmailModel();
+				$emailModel->sendEmailResetPasswordMember($member->id_member);
+				$this->session->setFlashdata('success', trans("reset_password_success"));
+			}
+			return redirect()->to(generateURL('forgot_password'));
+		}else{
+			$user = $this->authModel->getUserByEmail($email);
+			if (empty($user)) {
+				$this->session->setFlashdata('error', trans("reset_password_error"));
+			} else {
+				$emailModel = new EmailModel();
+				$emailModel->sendEmailResetPassword($user->id);
+				$this->session->setFlashdata('success', trans("reset_password_success"));
+			}
+			return redirect()->to(generateURL('forgot_password'));
+		}
     }
 
     /**
@@ -439,12 +453,23 @@ class AuthController extends BaseController
         $data['description'] = trans("reset_password") . ' - ' . $this->settings->application_name;
         $data['keywords'] = trans("reset_password") . ',' . $this->settings->application_name;
         $token = cleanStr(inputGet('token'));
-        $data['user'] = $this->authModel->getUserByToken($token);
-        $data['passResetCompleted'] = $this->session->getFlashdata('pass_reset_completed');
-        if (empty($data['user']) && empty($data['passResetCompleted'])) {
-            return redirect()->to(langBaseUrl());
-        }
-
+        
+        $data['user'] = $this->authModel->getMemberByToken($token);
+		if($data['user'] == null){
+			 return redirect()->to(langBaseUrl());
+		}else if($data['user']->role == 'user' && $data['user'] != null){
+			$data['user'] = $this->authModel->getMemberByToken($token);
+			$data['passResetCompleted'] = $this->session->getFlashdata('pass_reset_completed');
+			if (empty($data['user']) && empty($data['passResetCompleted'])) {
+				return redirect()->to(langBaseUrl());
+			}
+		}else{
+			$data['user'] = $this->authModel->getUserByToken($token);
+			$data['passResetCompleted'] = $this->session->getFlashdata('pass_reset_completed');
+			if (empty($data['user']) && empty($data['passResetCompleted'])) {
+				return redirect()->to(langBaseUrl());
+			}
+		}
         echo loadView('partials/_header', $data);
         echo loadView('auth/reset_password');
         echo loadView('partials/_footer');
@@ -467,12 +492,23 @@ class AuthController extends BaseController
             return redirect()->back()->withInput();
         } else {
             $token = cleanStr(inputPost('token'));
-            if ($this->authModel->resetPassword($token)) {
+			$roleUsere = $this->authModel->getMemberByToken($token);
+			if($roleUsere->role == 'user'){
+				if ($this->authModel->resetPasswordMember($token)) {
                 $this->session->setFlashdata('pass_reset_completed', 1);
                 $this->session->setFlashdata('success', trans("message_change_password_success"));
             } else {
                 $this->session->setFlashdata('error', trans("message_change_password_error"));
             }
+			}else{
+				if ($this->authModel->resetPassword($token)) {
+                $this->session->setFlashdata('pass_reset_completed', 1);
+                $this->session->setFlashdata('success', trans("message_change_password_success"));
+            } else {
+                $this->session->setFlashdata('error', trans("message_change_password_error"));
+            }
+			}
+            
         }
         return redirect()->to(generateURL('reset_password'));
     }
