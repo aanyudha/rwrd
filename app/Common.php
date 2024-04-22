@@ -1107,6 +1107,16 @@ if (!function_exists('formatDate')) {
     }
 }
 
+//date formatDateOnly 
+if (!function_exists('formatDateOnly')) {
+    function formatDateOnly($date)
+    {
+        if (!empty($date)) {
+            return date("Y-m-d", strtotime($date));
+        }
+    }
+}
+
 //print formatted hour
 if (!function_exists('formatHour')) {
     function formatHour($timestamp)

@@ -32,7 +32,7 @@ class AuthModel extends BaseModel
             'id_member' => inputPost('id_member'),
             'fullname' => inputPost('fullname'),
             'name_on_card' => inputPost('namecard'),
-            'tanggal_lahir' => inputPost('dob'),
+            'tanggal_lahir' => formatDateOnly(inputPost('dob')),
             'id_negara' => inputPost('nationality'),
             'alamat' => inputPost('mailingaddr'),
             'kota' => inputPost('city'),

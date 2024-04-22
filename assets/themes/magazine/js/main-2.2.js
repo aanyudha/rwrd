@@ -688,10 +688,3 @@ $(document).ajaxStop(function () {
         $("#poll_" + c + " .question").show()
     }
 });
-
-//datetimepicker
-$(function () {
-    $('#datetimepicker').datetimepicker({
-        format: 'YYYY-MM-DD'
-    });
-});

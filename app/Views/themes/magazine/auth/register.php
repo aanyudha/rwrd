@@ -47,12 +47,7 @@
                                 <input type="text" name="namecard" class="form-control form-input input-account" placeholder="<?= trans("namecarddesc"); ?>" value="<?= old("namecard"); ?>" required autocomplete="off">
                             </div>
 							<div class="mb-2">
-								<div class='input-group date' id='datetimepicker'>
-								<input type='date' class="form-control form-input input-account" name="dob" placeholder="<?= trans("dob"); ?>" value="<?= old("dob"); ?>" required autocomplete="off">
-								<span class="input-group-addon">
-								<span class="glyphicon glyphicon-calendar"></span>
-								</span>
-								</div>
+								<input type='date' id="dob" class="form-control form-input input-account" name="dob" placeholder="<?= trans("dob"); ?>" value="<?= old("dob"); ?>" required autocomplete="off">
 							</div>
 							<div class="mb-2">
 								<select id="nationalities" class="form-control form-input input-account" name="nationality" required autocomplete="off"> <!--onchange="hideParentCategoryInputs(this.value);">-->
