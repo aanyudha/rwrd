@@ -923,6 +923,23 @@ class AdminController extends BaseAdminController
         echo view('admin/users/users');
         echo view('admin/includes/_footer');
     }
+	
+	/**
+     * Members
+     */
+    public function members()
+    {
+        checkPermission('members');
+        $data['title'] = trans("members");
+        $data['panelSettings'] = panelSettings();
+        $numRows = $this->authModel->getMembersCount();
+        $pager = paginate($this->perPage, $numRows);
+        $data['members'] = $this->authModel->getMembersPaginated($this->perPage, $pager->offset);
+
+        echo view('admin/includes/_header', $data);
+        echo view('admin/members/members');
+        echo view('admin/includes/_footer');
+    }
 
     /**
      * Administrators
@@ -1938,5 +1955,64 @@ class AdminController extends BaseAdminController
         echo view('admin/includes/_header', $data);
         echo view('admin/users/roles_permissions');
         echo view('admin/includes/_footer');
+    }
+	
+	/**
+     * Member Options Post
+     */
+    public function memberOptionsPost()
+    {
+        checkPermission('members');
+        $id = inputPost('id');
+        $submit = inputPost('submit');
+        $backURL = inputPost('back_url');
+        $member = getMemberById($id);
+        if (!empty($member)) {
+            if ($submit == 'reward_system') {
+                $rewardModel = new RewardModel();
+                if ($rewardModel->enableDisableRewardSystemMember($member)) {
+                    $this->session->setFlashdata('success', trans("msg_updated"));
+                } else {
+                    $this->session->setFlashdata('error', trans("msg_error"));
+                }
+            } elseif ($submit == 'confirm_email') {
+                if ($this->authModel->verifyEmailMember($member)) {
+                    $this->session->setFlashdata('success', trans("msg_updated"));
+                } else {
+                    $this->session->setFlashdata('error', trans("msg_error"));
+                }
+            } elseif ($submit == 'ban_member') {
+                if ($this->authModel->banMember($member)) {
+                    $this->session->setFlashdata('success', trans("msg_updated"));
+                } else {
+                    $this->session->setFlashdata('error', trans("msg_error"));
+                }
+            }
+        }
+        if (!empty($backURL)) {
+            return redirect()->to(adminUrl($backURL));
+        }
+        return redirect()->to(adminUrl('members'));
+    }
+
+    /**
+     * Delete Member Post
+     */
+    public function deleteMemberPost()
+    {
+        if (!checkMemberPermission('members')) {
+            exit();
+        }
+        $id = inputPost('id');
+        $member = getMemberById($id);
+        if (!empty($member) && $member->id == 1) {
+            $this->session->setFlashdata('error', trans("msg_error"));
+            exit();
+        }
+        if ($this->authModel->deleteMember($id)) {
+            $this->session->setFlashdata('success', trans("msg_deleted"));
+        } else {
+            $this->session->setFlashdata('error', trans("msg_error"));
+        }
     }
 }

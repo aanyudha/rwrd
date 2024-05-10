@@ -158,6 +158,7 @@ $routes->get($customRoutes->admin . '/reward-system/rpt-point-mmbr', 'RewardCont
 $routes->get($customRoutes->admin . '/ad-spaces', 'AdminController::adSpaces');
 //users
 $routes->get($customRoutes->admin . '/users', 'AdminController::users');
+$routes->get($customRoutes->admin . '/members', 'AdminController::members');
 $routes->get($customRoutes->admin . '/edit-user/(:num)', 'AdminController::editUser/$1');
 $routes->get($customRoutes->admin . '/administrators', 'AdminController::administrators');
 $routes->get($customRoutes->admin . '/add-user', 'AdminController::addUser');
@@ -224,6 +225,8 @@ if (!empty($languages)) {
         $routes->get($key . $customRoutes->earnings, 'EarningsController::earnings');
         $routes->get($key . $customRoutes->payouts, 'EarningsController::payouts');
         $routes->get($key . $customRoutes->pointhist, 'EarningsController::pointHist');
+        $routes->get($key . $customRoutes->redemptsta, 'EarningsController::redemptSta');
+        $routes->get($key . $customRoutes->gfy, 'EarningsController::gfY');
         $routes->get($key . $customRoutes->set_payout_account, 'EarningsController::setPayoutAccount');
         $routes->get($key . $customRoutes->rss_feeds, 'HomeController::rssFeeds');
         $routes->get($key . 'rss/latest-posts', 'HomeController::rssLatestPosts');

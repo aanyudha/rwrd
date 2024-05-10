@@ -365,6 +365,20 @@ if (!function_exists('getUserAvatar')) {
     }
 }
 
+//get member avatar
+if (!function_exists('getMemberAvatar')) {
+    function getMemberAvatar($avatarPath)
+    {
+        if (!empty($avatarPath)) {
+            if (file_exists(FCPATH . $avatarPath)) {
+                return base_url($avatarPath);
+            }
+            return $avatarPath;
+        }
+        return base_url("assets/img/user.png");
+    }
+}
+
 //translation
 if (!function_exists('trans')) {
     function trans($string)

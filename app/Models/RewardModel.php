@@ -16,6 +16,8 @@ class RewardModel extends BaseModel
     protected $builderMemberType;
     protected $builderRptPointMmbr;
     protected $builderPointHist;
+    protected $builderTrnPointOut;
+    protected $builderTrnReward;
 
     public function __construct()
     {
@@ -31,7 +33,9 @@ class RewardModel extends BaseModel
         $this->builderTrnOut = $this->db->table('trn_point_out');
         $this->builderMemberType = $this->db->table('v_member_type');
         $this->builderRptPointMmbr = $this->db->table('v_member_point');
-        $this->builderPointHist = $this->db->table('lpe');
+        $this->builderPointHist = $this->db->table('ref_reward');
+        $this->builderTrnPointOut = $this->db->table('trn_point_out');
+        $this->builderTrnReward = $this->db->table('trn_reward');
     }
 	
 	//input values hotel
@@ -567,4 +571,41 @@ class RewardModel extends BaseModel
     {
         return $this->builderPayouts->where('user_id', cleanNumber($userId))->orderBy('created_at DESC')->limit($perPage, $offset)->get()->getResult();
     }
+	
+	//enable disable reward system
+    public function enableDisableRewardSystemMember($member)
+    {
+        if (!empty($member)) {
+            if ($member->reward_system_enabled == 1) {
+                $data['reward_system_enabled'] = 0;
+            } else {
+                $data['reward_system_enabled'] = 1;
+            }
+            return $this->db->table('mst_member')->where('id_member', $member->id_member)->update($data);
+        }
+        return false;
+    }
+	//get Member point hist 
+    public function getPointHistoryByMemberId($memberId)
+    {
+        return $this->builderTrnHotel->where('id_member', cleanNumber($memberId))->get()->getResult();
+    }
+
+    //get paginated Member point hist
+    public function getPointHistPromo()
+    {
+        return $this->builderPointHist->join('trn_point_konversi', 'trn_point_konversi.id_reward=ref_reward.id_reward')->select('trn_point_konversi.*,ref_reward.nama,ref_reward.foto,ref_reward.deskripsi')->get()->getResult();
+	}
+	//get paginated Member point hist
+    public function getHistRedemp()
+    {
+        $sql = "select rr.nama,tpo.* from trn_point_out tpo,trn_reward tr,ref_reward rr where tpo.id_reward=tr.id_reward and tr.id_reward=rr.id_reward and tpo.id_member= '" . user()->id_member . "'";
+        $result = $this->db->query($sql)->getResult();
+		return $result;
+	}
+	//get paginated Member point hist
+    public function getHistRedempPromo()
+    {
+        return $this->builderPointHist->join('trn_point_konversi', 'trn_point_konversi.id_reward=ref_reward.id_reward')->select('trn_point_konversi.*,ref_reward.nama,ref_reward.foto')->get()->getResult();
+	}
 }

@@ -688,3 +688,8 @@ $(document).ajaxStop(function () {
         $("#poll_" + c + " .question").show()
     }
 });
+
+//cart
+$(document).ready(function() {
+  $('#smartcart').smartCart();
+});

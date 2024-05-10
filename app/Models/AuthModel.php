@@ -804,5 +804,76 @@ class AuthModel extends BaseModel
 			} else {
 				return 0;
 			}
-	}		
+	}
+
+	//get paginated Members count
+    public function getMembersCount()
+    {
+        $this->filterMembers();
+        return $this->builderMstMember->where('role !=', 'admin')->where('role !=', 'moderator')->where('role !=', 'author')->countAllResults();
+    }
+
+    //get paginated Members
+    public function getMembersPaginated($perPage, $offset)
+    {
+        $this->filterMembers();
+        return $this->builderMstMember->where('role !=', 'admin')->where('role !=', 'moderator')->where('role !=', 'author')->orderBy('created_at DESC')->limit($perPage, $offset)->get()->getResult();
+    }
+	
+	//ban member
+    public function banMember($member)
+    {
+        if (!empty($member)) {
+            if ($member->status == 'Aktif') {
+                $data = ['status' => 'Non Aktif'];
+            } else {
+                $data = ['status' => 'Aktif'];
+            }
+            return $this->builderMstMember->where('id_member', $member->id_member)->update($data);
+        }
+        return false;
+    }
+
+    //Members filter
+    public function filterMembers()
+    {
+        $q = inputGet('q');
+        if (!empty($q)) {
+            $this->builderMstMember->groupStart()->like('fullname', cleanStr($q))->orLike('email', cleanStr($q))->groupEnd();
+        }
+        $status = inputGet('status');
+        if ($status != null && ($status == 'Aktif' || $status == 'Non Aktif')) {
+            $this->builderMstMember->where('status', cleanStr($status));
+        }
+        $emailStatus = inputGet('email_status');
+        if ($emailStatus != null && ($emailStatus == 1 || $emailStatus == 0)) {
+            $this->builderMstMember->where('email_status', cleanNumber($emailStatus));
+        }
+        $rewardSystem = inputGet('reward_system');
+        if ($rewardSystem != null && ($rewardSystem == 1 || $rewardSystem == 0)) {
+            $this->builderMstMember->where('reward_system_enabled', cleanNumber($rewardSystem));
+        }
+    }
+
+    //delete Member
+    public function deleteMember($id)
+    {
+        $Member = $this->getMember($id);
+        if (!empty($Member)) {
+            if (file_exists(FCPATH . $Member->avatar)) {
+                @unlink(FCPATH . $Member->avatar);
+            }
+            $this->db->table('comments')->where('id_member', $Member->id_member)->delete();
+            $this->db->table('reading_lists')->where('id_member', $Member->id_member)->delete();
+            $posts = $this->db->table('posts')->where('id_member', $Member->id_member)->get()->getResult();
+            if (!empty($posts)) {
+                foreach ($posts as $post) {
+                    $postAdminModel = new PostAdminModel();
+                    $postAdminModel->deletePost($post->id);
+                }
+            }
+            return $this->builderMstMember->where('id_member', $Member->id_member)->delete();
+        }
+        return false;
+    }
 }

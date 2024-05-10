@@ -139,12 +139,48 @@ class EarningsController extends BaseController
         $data['activeTab'] = 'point_hist';
         $data['userSession'] = getUserSession();
         //$data['userPostsCount'] = $this->postModel->getUserPostsCount(user()->id);
-        $data['numRows'] = $this->rewardModel->geUserPointHistCount(user()->id_member);
-        $pager = paginate($this->perPage, $data['numRows']);
-        $data['point_hist'] = $this->rewardModel->getUserPointHistPaginated(user()->id_member, $this->perPage, $pager->offset);
+        $data['history'] = $this->rewardModel->getPointHistoryByMemberId(user()->id_member);
+        $data['promo'] = $this->rewardModel->getPointHistPromo();
 
         echo loadView('partials/_header', $data);
         echo loadView('earnings/pointhist', $data);
+        echo loadView('partials/_footer');
+    }
+	
+	/**
+     * Redemption Page
+     */
+    public function redemptSta()
+    {
+        $data['title'] = trans("red_stat");
+        $data['description'] = trans("red_stat") . " - " . $this->settings->site_title;
+        $data['keywords'] = trans("red_stat") . ', ' . $this->settings->application_name;
+        $data['activeTab'] = 'red_stat';
+        $data['userSession'] = getUserSession();
+        //$data['userPostsCount'] = $this->postModel->getUserPostsCount(user()->id);
+        $data['history'] = $this->rewardModel->getHistRedemp();
+        $data['promo'] = $this->rewardModel->getHistRedempPromo();
+
+        echo loadView('partials/_header', $data);
+		echo loadView('earnings/redempsta', $data);
+        echo loadView('partials/_footer');
+    }
+	/**
+     * Gift for you Page
+     */
+    public function gfY()
+    {
+        $data['title'] = trans("gift_4_you");
+        $data['description'] = trans("gift_4_you") . " - " . $this->settings->site_title;
+        $data['keywords'] = trans("gift_4_you") . ', ' . $this->settings->application_name;
+        $data['activeTab'] = 'gift_4_you';
+        $data['userSession'] = getUserSession();
+        //$data['userPostsCount'] = $this->postModel->getUserPostsCount(user()->id);
+        $data['history'] = $this->rewardModel->getHistRedemp();
+        $data['promo'] = $this->rewardModel->getHistRedempPromo();
+
+        echo loadView('partials/_header', $data);
+		echo loadView('earnings/gfy', $data);
         echo loadView('partials/_footer');
     }
 }

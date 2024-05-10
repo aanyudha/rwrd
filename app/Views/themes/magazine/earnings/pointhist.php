@@ -21,33 +21,79 @@
                             <table class="table table-striped">
                                 <thead>
                                 <tr role="row">
+                                    <th>#</th>
                                     <th><?= trans('room_phist'); ?></th>
                                     <th><?= trans('arvdate_phist'); ?></th>
                                     <th><?= trans('depdate_phist'); ?></th>
-                                    <th><?= trans('point_phist'); ?></th>
+                                    <th style="text-align: right"><?= trans('point_phist'); ?></th>
                                     <th><?= trans('stat_phist'); ?></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php if (!empty($point_hist)):
-                                    foreach ($point_hist as $item): ?>
+                                <?php 
+								$total_all=0;
+								$total_in=0;
+								$total_exp=0;
+								$i=0;
+                                    foreach ($history as $item): 
+									
+											$i++;									
+											if($item->status=="Draft") {
+												$status="<span class='label label-warning'>".$item->status."</span>";
+											}
+											if($item->status=="Converted") {
+												$status="<span class='label label-success'>".$item->status."</span>";
+											}
+											if($item->status=="Expired") {
+												$status="<span class='label label-danger'>".$item->status."</span>";
+											}
+											if($item->status=="Void") {
+												$status="<span class='label label-default'>".$item->status."</span>";
+											}
+											$total_all+=$item->total_revenue_converted;
+											if($item->status!='Expired')
+											{
+												$total_in+=$item->total_revenue_converted;
+											}
+											else
+											{
+												$total_exp+=$item->total_revenue_converted;
+											}		
+											$arrival_date=$item->arrival_date==null?"":date("d-M-Y", strtotime($item->arrival_date));
+											$departure_date=$item->arrival_date==null?"":date("d-M-Y", strtotime($item->departure_date)); 
+									?>
                                         <tr>
-                                            <td><?= priceFormatted($item->amount); ?></td>
-                                            <td><?= formatDateFront($item->payout_method); ?></td>
-                                            <td><?= formatDateFront($item->created_at); ?></td>
-                                            <td><?= trans($item->created_at); ?></td>
-                                            <td><?= trans($item->created_at); ?></td>
+                                            <td><?= $i ?></td>
+                                            <td><?= priceFormatted($item->room_no); ?></td>
+                                            <td><?= formatDateFront($item->arrival_date); ?></td>
+                                            <td><?= formatDateFront($item->departure_date); ?></td>
+                                            <td align='right'><?= trans($item->created_at); ?></td>
+                                            <td><?= $status ?></td>
                                         </tr>
-                                    <?php endforeach;
-                                endif; ?>
+                                    <?php endforeach;?>
+									<tr>
+										<td colspan='2'>Total Point In</td>
+										<td colspan='3' align='right'><h4><b class='text text-default'><?=  number_format($total_all);  ?></b></h4></td>
+										<td></td>
+									</tr>;
+									<tr>
+										<td colspan='2'>Total Expired</td>
+										<td colspan='3' align='right'><h4><b class='text text-danger'><?= number_format($total_exp); ?></b></h4></td>
+										<td></td>
+									</tr>;
+									<tr>
+										<th colspan='2'>Total Point In Nett</th>
+										<td colspan='3' align='right'><h4><b class='text text-success'><?= number_format($total_in); ?></b></h4></td>
+										<td></td>
+									</tr>;		
                                 </tbody>
                             </table>
-                            <?php if (empty($point_hist)): ?>
-                                <p class="text-center text-muted"><?= trans("no_records_found"); ?></p>
-                            <?php endif; ?>
-                        </div>
+                          <!--  ?php if (empty($point_hist)): ?>
+                                <p class="text-center text-muted">?= trans("no_records_found"); ?></p>
+                            <\?php endif; ?>
+                        </div>-->
                         <div class="col-sm-12 col-xs-12">
-                            <?= view('common/_pagination'); ?>
+                           <!-- ?= view('common/_pagination'); ?> -->
                         </div>
                     </div>
                 </div>
