@@ -12,99 +12,87 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-3">
                         <?= loadView('earnings/_tabs'); ?>
+						<!--<li class="list-group-item <?= $activeTab == 'payouts' ? 'active' : ''; ?>">
+							<a class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Cart</a>
+						</li>-->
+						<li class="list-group-item">
+							<a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCart">Cart</a>
+						</li>
                     </div>
                     <div class="col-sm-12 col-md-9">
 						<div class="left">
 							<h3 class="box-title"><?= trans('gift_4_you'); ?></h3>
+							<?php if($last_point > 0) : ?>
+							<h4>Your current points: <span class="badge badge-success"><h4><?php echo number_format($last_point,0,".",",")?></h4></span> pts</h4>
+							<?php else : ?>
+								<h4>You don't have any reward points yet.</h4>
+							<?php endif; ?>
 						</div>
 						<div class="right">
 							  <div class="row">
 								<div class="col-9">
 									<div class="container">
 									  <div class="row g-4">
+									  <?php 
+										foreach($promo as $row)
+										{
+										?>
 										<div class="col-sm-6">
-											 <div class="card sc-product-item thumbnail" style="width: 18rem;">
-											  <img data-name="product_image" src="http://placehold.it/250x150/2aabd2/ffffff?text=Product+6" class="card-img-top" alt="...">
+											 <div id="reward-<?php echo $row->id_reward; ?>" class="card sc-product-item thumbnail text-center " style="width: 18rem;">
+											  <a class="card-title center" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions2" aria-controls="offcanvasWithBothOptions2"><img data-name="product_image" src="<?= getPostImage3($row->foto); ?>" class="card-img-top" alt="..."></a>
 											  <div class="card-body">
-												<h5 class="card-title" data-name="product_name">Card title</h5>
-												<p class="card-text" data-name="product_desc">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-												
+												<a id="reward-<?php echo $row->id_reward; ?>" class="card-title center" type="button" data-name="product_name" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions2" aria-controls="offcanvasWithBothOptions2"><?php echo $row->nama; ?></a>
+												<form  action="" enctype="multipart/form-data">
+												<a href="javascript:void(0)" class="btn btn-primary btn-lg" onclick="detailGift();"><?= trans('check'); ?></a>
+												<!-- <p class="card-text" data-name="product_desc">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+												</form>
 											  </div>
 											  <ul class="list-group list-group-flush">
-												<li class="list-group-item price pull-left">$3,410.00</li>
-												<li class="list-group-item">A second item</li>
+												<?php 
+													if($row->promo==null)
+													{
+													?>
+														<li class="list-group-item price pull-left"><?php echo number_format($row->index_point,0,".",","); ?> points</li>
+														<li class="list-group-item">Valid thru: <?php echo $row->tanggal_selesai; ?></li>
+													<?php 
+													}
+													else
+													{
+													?>
+														<li class="list-group-item price pull-left"><del><?php echo number_format($row->index_point,0,".",","); ?></del> points</li>
+														<li class="list-group-item price pull-left"><?php echo number_format($row->promo,0,".",","); ?> points</li>
+														<li class="list-group-item">Valid thru: <?php echo $row->tanggal_tutup; ?></li>
+													<?php 
+													}
+												?>
 											  </ul>
 											  <div class="card-body">
-											   <input name="product_price" value="5435.50" type="hidden" />
-                                               <input name="product_id" value="145" type="hidden" />
+											   <?php 
+												if($row->promo==null)
+												{
+												?>
+													<input type="hidden" value="<?php echo $row->index_point; ?>" name="product_price">
+												<?php 
+												}
+												else
+												{
+												?>
+													<input type="hidden" value="<?php echo $row->promo; ?>" name="product_price">
+												<?php 
+												}
+												?>
 												<button class="card-link sc-add-to-cart btn btn-success btn-sm pull-right">Add to cart</button>
 											  </div>
 											</div>
 										</div>
-										<div class="col-sm-6">
-											 <div class="card sc-product-item thumbnail" style="width: 18rem;">
-											  <img data-name="product_image" src="http://placehold.it/250x150/2aabd2/ffffff?text=Product+6" class="card-img-top" alt="...">
-											  <div class="card-body">
-												<h5 class="card-title" data-name="product_name">Card title</h5>
-												<p class="card-text" data-name="product_desc">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-											  </div>
-											  <ul class="list-group list-group-flush">
-												<li class="list-group-item">An item</li>
-												<li class="list-group-item">A second item</li>
-											  </ul>
-											  <div class="card-body">
-											  <input name="product_price" value="3410.00" type="hidden" />
-                                            <input name="product_id" value="155" type="hidden" />
-												<button class="card-link sc-add-to-cart btn btn-success btn-sm pull-right">Add to cart</button>
-											  </div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											 <div class="card sc-product-item thumbnail" style="width: 18rem;">
-											  <img src="http://placehold.it/250x150/2aabd2/ffffff?text=Product+6" class="card-img-top" alt="...">
-											  <div class="card-body">
-												<h5 class="card-title">Card title</h5>
-												<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-											  </div>
-											  <ul class="list-group list-group-flush">
-												<li class="list-group-item">An item</li>
-												<li class="list-group-item">A second item</li>
-											  </ul>
-											  <div class="card-body">
-											  <input name="product_price" value="435.50" type="hidden" />
-                                            <input name="product_id" value="154" type="hidden" />
-												<button class="card-link sc-add-to-cart btn btn-success btn-sm pull-right">Add to cart</button>
-											  </div>
-											</div>
-										</div>
-										<div class="col-sm-6">
-											 <div class="card sc-product-item thumbnail" style="width: 18rem;">
-											  <img src="http://placehold.it/250x150/2aabd2/ffffff?text=Product+6" class="card-img-top" alt="...">
-											  <div class="card-body">
-												<h5 class="card-title">Card title</h5>
-												<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-											  </div>
-											  <ul class="list-group list-group-flush">
-												<li class="list-group-item">An item</li>
-												<li class="list-group-item">A second item</li>
-											  </ul>
-											  <div class="card-body">
-											  <input name="product_price" value="5435.50" type="hidden" />
-                                            <input name="product_id" value="145" type="hidden" />
-												<button class="card-link sc-add-to-cart btn btn-success btn-sm pull-right">Add to cart</button>
-											  </div>
-											</div>
-										</div>
+									  <?php } ?>
 									  </div>
 									</div>
 								</div>
 								<div class="col-3">
-									<!-- Cart submit form -->
-									<form action="results.php" method="POST"> 
-										<!-- SmartCart element -->
-										<div id="smartcart"></div>
-									</form>
+									
 								</div>
+								
 							  </div>
 								
 						</div><!-- right -->
@@ -114,3 +102,5 @@
         </div>
     </div>
 </section>
+<?= loadView('earnings/_canvas'); ?>
+

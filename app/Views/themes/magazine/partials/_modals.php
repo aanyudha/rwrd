@@ -177,6 +177,25 @@ if (authCheck()): ?>
             </div>
         </div>
     </div>
+	<div class="modal fade" id="modalCart" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Gift Cart</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="offcanvas-body">
+						<!-- Cart submit form -->
+							<form action="results.php" method="POST"> 
+								<!-- SmartCart element -->
+								<div id="smartcart"></div>
+							</form>
+					 </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <?php endif; ?>
 
 <div id="modalNewsletter" class="modal fade modal-newsletter" role="dialog">

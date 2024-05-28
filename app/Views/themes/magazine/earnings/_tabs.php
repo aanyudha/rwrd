@@ -9,10 +9,10 @@
 		<li class="list-group-item <?= $activeTab == 'point_hist' ? 'active' : ''; ?>">
             <a href="<?= generateURL('pointhist'); ?>"><span><?= trans("point_hist"); ?></span></a>
         </li>
-		<li class="list-group-item <?= $activeTab == 'payouts' ? 'active' : ''; ?>">
+		<li class="list-group-item <?= $activeTab == 'red_stat' ? 'active' : ''; ?>">
             <a href="<?= generateURL('redemptsta'); ?>"><span><?= trans("redeem_stat"); ?></span></a>
         </li>
-		<li class="list-group-item <?= $activeTab == 'payouts' ? 'active' : ''; ?>">
+		<li class="list-group-item <?= $activeTab == 'gift_4_you' ? 'active' : ''; ?>">
             <a href="<?= generateURL('gfy'); ?>"><span><?= trans("gift_4_you"); ?></span></a>
         </li>
         <!--<li class="list-group-item ?= $activeTab == 'setPayoutAccount' ? 'active' : ''; ?>">

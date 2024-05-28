@@ -43,11 +43,6 @@
                                     <td><?= esc($item->min_stays); ?></td>
                                     <td><?= esc($item->max_stays); ?></td>
                                     <td><?= esc($item->benefit); ?></td>
-                                    <td>
-                                        <p class="m-0">
-                                            <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#accountDetailsModel_<?= $item->id_tipe_member; ?>"><?= trans("payout_method"); ?></button>
-                                        </p>
-                                    </td>
                                     <td class="td-select-option">
                                         <div class="dropdown">
                                             <button class="btn bg-purple dropdown-toggle btn-select-option" type="button" data-toggle="dropdown"><?= trans('select_an_option'); ?>

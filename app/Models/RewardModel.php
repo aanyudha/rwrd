@@ -608,4 +608,16 @@ class RewardModel extends BaseModel
     {
         return $this->builderPointHist->join('trn_point_konversi', 'trn_point_konversi.id_reward=ref_reward.id_reward')->select('trn_point_konversi.*,ref_reward.nama,ref_reward.foto')->get()->getResult();
 	}
+	//get paginated Member point hist
+    public function getGift4You()
+    {
+        $sql = "select t.*,r.tipe,r.nama,r.foto,(select point from trn_point_konversi where trn_point_konversi.id_reward=t.id_reward and now() between tanggal_buka and tanggal_tutup) as promo,(select tanggal_tutup from trn_point_konversi where trn_point_konversi.id_reward=t.id_reward and now() between tanggal_buka and tanggal_tutup) as tanggal_tutup from trn_reward t, ref_reward r where t.id_reward=r.id_reward and now() between tanggal_mulai_berlaku and tanggal_selesai";
+        $result = $this->db->query($sql)->getResult();
+		return $result;
+	}
+	public function last_point()
+	{
+		$query = $this->db->query("select ifnull(sum(point),0)-ifnull((select sum(point*qty) from trn_point_out where id_member='".user()->id_member."' and status<>'Canceled' and id_reward<>0),0)-ifnull((select sum(point*qty) from trn_point_out where id_member='".user()->id_member."' and id_reward=0),0) as hasil from trn_point_in where id_member='" . user()->id_member . "'")->getResult();		
+		return $query[0]->hasil;
+	}
 }

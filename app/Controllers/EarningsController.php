@@ -175,12 +175,23 @@ class EarningsController extends BaseController
         $data['keywords'] = trans("gift_4_you") . ', ' . $this->settings->application_name;
         $data['activeTab'] = 'gift_4_you';
         $data['userSession'] = getUserSession();
-        //$data['userPostsCount'] = $this->postModel->getUserPostsCount(user()->id);
-        $data['history'] = $this->rewardModel->getHistRedemp();
-        $data['promo'] = $this->rewardModel->getHistRedempPromo();
+        $data['promo'] = $this->rewardModel->getGift4You();
+        $data['last_point'] = $this->rewardModel->last_point();
 
         echo loadView('partials/_header', $data);
 		echo loadView('earnings/gfy', $data);
         echo loadView('partials/_footer');
     }
+	
+	public function getDtlGift()
+    {
+		$idParkir = inputPost('id_reward');
+        
+			if (!empty($getRefReward)) {
+				$data = [
+					'ref_reward' => $this->rewardModel->getRefReward($getRefReward)
+				];
+				echo json_encode($data);
+			}
+	}
 }

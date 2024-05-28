@@ -32,12 +32,12 @@
             productId: 'product_id'
         },
         lang: { // Language variables
-            cartTitle: "Shopping Cart",
+            cartTitle: "Gift Cart",
             checkout: 'Checkout',
             clear: 'Clear',
-            subtotal: 'Subtotal:',
+            subtotal: 'Points Total:',
             cartRemove: '×',
-            cartEmpty: 'Cart is Empty!<br />Choose your products'
+            cartEmpty: 'Cart is Empty!<br />Choose your Gift'
         },
         submitSettings: {
             submitType: 'form', // form, paypal, ajax
@@ -46,6 +46,14 @@
         },
         currencySettings: {
             locales: 'en-US', // A string with a BCP 47 language tag, or an array of such strings
+            currencyOptions: {
+                style: 'currency',
+                currency: 'USD',
+                currencyDisplay: 'symbol'
+            } // extra settings for the currency formatter. Refer: https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString
+        },
+		currencySettings2: {
+            locales: 'id-ID', // A string with a BCP 47 language tag, or an array of such strings
             currencyOptions: {
                 style: 'currency',
                 currency: 'USD',
@@ -489,7 +497,8 @@
          */
         _getMoneyFormatted: function (n) {
             n = n - 0;
-            return Number(n.toFixed(2)).toLocaleString(this.options.currencySettings.locales, this.options.currencySettings.currencyOptions);
+			return Number(n.toFixed(2)).toLocaleString(window.document.documentElement.lang);
+            //return Number(n.toFixed(2)).toLocaleString(this.options.currencySettings.locales, this.options.currencySettings.currencyOptions);
         },
         /* 
          * Get the value of an element and empty value if the element not exists 

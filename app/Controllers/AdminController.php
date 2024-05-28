@@ -923,23 +923,6 @@ class AdminController extends BaseAdminController
         echo view('admin/users/users');
         echo view('admin/includes/_footer');
     }
-	
-	/**
-     * Members
-     */
-    public function members()
-    {
-        checkPermission('members');
-        $data['title'] = trans("members");
-        $data['panelSettings'] = panelSettings();
-        $numRows = $this->authModel->getMembersCount();
-        $pager = paginate($this->perPage, $numRows);
-        $data['members'] = $this->authModel->getMembersPaginated($this->perPage, $pager->offset);
-
-        echo view('admin/includes/_header', $data);
-        echo view('admin/members/members');
-        echo view('admin/includes/_footer');
-    }
 
     /**
      * Administrators
@@ -1756,7 +1739,79 @@ class AdminController extends BaseAdminController
     }
 	
 	//REWARDS TENTREM
-	
+	/**
+     * Members
+     */
+    public function members()
+    {
+        checkPermission('members');
+        $data['title'] = trans("members");
+        $data['panelSettings'] = panelSettings();
+        $numRows = $this->authModel->getMembersCount();
+        $pager = paginate($this->perPage, $numRows);
+        $data['members'] = $this->authModel->getMembersPaginated($this->perPage, $pager->offset);
+
+        echo view('admin/includes/_header', $data);
+        echo view('admin/members/members');
+        echo view('admin/includes/_footer');
+    }
+	/**
+     * Edit Member
+     */
+    public function editMember($id)
+    {
+        checkPermission('members');
+        $data['title'] = trans("update_profile");
+        $data['user'] = getUserById($id);
+        if (empty($data['user'])) {
+            return redirect()->to(adminUrl('users'));
+        }
+        if ($data['user']->role == 'admin' && user()->role != 'admin') {
+            return redirect()->to(adminUrl('users'));
+        }
+
+        echo view('admin/includes/_header', $data);
+        echo view('admin/members/edit_members');
+        echo view('admin/includes/_footer');
+    }
+
+    /**
+     * Edit User Post
+     */
+    public function editMemberPost()
+    {
+        checkPermission('members');
+        $val = \Config\Services::validation();
+        $val->setRule('username', trans("username"), 'required|max_length[255]');
+        $val->setRule('email', trans("email"), 'required|max_length[255]');
+        if (!$this->validate(getValRules($val))) {
+            $this->session->setFlashdata('errors', $val->getErrors());
+            return redirect()->back();
+        } else {
+            $id = inputPost('id');
+            $email = inputPost('email');
+            $username = inputPost('username');
+            $slug = inputPost('slug');
+            if (!$this->authModel->isEmailUnique($email, $id)) {
+                $this->session->setFlashdata('error', trans("message_email_unique_error"));
+                return redirect()->back();
+            }
+            if (!$this->authModel->isUniqueUsername($username, $id)) {
+                $this->session->setFlashdata('error', trans("msg_username_unique_error"));
+                return redirect()->back();
+            }
+            if ($this->authModel->isSlugUnique($slug, $id)) {
+                $this->session->setFlashdata('error', trans("msg_slug_used"));
+                return redirect()->back();
+            }
+            if ($this->authModel->editUser($id)) {
+                $this->session->setFlashdata('success', trans("msg_updated"));
+            } else {
+                $this->session->setFlashdata('error', trans("msg_error"));
+            }
+        }
+        return redirect()->to(adminUrl('edit-user/' . cleanNumber($id)));
+    }
 	/**
      * ref_hotel
      */

@@ -693,3 +693,186 @@ $(document).ajaxStop(function () {
 $(document).ready(function() {
   $('#smartcart').smartCart();
 });
+
+function detailGift() {
+		var idGift = $("#inputNya").val(); 
+            var data = {
+                'id_Parkir': idGift,
+            };
+            //addCsrf(data);
+            $.ajax({
+                type: 'POST',
+                url: TrConfig.baseURL + '/EarningController/getDtlGift',
+                data: data,
+                success: function (response) {
+					var obj = JSON.parse(response);
+					console.log(obj.stats);
+					if(obj.stats == 1){
+						if(obj.image_default != null){
+						Swal.fire({
+						  title: 'Gift Detail',
+						  showCancelButton: true,
+						  confirmButtonText: ''+TrConfig.textOk+'',
+						  cancelButtonText: ''+TrConfig.textCancel+'',
+						  html:
+							'<div class="input-row mb-2">' +
+							'   <div class="col-sm-8">' +
+							'		<div class="input-group">'	+
+							'		<input type="text" id="swal2-input1" class="form-control form-control-lg" value="'+obj.deskripsi+'" disabled>' +
+							'		</div>' +
+							'  </div>' +
+							'</div>' +
+							'<div class="card text-center">' +
+							'<img src="' + TrConfig.baseURL+'/'+obj.image_default + '" height="320">' +
+							'</div>' +
+							'<hr>' +
+							'<input type="hidden" id="id_parkirnya" class="form-control form-control-lg" value="'+idGift+'">' +
+							'<div class="input-row mb-2">' +
+							'  <div class="col-sm-8">' +
+							'		<div class="input-group">' +
+							'			<input type="text" id="remark_outnya" class="form-control form-control-lg" placeholder="Remarks Out">' +
+							'		</div>' +
+							'</div>' +
+							'</div>',
+							showLoaderOnConfirm: true,
+							  preConfirm: () => {
+								  //var form_data = new FormData($('#formupld')[0]); 
+								  var id_parkirnya = $("#id_parkirnya").val();
+								  var remark_outnya = $("#remark_outnya").val();
+								  var file_data = $("#file").prop("files")[0]; // Getting the properties of file from file field
+									var form_data = new FormData();
+									 form_data.append("file", file_data)
+									 form_data.append("id_parkirnya",id_parkirnya)
+									 form_data.append("remark_outnya", remark_outnya)
+								return new Promise(function (resolve) {
+								  $.ajax({
+									type: 'POST',
+									url: TrConfig.baseURL + '/HomeController/parkOutPost',
+									dataType: "JSON",
+									data: form_data,
+									contentType: false,       // The content type used when sending data to the server.
+									cache: false,             // To unable request pages to be cached
+									processData:false,
+								})
+								  // 
+									.done(function (response) {
+									  console.log("disini sukses");
+									  //var obj2 = JSON.parse(response);
+									  //console.log(obj2.id_Parkir);
+										Swal.fire('Sukses Park Out');
+										$("#inputNya").val("");
+									})
+									.fail(function (erordata) {
+									  console.log(erordata);
+									  Swal.fire('cancelled!', 'The action have been cancelled by the user :-)', 'error');
+									})
+								})
+							  },
+						  allowOutsideClick: () => !swal.isLoading(),
+						  focusConfirm: false,
+						}).then((result) => {
+							if (result.isConfirmed) {
+								
+							}
+							 if (result.isDismissed) {
+								  $("#inputNya").val("");
+							  }
+							});
+						}else { //jika tidak ada gambar dari park in
+							Swal.fire({
+						  title: 'Kendaraan Keluar',
+						  showCancelButton: true,
+						  confirmButtonText: ''+TrConfig.textOk+'',
+						  cancelButtonText: ''+TrConfig.textCancel+'',
+						  html:
+							'<div class="input-row mb-2">' +
+							'   <div class="col-sm-8">' +
+							'		<div class="input-group">'	+
+							'		<input type="text" id="swal2-input1" class="form-control form-control-lg" value="'+obj.plat_number+'" disabled>' +
+							'		</div>' +
+							'  </div>' +
+							'</div>' +
+							'<!--<div class="input-row mb-2">' +
+							'  <div class="col-sm-8">' +
+							'		<div class="input-group">' +
+							'			<input type="text" id="swal2-input2" class="form-control form-control-lg" value="'+obj.remark+'" disabled>' +
+							'		</div>' +
+							'</div>' +
+							'</div>-->' +
+							'<div class="card text-center">' +
+							'<p>Foto Tidak Tersedia</p>' +
+							'</div>' +
+							'<hr>' +
+							'<input type="hidden" id="id_parkirnya" class="form-control form-control-lg" value="'+idGift+'">' +
+							'<div class="input-row mb-2">' +
+							'  <div class="col-sm-8">' +
+							'		<div class="input-group">' +
+							'			<input type="text" id="remark_outnya" class="form-control form-control-lg" placeholder="Remarks Out">' +
+							'		</div>' +
+							'</div>' +
+							'</div>' +
+							'<div class="input-row">' +
+							   '<div class="col-sm-5">' +
+									'<div class="input-group">' +
+										'<p>' +
+											'<a class="btn btn-md btn-success btn-file-upload btn-profile-file-upload">' +
+												'<input type="file" class="form-control form-control-lg" id="file" name="file" size="40" accept=".png, .jpg, .jpeg"  >' +
+											'</a>' +
+										'</p>' +
+									'</div>' +
+								'</div>' +
+							'</div>',
+							showLoaderOnConfirm: true,
+							  preConfirm: () => {
+								  //var form_data = new FormData($('#formupld')[0]); 
+								  var id_parkirnya = $("#id_parkirnya").val();
+								  var remark_outnya = $("#remark_outnya").val();
+								  var file_data = $("#file").prop("files")[0]; // Getting the properties of file from file field
+									var form_data = new FormData();
+									 form_data.append("file", file_data)
+									 form_data.append("id_parkirnya",id_parkirnya)
+									 form_data.append("remark_outnya", remark_outnya)
+								return new Promise(function (resolve) {
+								  $.ajax({
+									type: 'POST',
+									url: TrConfig.baseURL + '/HomeController/parkOutPost',
+									dataType: "JSON",
+									data: form_data,
+									contentType: false,       // The content type used when sending data to the server.
+									cache: false,             // To unable request pages to be cached
+									processData:false,
+								})
+								  // 
+									.done(function (response) {
+									  console.log("disini sukses");
+									  //var obj2 = JSON.parse(response);
+									  //console.log(obj2.id_Parkir);
+										Swal.fire('Sukses Park Out');
+										$("#inputNya").val("");
+									})
+									.fail(function (erordata) {
+									  console.log(erordata);
+									  Swal.fire('cancelled!', 'The action have been cancelled by the user :-)', 'error');
+									})
+								})
+							  },
+						  allowOutsideClick: () => !swal.isLoading(),
+						  focusConfirm: false,
+						}).then((result) => {
+							if (result.isConfirmed) {
+								
+							}
+							 if (result.isDismissed) {
+								  $("#inputNya").val("");
+							  }
+							});
+						}
+					}else if(obj.stats == 0){
+						$("#inputNya").val(""); 
+						Swal.fire('Plat Nomor Tersebut Sudah Keluar');
+					}
+				}
+            });
+	
+	
+};

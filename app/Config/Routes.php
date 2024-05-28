@@ -158,10 +158,12 @@ $routes->get($customRoutes->admin . '/reward-system/rpt-point-mmbr', 'RewardCont
 $routes->get($customRoutes->admin . '/ad-spaces', 'AdminController::adSpaces');
 //users
 $routes->get($customRoutes->admin . '/users', 'AdminController::users');
-$routes->get($customRoutes->admin . '/members', 'AdminController::members');
 $routes->get($customRoutes->admin . '/edit-user/(:num)', 'AdminController::editUser/$1');
 $routes->get($customRoutes->admin . '/administrators', 'AdminController::administrators');
 $routes->get($customRoutes->admin . '/add-user', 'AdminController::addUser');
+//members list
+$routes->get($customRoutes->admin . '/members', 'AdminController::members');
+$routes->get($customRoutes->admin . '/edit-member/(:num)', 'AdminController::editMember/$1');
 //roles permissions
 $routes->get($customRoutes->admin . '/roles-permissions', 'AdminController::rolesPermissions');
 $routes->get($customRoutes->admin . '/edit-role/(:num)', 'AdminController::editRole/$1');

@@ -73,7 +73,10 @@
             </div>
         </div>
     </footer>
-    <a href="#" class="scrollup"><i class="icon-arrow-up"></i></a>
+    <!--<a href="#" class="scrollup"><i class="icon-arrow-up"></i></a>-->
+	<li class="scrollup">
+							<a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCart">Cart</a>
+						</li>
 <?php if (empty(helperGetCookie('cks_warning')) && $baseSettings->cookies_warning): ?>
     <div class="cookies-warning">
         <button type="button" aria-label="close" class="close" onclick="closeCookiesWarning();">
@@ -92,6 +95,7 @@
 	<script src="<?= base_url('assets/vendor/cart/js/jquery.smartCart.min.js'); ?> "></script>
     <script src="<?= base_url($assetsPath . '/js/plugins.js'); ?> "></script>
     <script src="<?= base_url($assetsPath . '/js/main-2.2.min.js'); ?> "></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
     
 <?= loadView('partials/_js_footer'); ?>
     <script>$("form[method='post']").append("<input type='hidden' name='sys_lang_id' value='<?= $activeLang->id; ?>'>");</script>

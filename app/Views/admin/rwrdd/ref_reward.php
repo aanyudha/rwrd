@@ -46,11 +46,11 @@
                                     <td>
                                         <div class="td-post-item">
                                             <div class="post-image">
-                                                <!--<a href="?= generatePostURL($item, generateBaseURLByLang($language)); ?>" target="_blank">-->
+                                                <a href="" target="_blank">
                                                     <div class="image">
-                                                    <!--    <img src="?= IMG_BASE64_1x1; ?>" data-src="?= getPostImage($item, "small"); ?>" alt="" class="lazyload img-responsive"/>
+													<img src="<?= getPostImage3($item->foto); ?>" alt="" class="img-responsive">
                                                     </div>
-                                                <!--</a>-->
+                                                </a>
                                             </div>
                                     </td>  
 									<td><?= esc($item->tipe); ?></td>

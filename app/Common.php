@@ -2288,4 +2288,17 @@ if (!function_exists('getMemberNyaByEmail')) {
         return $model->getMemberByEmail($email);
     }
 }
+//get image
+if (!function_exists('getPostImage3')) {
+    function getPostImage3($path)
+    {
+        if (!empty($path)) {
+            if (file_exists(FCPATH . $path)) {
+                return base_url($path);
+            }
+            return $path;
+        }
+        //return base_url("assets/img/user.png");
+    }
+}
 }
