@@ -9,7 +9,7 @@
             <h3 class="box-title"><?= $title; ?></h3>
         </div>
         <div class="right">
-            <a href="<?= adminUrl('add-reward'); ?>" class="btn btn-success btn-add-new pull-right">
+            <a href="<?= adminUrl('reward-system/add-ref-reward'); ?>" class="btn btn-success btn-add-new pull-right">
                 <i class="fa fa-plus"></i>
                 <?= trans('ref-rewards-add'); ?>
             </a>
@@ -27,9 +27,9 @@
                                 <th width="20"><input type="checkbox" class="checkbox-table" id="checkAll"></th>
                             <?php endif; ?>
                             <th><?= trans('ref-rewards-name'); ?></th>
-                            <th><?= trans('ref-rewards-desc'); ?></th>
                             <th><?= trans('ref-rewards-foto'); ?></th>
                             <th><?= trans('ref-rewards-type'); ?></th>
+                            <th><?= trans('ref-rewards-desc'); ?></th>
 							<th><?= trans('options'); ?></th>
                         </tr>
                         </thead>
@@ -42,8 +42,7 @@
                                         <td><input type="checkbox" name="checkbox-table" class="checkbox-table" value="<?= $item->id_reward; ?>"></td>
                                     <?php endif; ?>
                                     <td><?= esc($item->nama); ?></td>
-                                    <td><?= esc($item->deskripsi); ?></td>
-                                    <td>
+									<td>
                                         <div class="td-post-item">
                                             <div class="post-image">
                                                 <a href="" target="_blank">
@@ -52,8 +51,9 @@
                                                     </div>
                                                 </a>
                                             </div>
-                                    </td>  
+                                    </td> 
 									<td><?= esc($item->tipe); ?></td>
+									<td><?= esc($item->deskripsi); ?></td>
                                     <td style="width: 180px;">
                                         <form action="<?= base_url('PostController/postOptionsPost'); ?>" method="post">
                                             <?= csrf_field(); ?>
@@ -65,11 +65,11 @@
                                                 </button>
                                                 <ul class="dropdown-menu options-dropdown">
                                                     <li>
-                                                        <a href="<?= adminUrl('edit-post/' . $item->id_reward); ?>"><i class="fa fa-edit option-icon"></i><?= trans('edit'); ?></a>
+                                                        <a href="<?= adminUrl('reward-system/edit-ref-reward/' . $item->id_reward); ?>"><i class="fa fa-edit option-icon"></i><?= trans('edit'); ?></a>
                                                     </li>
                                                     
                                                     <li>
-                                                        <a href="javascript:void(0)" onclick="deleteItem('PostController/deletePost','<?= $item->id_reward; ?>','<?= clrQuotes(trans("confirm_post")); ?>');"><i class="fa fa-trash option-icon"></i><?= trans('delete'); ?></a>
+                                                        <a href="javascript:void(0)" onclick="deleteItem('RewardController/deleteRefRewardPost','<?= $item->id_reward; ?>','<?= clrQuotes(trans("confirm_post")); ?>');"><i class="fa fa-trash option-icon"></i><?= trans('delete'); ?></a>
                                                     </li>
                                                 </ul>
                                             </div>

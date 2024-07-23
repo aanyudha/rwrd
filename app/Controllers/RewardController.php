@@ -276,6 +276,92 @@ class RewardController extends BaseAdminController
         echo view('admin/includes/_footer');
     }
 	/**
+     * Add RefReward
+     */
+    public function addRefReward()
+    {
+        checkAdmin();
+        $data['title'] = trans("trn-hotel-add");
+        echo view('admin/includes/_header', $data);
+        echo view('admin/rwrdd/add_refreward');
+		echo view('admin/includes/_footer');
+    }
+	/**
+     * Add Post RefReward
+     */
+    public function addRefRewardPost()
+    {
+        //checkPermission('add_post');
+		checkAdmin();
+        $val = \Config\Services::validation();
+        $val->setRule('nama', trans("nama-ref-tipe-member"), 'required|max_length[500]');
+        $val->setRule('tipe', trans("index-ref-tipe-member"), 'required');
+        if (!$this->validate(getValRules($val))) {
+            $this->session->setFlashdata('errors', $val->getErrors());
+            return redirect()->to(adminUrl('reward-system/add-ref-reward'))->withInput();
+        } else {
+            $id_reward = inputPost('id_reward');
+            $nama = inputPost('nama');
+			if (!$this->rewardModel->isUniqueRefRewardName($nama, $id_reward)) {
+                $this->session->setFlashdata('error', trans("msg_member_type_kode_unique_error"));
+                return redirect()->to(adminUrl('reward-system/add-ref-reward'))->withInput();
+            }
+            if ($this->rewardModel->addRefReward()) {
+                $this->session->setFlashdata('success', trans("msg_updated"));
+            } else {
+                $this->session->setFlashdata('error', trans("msg_error"));
+                return redirect()->to(adminUrl('reward-system/add-ref-reward'))->withInput();
+            }
+        }
+        return redirect()->to(adminUrl('reward-system/add-ref-reward'))->withInput();
+    }
+	/**
+     * Edit RefReward
+     */
+    public function editRefReward($id)
+    {
+        //checkAdmin();
+        $data['panelSettings'] = panelSettings();
+        $data['title'] = trans("edit-ref-rewards");
+        $data['refrewards'] = getRefRewardById($id);
+        if (empty($data['refrewards'])) {
+            return redirect()->to(adminUrl('reward-system/ref-reward'));
+        }
+
+        echo view('admin/includes/_header', $data);
+        echo view('admin/rwrdd/edit_refrewards', $data);
+        echo view('admin/includes/_footer');
+    }
+	/**
+     * Edit RefReward Post
+     */
+    public function editRefRewardPost()
+    {
+        //checkAdmin();
+        $id_reward = inputPost('id_reward');
+        if ($this->rewardModel->editRefRewardPost($id_reward)) {
+            $this->session->setFlashdata('success', trans("msg_updated"));
+        } else {
+            $this->session->setFlashdata('error', trans("msg_error"));
+        }
+        return redirect()->to(adminUrl('reward-system/ref-reward'));
+    }
+	/**
+     * Delete RefReward
+     */
+    public function deleteRefRewardPost()
+    {
+        //checkPermission('add_post');
+        $id = inputPost('id_reward');
+        if ($this->rewardModel->delRefRewardPost($id)) {
+            $this->session->setFlashdata('success', trans("msg_deleted"));
+            resetCacheDataOnChange();
+        } else {
+            $this->session->setFlashdata('error', trans("msg_error"));
+        }
+    }
+	
+	/**
      * View trnHotel
      */
 	public function trnHotel()

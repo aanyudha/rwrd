@@ -50,6 +50,15 @@ class RewardModel extends BaseModel
             'benefit' => inputPost('benefit')
         ];
     }
+	//input values hotel
+    public function inputValuesRefReward()
+    {
+        return [
+            'nama' => inputPost('nama'),
+            'tipe' => inputPost('tipe'),
+            'deskripsi' => inputPost('deskripsi')
+        ];
+    }
 
     //get page views counts by date
     public function getPageViewsCountByDate($userId)
@@ -403,7 +412,65 @@ class RewardModel extends BaseModel
     {
 		return $this->builderRefReward->where('id_reward', cleanNumber($id))->get()->getRow();
 	}
-
+	//get hotel by MemberTypes nama
+    public function getRefRewardByNama($nama)
+    {
+        return $this->builderRefReward->where('nama', removeForbiddenCharacters($nama))->get()->getRow();
+    }
+	//add ref reward
+    public function addRefReward()
+    {
+		$data = $this->inputValuesRefReward();
+		//add post image
+        $postImageId = inputPost('post_image_id');
+        if (!empty($postImageId)) {
+            $fileModel = new FileModel();
+            $image = $fileModel->getImage($postImageId);
+            if (!empty($image)) {
+                $data['foto'] = $image->image_big;
+                // $data['image_default'] = $image->image_default;
+                // $data['image_slider'] = $image->image_slider;
+                // $data['image_mid'] = $image->image_mid;
+                // $data['image_small'] = $image->image_small;
+                // $data['image_mime'] = $image->image_mime;
+                // if ($image->storage == 'aws_s3') {
+                    // $data['image_storage'] = 'aws_s3';
+                // }
+            }
+        }
+        return $this->builderRefReward->insert($data);
+    }
+	//check if ref reward name is unique
+    public function isUniqueRefRewardName($nama, $refRewardId = 0)
+    {
+        $refreward = $this->getRefRewardByNama($nama);
+        if ($refRewardId == 0) {
+            if (!empty($refreward)) {
+                return false;
+            }
+            return true;
+        } else {
+            if (!empty($refreward) && $memberType->id_tipe_member != $refRewardId) {
+                return false;
+            }
+            return true;
+        }
+    }
+	//edit ref reward
+    public function editRefRewardPost($id)
+    {
+        $memberref = $this->getRefReward($id);
+        if (!empty($memberref)) {
+            $data = [
+			'id_reward' => inputPost('id_reward'),
+            'nama' => inputPost('nama'),
+            'tipe' => inputPost('tipe'),
+            'deskripsi' => inputPost('deskripsi')
+            ];
+            return $this->builderRefReward->where('id_reward', $memberref->id_reward)->update($data);
+        }
+        return false;
+    }
     //getref reward count
     public function getRefRewardCount()
     {
@@ -424,6 +491,46 @@ class RewardModel extends BaseModel
         $q = cleanStr(inputGet('q'));
         if (!empty($q)) {
             $this->builderRefReward->groupStart()->like('nama', cleanStr($q))->orLike('id_reward', cleanStr($q))->groupEnd();
+        }
+    }
+	//delete ref reward
+    public function delRefRewardPost($id)
+    {
+        $refRewrd = $this->getRefReward($id);
+        if (!empty($refRewrd)) {
+            // if (!checkPostOwnership($refRewrd->user_id)) {
+                // return false;
+            // }
+            // delete additional images
+            // $this->deleteAdditionalImages($post->id);
+            // delete audios
+            // $this->deletePostAudios($post->id);
+            // delete list items
+            // $postItemModel = new PostItemModel();
+            // $postItemModel->deletePostListItems($post->id, 'gallery');
+            // $postItemModel->deletePostListItems($post->id, 'sorted_list');
+            // delete quiz questions
+            // $quizModel = new QuizModel();
+            // $quizModel->deleteQuizQuestions($post->id);
+            // $quizModel->deleteQuizResults($post->id);
+            // delete post tags
+            // $tagModel = new TagModel();
+            // $tagModel->deletePostTags($post->id);
+            // delete comments
+            // $this->db->table('comments')->where('post_id', $post->id)->delete();
+            //delete post
+            return $this->builderRefReward->where('id_reward', $refRewrd->id_reward)->delete();
+        }
+        return false;
+    }
+
+    //delete multi ref reward
+    public function deleteRefRewardMultiPosts($postIds)
+    {
+        if (!empty($postIds)) {
+            foreach ($postIds as $id) {
+                $this->deletePost($id);
+            }
         }
     }
 	//TRN-hotel

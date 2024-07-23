@@ -2264,6 +2264,22 @@ if (!function_exists('isBot')) {
 			return $model->getMemberTypes($id);
 		}
 	}
+	//get refReward by id
+	if (!function_exists('getRefRewardById')) {
+		function getRefRewardById($id)
+		{
+			$model = new \App\Models\RewardModel();
+			return $model->getRefReward($id);
+		}
+	}
+	//get refreward by id
+	if (!function_exists('getRewardById')) {
+		function getRewardById($id)
+		{
+			$model = new \App\Models\RewardModel();
+			return $model->getMemberTypes($id);
+		}
+	}
 	//get trnHotel by id
 	if (!function_exists('getTrnHotelById')) {
 		function getTrnHotelById($id)

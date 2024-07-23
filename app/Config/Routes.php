@@ -142,8 +142,8 @@ $routes->get($customRoutes->admin . '/reward-system/edit-tipe-member/(:num)', 'R
 $routes->get($customRoutes->admin . '/reward-system/add-tipe-member', 'RewardController::addMemberTypes');
 //Tntr Rewards
 $routes->get($customRoutes->admin . '/reward-system/ref-reward', 'RewardController::refReward');
-$routes->get($customRoutes->admin . '/reward-system/edit-reward/(:num)', 'RewardController::editReward/$1');
-$routes->get($customRoutes->admin . '/reward-system/add-reward', 'RewardController::addReward');
+$routes->get($customRoutes->admin . '/reward-system/edit-ref-reward/(:num)', 'RewardController::editRefReward/$1');
+$routes->get($customRoutes->admin . '/reward-system/add-ref-reward', 'RewardController::addRefReward');
 //Member transaction log
 $routes->get($customRoutes->admin . '/reward-system/trn-hotel', 'RewardController::trnHotel');
 $routes->get($customRoutes->admin . '/reward-system/edit-trn-hotel/(:num)', 'RewardController::editTrnHotel/$1');
