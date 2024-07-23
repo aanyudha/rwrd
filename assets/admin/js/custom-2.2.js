@@ -79,7 +79,9 @@ function deleteItem(url, id, message) {
                 url: TrConfig.baseURL + '/' + url,
                 data: setAjaxData(data),
                 success: function (response) {
+					// var obj = JSON.parse(response);
                     location.reload();
+					// console.log(response);
                 }
             });
         }

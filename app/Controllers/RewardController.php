@@ -352,7 +352,8 @@ class RewardController extends BaseAdminController
     public function deleteRefRewardPost()
     {
         //checkPermission('add_post');
-        $id = inputPost('id_reward');
+        $id = inputPost('id');
+		// $platNomor=$_GET[$id];
         if ($this->rewardModel->delRefRewardPost($id)) {
             $this->session->setFlashdata('success', trans("msg_deleted"));
             resetCacheDataOnChange();
