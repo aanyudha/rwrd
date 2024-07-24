@@ -378,7 +378,7 @@ class RewardController extends BaseAdminController
         echo view('admin/includes/_footer');
     }
 	/**
-     * Add MemberTypes
+     * Add trnHotel
      */
     public function addTrnHotel()
     {
@@ -472,7 +472,7 @@ class RewardController extends BaseAdminController
 	/**
      * trnHotelUpl
      */
-    public function trnHotelUp()
+    public function trnHotelUpl()
     {
         checkAdmin();
         $data['title'] = trans("add-ref-tipe-member");
@@ -497,179 +497,14 @@ class RewardController extends BaseAdminController
     }
 	public function simpan_upload_trn_hotel($filemanual=null)	
 	{
-
 		checkAdmin();
-			$query = $this->db->query("select * from ref_konversi")->result();
-			$fitgrp=array();
-			foreach($query as $row)		
-			{
-				$fitgrp[$row->kode]=$row->tipe;
-			}
-			$query = $this->db->query("select nilai from tbl_setting where nama='Guest FIT'")->result();
-			$point_conversion_guest_fit=$query[0]->nilai;
-			$query = $this->db->query("select nilai from tbl_setting where nama='Guest GRP'")->result();
-			$point_conversion_guest_grp=$query[0]->nilai;
-			$query = $this->db->query("select nilai from tbl_setting where nama='Booker FIT'")->result();
-			$point_conversion_booker_fit=$query[0]->nilai;
-			$query = $this->db->query("select nilai from tbl_setting where nama='Booker GRP'")->result();
-			$point_conversion_booker_grp=$query[0]->nilai;
-			$path_upload=FCPATH."assets/uploads/osr";
-			if($filemanual!==NULL)
-			{
-				$filename=$filemanual;
-			}
-			else
-			{
-				$filename=$_FILES["file_csv"]["name"];
-				$filename_tmp=$_FILES["file_csv"]["tmp_name"];
-				move_uploaded_file($filename_tmp, $path_upload."/".$filename);			
-			}
-			try
-			{
-				if (($handle = fopen($path_upload."/".$filename, "r")) !== FALSE) 
-				{
-					$this->db->trans_start();			
-					$this->db->query("delete from trn_hotel where filename='$filename'");					
-					$tipenya="Member";
-					while (($data = fgetcsv($handle, 0, ";")) !== FALSE) 
-					{
-						if(count($data)>2 && strlen($data[0])>3) 
-						{
-							//HTJOG	TNT		100	Bambang	Dwi	326	DLXK	14BARBP	BEN	WEB	06-OCT-17	06-OCT-17	0	1.115.702.479.338.840.000	0	1.115.702.479.338.840.000						
-							//HTJOG;;;;Anton;Siregar;9011;PM;NR;BEN;PHN;18-MAR-20;18-MAR-20;0;0;0;0;							
-							$hotel_code=$data[0];
-							$id_member=$data[3];
-							$room_no=$data[6];						
-							$room_type=$data[7];
-							$room_code=$data[6];
-							$market_code=$data[9];
-							$market_code_converted=$fitgrp[$market_code];
-							$source_code=$data[10];
-							$arrival_date_asli = date_create_from_format('j-M-y', $data[11]);						
-							$arrival_date=date_format($arrival_date_asli, 'Y-m-d');
-							$departure_date_asli = date_create_from_format('j-M-y', $data[12]);						
-							$departure_date=date_format($departure_date_asli, 'Y-m-d');
-							$number_of_nights=$data[13];
-							$room_revenue=$data[14];
-							$fnb_revenue=$data[15];
-							$total_revenue=$data[16];
-							$booker=$data[17];
-							//$date = new DateTime($departure_date);
-							//$date->add(new DateInterval('P1Y'));
-							//$exp_date= $date->format('Y-m-d');
-							/*
-							$other_revenue=$data[0];
-							$total_revenue=$room_revenue+$fnb_revenue+$other_revenue;
-							if($tipenya=="Member")
-							{
-								$room_revenue_converted=floor($room_revenue/100000)*$point_conversion_member*100000;
-								$fnb_revenue_converted=floor($fnb_revenue/100000)*$point_conversion_member*100000;
-								$other_revenue_converted=floor($other_revenue/100000)*$point_conversion_member*100000;
-								$total_revenue_converted=$room_revenue_converted+$fnb_revenue_converted+$other_revenue_converted;
-								$point_type="Member";
-							}
-							else
-							{
-								$room_revenue_converted=floor($room_revenue/100000)*$point_conversion_booker*100000;
-								$fnb_revenue_converted=floor($fnb_revenue/100000)*$point_conversion_booker*100000;
-								$other_revenue_converted=floor($other_revenue/100000)*$point_conversion_booker*100000;
-								$total_revenue_converted=$room_revenue_converted+$fnb_revenue_converted+$other_revenue_converted;
-								$point_type="Booker";							
-							}
-							*/
-							$status="Converted";
-							//if(!empty($market_code_converted))
-							if($market_code_converted!=="" && ($id_member!=="" || $booker !=="") && $source_code!="OTA" && $source_code!="WHO" && $source_code!="RDM" && $market_code!=="WHO") //TAMBAHAN PAK YO DISINI
-							{
-								if($market_code_converted=="FIT")
-								{
-									$point_conversion_member=$point_conversion_guest_fit;
-									$point_conversion_booker=$point_conversion_booker_fit;
-								}
-								if($market_code_converted=="GRP")
-								{
-									$point_conversion_member=$point_conversion_guest_grp;
-									$point_conversion_booker=$point_conversion_booker_grp;
-								}
-								try
-								{									
-									$query = $this->db->query("select r.index as nilai from ref_tipe_member r, mst_member m where m.id_tipe_member=r.id_tipe_member and m.id_member='$id_member'")->result();
-									if(count($query)==0)
-									{
-										$index_tipe_member=1;
-									}
-									else
-									{
-										$index_tipe_member=$query[0]->nilai;
-									}
-									//$room_revenue_converted=($room_revenue*$point_conversion_member)*$index_tipe_member;
-									$room_revenue_converted=floor(($room_revenue/100000)*$point_conversion_member*$index_tipe_member*100000);
-									$fnb_revenue_converted=floor(($fnb_revenue/100000)*$point_conversion_member*$index_tipe_member*100000);
-									$other_revenue=0;
-									$other_revenue_converted=0;
-									//$total_revenue_converted=$total_revenue*$point_conversion_member;
-									$total_revenue_converted=$room_revenue_converted+$fnb_revenue_converted;
-									$point_type="Member";
-									if($id_member!==""){
-									$query=$this->db->query("insert into trn_hotel(filename, hotel_code, id_member, room_no, room_type, room_code, market_code, market_code_converted, source_code, arrival_date, departure_date, number_of_nights, room_revenue, fnb_revenue, other_revenue, total_revenue, room_revenue_converted, fnb_revenue_converted, other_revenue_converted, total_revenue_converted, point_type, status, exp_date) values('$filename', '$hotel_code', '$id_member', '$room_no', '$room_type', '$room_code', '$market_code', '$market_code_converted', '$source_code', '$arrival_date', '$departure_date', $number_of_nights, $room_revenue, $fnb_revenue, $other_revenue, $total_revenue, $room_revenue_converted, $fnb_revenue_converted, $other_revenue_converted, $total_revenue_converted, '$point_type', '$status', '$exp_date')");
-									//UPDATE yang lama sesuai ID INTERVAL 1 TAHUN
-										if (!empty($query)) {
-											$cek_gap = $this->cron_model->algorithma_baru_model($id_member);
-												foreach ($cek_gap as $cek) {
-													if ($cek->gapnya=='0'){
-														$this->cron_model->update_exp_date($cek->id_member,$cek->departure_date);
-													}elseif($cek->gapnya=='1'){
-														$this->cron_model->update_status_exp($cek->id_member, $cek->departure_date );
-													}
-												}
-										}
-									}
-									//echo "insert into trn_hotel(filename, id_member, room_no, room_type, room_code, market_code, market_code_converted, source_code, arrival_date, departure_date, number_of_nights, room_revenue, fnb_revenue, other_revenue, total_revenue, room_revenue_converted, fnb_revenue_converted, other_revenue_converted, total_revenue_converted, point_type, status) values('$filename', '$id_member', '$room_no', '$room_type', '$room_code', '$market_code', '$market_code_converted', '$source_code', '$arrival_date', '$departure_date', $number_of_nights, $room_revenue, $fnb_revenue, $other_revenue, $total_revenue, $room_revenue_converted, $fnb_revenue_converted, $other_revenue_converted, $total_revenue_converted, '$point_type', '$status')";
-									//if(!empty($booker))
-									if($booker!=="")
-									{
-										$id_member=$booker;
-										$room_revenue_converted=floor(($room_revenue/100000)*$point_conversion_booker*$index_tipe_member*100000);
-										$fnb_revenue_converted=floor(($fnb_revenue/100000)*$point_conversion_booker*$index_tipe_member*100000);
-										$other_revenue=0;
-										$other_revenue_converted=0;
-										//$total_revenue_converted=$total_revenue*$point_conversion_booker;
-										$total_revenue_converted=$room_revenue_converted+$fnb_revenue_converted;
-										$point_type="Booker";
-										$query=$this->db->query("insert into trn_hotel(filename, hotel_code, id_member, room_no, room_type, room_code, market_code, market_code_converted, source_code, arrival_date, departure_date, number_of_nights, room_revenue, fnb_revenue, other_revenue, total_revenue, room_revenue_converted, fnb_revenue_converted, other_revenue_converted, total_revenue_converted, point_type, status, exp_date) values('$filename', '$hotel_code', '$id_member', '$room_no', '$room_type', '$room_code', '$market_code', '$market_code_converted', '$source_code', '$arrival_date', '$departure_date', $number_of_nights, $room_revenue, $fnb_revenue, $other_revenue, $total_revenue, $room_revenue_converted, $fnb_revenue_converted, $other_revenue_converted, $total_revenue_converted, '$point_type', '$status', '$exp_date')");										
-										
-										//UPDATE yang lama sesuai ID INTERVAL 1 TAHUN
-										if (!empty($query)) {
-											$cek_gap = $this->cron_model->algorithma_baru_model($id_member);
-												foreach ($cek_gap as $cek) {
-													if ($cek->gapnya=='0'){
-														$this->cron_model->update_exp_date($cek->id_member,$cek->departure_date);
-													}elseif($cek->gapnya=='1'){
-														$this->cron_model->update_status_exp($cek->id_member, $cek->departure_date );
-													}
-												}
-										}
-									}
-								}
-								catch(Exception $e)
-								{
-							}			
-								
-							}
-						}
-					}
-					$this->db->trans_complete();
-					fclose($handle);	
-					//exec("rm -rf $path_upload/$filename");
-					exec("mv $path_upload/$filename $path_upload/processed");
-					//redirect("kelola/trn_hotel","refresh");
-					$this->session->setFlashdata('success', trans("msg_updated"));
-				}
-			}
-			catch(Exception $e)
-			{
-				show_error($e->getMessage().' --- '.$e->getTraceAsString());
-			}						
+		if (!$this->postAdminModel->simpan_upload_mod($filemanual=null)) {
+			$this->session->setFlashdata('error', trans("msg_member_type_kode_unique_error"));
+            return redirect()->to(adminUrl('reward-system/trn-hotel-upl'))->withInput();
+		}
+        $this->session->setFlashdata('success', trans("msg_added"));
+        resetCacheDataOnChange();
+        return redirect()->to(adminUrl('reward-system/trn-hotel'));				
 	}
 	
 	/**

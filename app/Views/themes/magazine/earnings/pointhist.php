@@ -67,7 +67,7 @@
                                             <td><?= priceFormatted($item->room_no); ?></td>
                                             <td><?= formatDateFront($item->arrival_date); ?></td>
                                             <td><?= formatDateFront($item->departure_date); ?></td>
-                                            <td align='right'><?= trans($item->created_at); ?></td>
+                                            <!--<td align='right'><= trans($item->created_at); ?></td>-->
                                             <td><?= $status ?></td>
                                         </tr>
                                     <?php endforeach;?>

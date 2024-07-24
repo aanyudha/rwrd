@@ -2,7 +2,7 @@
     <div class="col-sm-12">
         <form action="<?= base_url('RewardController/simpan_upload_trn_hotel'); ?>" method="post" enctype="multipart/form-data" onkeypress="return event.keyCode != 13;">
             <?= csrf_field(); ?>
-            <input type="hidden" name="post_type" value="article">
+            <!--<input type="hidden" name="post_type" value="article">-->
             <div class="row">
                 <div class="col-sm-12 form-header">
                     <h1 class="form-title"><?= trans('trn-hotel-upl'); ?></h1>
@@ -26,7 +26,7 @@
                         <div class="form-post-right">
                             <div class="row">
                                <div class="col-sm-12">
-                                    <?= view('admin/rwrdd/_submit_box', ['url' => adminUrl('reward-system/add-trn-hotel')]); ?>
+                                    <?= view('admin/rwrdd/_submit_box_upload', ['url' => adminUrl('reward-system/simpan-upload-trn')]); ?>
                                 </div>
                             </div>
                         </div>

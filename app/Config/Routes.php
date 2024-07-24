@@ -149,8 +149,9 @@ $routes->get($customRoutes->admin . '/reward-system/trn-hotel', 'RewardControlle
 $routes->get($customRoutes->admin . '/reward-system/edit-trn-hotel/(:num)', 'RewardController::editTrnHotel/$1');
 $routes->get($customRoutes->admin . '/reward-system/add-trn-hotel', 'RewardController::addTrnHotel');
 $routes->get($customRoutes->admin . '/reward-system/view-trn-hotel/(:num)', 'RewardController::viewTrnHotel/$1');
-$routes->get($customRoutes->admin . '/reward-system/trn-hotel-upl', 'RewardController::trnHotelUp');
+$routes->get($customRoutes->admin . '/reward-system/trn-hotel-upl', 'RewardController::trnHotelUpl');
 $routes->get($customRoutes->admin . '/reward-system/trn-point-out', 'RewardController::trnPointOut');
+$routes->get($customRoutes->admin . '/reward-system/simpan-upload-trn', 'RewardController::simpan_upload_trn_hotel');
 $routes->get($customRoutes->admin . '/reward-system/add-trn-point-out', 'RewardController::addTrnPointOut');
 $routes->get($customRoutes->admin . '/reward-system/mmbr-type-mtr', 'RewardController::mmbrTypeMtr');
 $routes->get($customRoutes->admin . '/reward-system/rpt-point-mmbr', 'RewardController::rptPointMmbr');

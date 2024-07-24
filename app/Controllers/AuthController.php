@@ -417,7 +417,7 @@ class AuthController extends BaseController
         }
         $email = cleanStr(inputPost('email'));
 		$cekTabelNya = $this->authModel->chkTabelUsed($email);
-
+		//var_dump($cekTabelNya);
 		if($cekTabelNya == 'user'){
 			$member = $this->authModel->getMemberByEmail($email);
 			if (empty($member)) {

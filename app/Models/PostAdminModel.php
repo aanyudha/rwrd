@@ -8,6 +8,10 @@ class PostAdminModel extends BaseModel
     protected $builderPostImages;
     protected $builderPostFiles;
     protected $builderPostAudios;
+    protected $builderRefKonversi;
+    protected $builderTblSetting;
+    protected $builderTrnHotel;
+    protected $builderRefTipeMember;
 
     public function __construct()
     {
@@ -16,6 +20,10 @@ class PostAdminModel extends BaseModel
         $this->builderPostImages = $this->db->table('post_images');
         $this->builderPostFiles = $this->db->table('post_files');
         $this->builderPostAudios = $this->db->table('post_audios');
+        $this->builderRefKonversi = $this->db->table('ref_konversi');
+        $this->builderTblSetting = $this->db->table('tbl_setting');
+        $this->builderTrnHotel = $this->db->table('trn_hotel');
+        $this->builderRefTipeMember = $this->db->table('ref_tipe_member');
     }
 
     //input values
@@ -926,4 +934,192 @@ class PostAdminModel extends BaseModel
             }
         }
     }
+	
+	public function algorithma_baru_model($id_member){
+			$query=$this->db->query("SELECT id_trn,id_member,departure_date,STATUS,IF((SELECT departure_date FROM trn_hotel e2 WHERE e2.departure_date > e.departure_date AND id_member='$id_member' ORDER BY departure_date ASC LIMIT 1 OFFSET 0) IS NULL,DATE_FORMAT(NOW(),'%Y-%m-%d'),(SELECT departure_date FROM trn_hotel e2 WHERE e2.departure_date > e.departure_date AND id_member='$id_member' ORDER BY departure_date ASC LIMIT 1 OFFSET 0)) AS next_value,(SELECT TIMESTAMPDIFF(YEAR,departure_date,next_value)) AS gapnya FROM trn_hotel e WHERE id_member='$id_member' ORDER BY departure_date ASC");
+			$row2=$query->getResult();
+			return $row2;
+	}
+		
+	public function update_status_exp($id_member, $departure_date){
+				$date = new \DateTime($departure_date);
+				$date->add(new \DateInterval('P1Y'));
+				$exp_datenya= $date->format('Y-m-d');
+			$data = array(
+				'status' => 'Expired',
+				'exp_date' => $exp_datenya,
+			);
+			return $this->builderTrnHotel->where('id_member', $id_member)->where('departure_date <=', $departure_date)->update($data);
+	}
+		
+	public function update_exp_date($id_member,$departure_date){
+				$date = new \DateTime($departure_date);
+				$date->add(new \DateInterval('P1Y'));
+				$exp_datenya= $date->format('Y-m-d');
+				$data = array(
+						'exp_date' => $exp_datenya,
+						'status' => 'Converted',
+					);
+				return $this->builderTrnHotel->where('id_member', $id_member)->where('status!=', 'Expired')->update($data);
+	}
+	
+	public function simpan_upload_mod($filemanual=null){
+			//$query = $this->db->query("select * from ref_konversi")->result();
+			$query = $this->builderRefKonversi->get()->getResult();
+			$fitgrp=array();
+			foreach($query as $row)		
+			{
+				$fitgrp[$row->kode]=$row->tipe;
+			}
+			// $query = $this->db->query("select nilai from tbl_setting where nama='Guest FIT'")->result();
+			$query = $this->builderTblSetting->select('nilai')->where('nama', cleanStr('Guest FIT'))->get()->getResult();
+			$point_conversion_guest_fit=$query[0]->nilai;
+			// $query = $this->db->query("select nilai from tbl_setting where nama='Guest GRP'")->result();
+			$query = $this->builderTblSetting->select('nilai')->where('nama', cleanStr('Guest GRP'))->get()->getResult();
+			$point_conversion_guest_grp=$query[0]->nilai;
+			// $query = $this->db->query("select nilai from tbl_setting where nama='Booker FIT'")->result();
+			$query = $this->builderTblSetting->select('nilai')->where('nama', cleanStr('Guest FIT'))->get()->getResult();
+			$point_conversion_booker_fit=$query[0]->nilai;
+			// $query = $this->db->query("select nilai from tbl_setting where nama='Booker GRP'")->result();
+			$query = $this->builderTblSetting->select('nilai')->where('nama', cleanStr('Guest GRP'))->get()->getResult();
+			$point_conversion_booker_grp=$query[0]->nilai;
+			$path_upload=FCPATH."uploads/osr";
+			if($filemanual!==NULL)
+			{
+				$filename=$filemanual;
+			}
+			else
+			{
+				$filename=$_FILES["file_csv"]["name"];
+				$filename_tmp=$_FILES["file_csv"]["tmp_name"];
+				move_uploaded_file($filename_tmp, $path_upload."/".$filename);			
+			}
+			try
+			{
+				if (($handle = fopen($path_upload."/".$filename, "r")) !== FALSE) 
+				{
+					$this->db->transStart();			
+					// $this->db->query("delete from trn_hotel where filename='$filename'");	
+					$this->builderTrnHotel->where('filename', $filename)->delete();					
+					$tipenya="Member";
+					while (($data = fgetcsv($handle, 0, ";")) !== FALSE) 
+					{
+						if(count($data)>2 && strlen($data[0])>3) 
+						{
+							//HTJOG	TNT		100	Bambang	Dwi	326	DLXK	14BARBP	BEN	WEB	06-OCT-17	06-OCT-17	0	1.115.702.479.338.840.000	0	1.115.702.479.338.840.000						
+							//HTJOG;;;;Anton;Siregar;9011;PM;NR;BEN;PHN;18-MAR-20;18-MAR-20;0;0;0;0;							
+							$hotel_code=$data[0];
+							$id_member=$data[3];
+							$room_no=$data[6];						
+							$room_type=$data[7];
+							$room_code=$data[6];
+							$market_code=$data[9];
+							$market_code_converted=$fitgrp[$market_code];
+							$source_code=$data[10];
+							$arrival_date_asli = date_create_from_format('j-M-y', $data[11]);						
+							$arrival_date=date_format($arrival_date_asli, 'Y-m-d');
+							$departure_date_asli = date_create_from_format('j-M-y', $data[12]);						
+							$departure_date=date_format($departure_date_asli, 'Y-m-d');
+							$number_of_nights=$data[13];
+							$room_revenue=$data[14];
+							$fnb_revenue=$data[15];
+							$total_revenue=$data[16];
+							$booker=$data[17];
+							$status="Converted";
+							if($market_code_converted!=="" && ($id_member!=="" || $booker !=="") && $source_code!="OTA" && $source_code!="WHO" && $source_code!="RDM" && $market_code!=="WHO") //TAMBAHAN PAK YO DISINI
+							{
+								if($market_code_converted=="FIT")
+								{
+									$point_conversion_member=$point_conversion_guest_fit;
+									$point_conversion_booker=$point_conversion_booker_fit;
+								}
+								if($market_code_converted=="GRP")
+								{
+									$point_conversion_member=$point_conversion_guest_grp;
+									$point_conversion_booker=$point_conversion_booker_grp;
+								}
+								try
+								{									
+									// $query = $this->db->query("select r.index as nilai from ref_tipe_member r, mst_member m where m.id_tipe_member=r.id_tipe_member and m.id_member='$id_member'")->result();
+									$builder = $this->db->table('ref_tipe_member r');
+									$builder->select('r.index as nilai');
+									$builder->from('mst_member m');
+									$builder->where('m.id_tipe_member=r.id_tipe_member');
+									$builder->where('m.id_member', $id_member);
+									$query = $builder->get()->getResult();
+									if(count($query)==0)
+									{
+										$index_tipe_member=1;
+									}
+									else
+									{
+										$index_tipe_member=$query[0]->nilai;
+									}
+									$room_revenue_converted=floor(($room_revenue/100000)*$point_conversion_member*$index_tipe_member*100000);
+									$fnb_revenue_converted=floor(($fnb_revenue/100000)*$point_conversion_member*$index_tipe_member*100000);
+									$other_revenue=0;
+									$other_revenue_converted=0;
+									$total_revenue_converted=$room_revenue_converted+$fnb_revenue_converted;
+									$point_type="Member";
+									if($id_member!==""){
+									// $query=$this->db->query("insert into trn_hotel(filename, hotel_code, id_member, room_no, room_type, room_code, market_code, market_code_converted, source_code, arrival_date, departure_date, number_of_nights, room_revenue, fnb_revenue, other_revenue, total_revenue, room_revenue_converted, fnb_revenue_converted, other_revenue_converted, total_revenue_converted, point_type, status, exp_date) values('$filename', '$hotel_code', '$id_member', '$room_no', '$room_type', '$room_code', '$market_code', '$market_code_converted', '$source_code', '$arrival_date', '$departure_date', $number_of_nights, $room_revenue, $fnb_revenue, $other_revenue, $total_revenue, $room_revenue_converted, $fnb_revenue_converted, $other_revenue_converted, $total_revenue_converted, '$point_type', '$status', '$exp_date')");
+									$query=$this->db->query("insert into trn_hotel(filename, hotel_code, id_member, room_no, room_type, room_code, market_code, market_code_converted, source_code, arrival_date, departure_date, number_of_nights, room_revenue, fnb_revenue, other_revenue, total_revenue, room_revenue_converted, fnb_revenue_converted, other_revenue_converted, total_revenue_converted, point_type, status) values('$filename', '$hotel_code', '$id_member', '$room_no', '$room_type', '$room_code', '$market_code', '$market_code_converted', '$source_code', '$arrival_date', '$departure_date', $number_of_nights, $room_revenue, $fnb_revenue, $other_revenue, $total_revenue, $room_revenue_converted, $fnb_revenue_converted, $other_revenue_converted, $total_revenue_converted, '$point_type', '$status')");
+									//UPDATE yang lama sesuai ID INTERVAL 1 TAHUN
+										if (!empty($query)) {
+											$cek_gap = $this->algorithma_baru_model($id_member);
+												foreach ($cek_gap as $cek) {
+													if ($cek->gapnya=='0'){
+														$this->update_exp_date($cek->id_member,$cek->departure_date);
+													}elseif($cek->gapnya=='1'){
+														$this->update_status_exp($cek->id_member, $cek->departure_date );
+													}
+												}
+										}
+									}
+
+									if($booker!=="")
+									{
+										$id_member=$booker;
+										$room_revenue_converted=floor(($room_revenue/100000)*$point_conversion_booker*$index_tipe_member*100000);
+										$fnb_revenue_converted=floor(($fnb_revenue/100000)*$point_conversion_booker*$index_tipe_member*100000);
+										$other_revenue=0;
+										$other_revenue_converted=0;
+										$total_revenue_converted=$room_revenue_converted+$fnb_revenue_converted;
+										$point_type="Booker";
+										// $query=$this->db->query("insert into trn_hotel(filename, hotel_code, id_member, room_no, room_type, room_code, market_code, market_code_converted, source_code, arrival_date, departure_date, number_of_nights, room_revenue, fnb_revenue, other_revenue, total_revenue, room_revenue_converted, fnb_revenue_converted, other_revenue_converted, total_revenue_converted, point_type, status, exp_date) values('$filename', '$hotel_code', '$id_member', '$room_no', '$room_type', '$room_code', '$market_code', '$market_code_converted', '$source_code', '$arrival_date', '$departure_date', $number_of_nights, $room_revenue, $fnb_revenue, $other_revenue, $total_revenue, $room_revenue_converted, $fnb_revenue_converted, $other_revenue_converted, $total_revenue_converted, '$point_type', '$status', '$exp_date')");										
+										$query=$this->db->query("insert into trn_hotel(filename, hotel_code, id_member, room_no, room_type, room_code, market_code, market_code_converted, source_code, arrival_date, departure_date, number_of_nights, room_revenue, fnb_revenue, other_revenue, total_revenue, room_revenue_converted, fnb_revenue_converted, other_revenue_converted, total_revenue_converted, point_type, status) values('$filename', '$hotel_code', '$id_member', '$room_no', '$room_type', '$room_code', '$market_code', '$market_code_converted', '$source_code', '$arrival_date', '$departure_date', $number_of_nights, $room_revenue, $fnb_revenue, $other_revenue, $total_revenue, $room_revenue_converted, $fnb_revenue_converted, $other_revenue_converted, $total_revenue_converted, '$point_type', '$status')");										
+										
+										//UPDATE yang lama sesuai ID INTERVAL 1 TAHUN
+										if (!empty($query)) {
+											$cek_gap = $this->algorithma_baru_model($id_member);
+												foreach ($cek_gap as $cek) {
+													if ($cek->gapnya=='0'){
+														$this->update_exp_date($cek->id_member,$cek->departure_date);
+													}elseif($cek->gapnya=='1'){
+														$this->update_status_exp($cek->id_member, $cek->departure_date );
+													}
+												}
+										}
+									}
+								}
+								catch(Exception $e)
+								{
+							}			
+								
+							}
+						}
+					}
+					$this->db->transComplete();
+					fclose($handle);	
+					//exec("rm -rf $path_upload/$filename");
+					exec("mv $path_upload/$filename $path_upload/processed");
+					//redirect("kelola/trn_hotel","refresh");
+					$this->session->setFlashdata('success', trans("msg_updated"));
+				}
+			}
+			catch(Exception $e)
+			{
+				show_error($e->getMessage().' --- '.$e->getTraceAsString());
+			}		
+	}
 }
