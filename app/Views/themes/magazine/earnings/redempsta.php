@@ -22,14 +22,14 @@
                                 <thead>
                                 <tr role="row">
                                     <th>#</th>
-                                    <th><?= trans('room_phist'); ?></th>
-                                    <th><?= trans('arvdate_phist'); ?></th>
-                                    <th><?= trans('depdate_phist'); ?></th>
-                                    <th style="text-align: right"><?= trans('point_phist'); ?></th>
-                                    <th><?= trans('stat_phist'); ?></th>
-                                    <th><?= trans('stat_phist'); ?></th>
-                                    <th><?= trans('stat_phist'); ?></th>
-                                    <th><?= trans('stat_phist'); ?></th>
+                                    <th><?= trans('red-stat'); ?></th>
+                                    <th><?= trans('qty-stat'); ?></th>
+                                    <th><?= trans('pointunt-stat'); ?></th>
+                                    <th><?= trans('point-stat'); ?></th>
+                                    <th><?= trans('reqdate-stat'); ?></th>
+                                    <th><?= trans('procdate-stat'); ?></th>
+                                    <th><?= trans('claimed-stat'); ?></th>
+                                    <th><?= trans('stat-stat'); ?></th>
                                 </tr>
                                 </thead>
                                 <tbody>

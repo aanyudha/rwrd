@@ -23,7 +23,7 @@
 						<div class="left">
 							<h3 class="box-title"><?= trans('gift_4_you'); ?></h3>
 							<?php if($last_point > 0) : ?>
-							<h4>Your current points: <span class="badge badge-success"><h4><?php echo number_format($last_point,0,".",",")?></h4></span> pts</h4>
+							<h4>Your current points: <span class="badge rounded-pill bg-primary"><h4><?php echo number_format($last_point,0,".",",")?></h4></span> pts</h4>
 							<?php else : ?>
 								<h4>You don't have any reward points yet.</h4>
 							<?php endif; ?>
@@ -43,8 +43,8 @@
 											  <div class="card-body">
 												<a id="reward-<?php echo $row->id_reward; ?>" class="card-title center" type="button" data-name="product_name" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions2" aria-controls="offcanvasWithBothOptions2"><?php echo $row->nama; ?></a>
 												<form  action="" enctype="multipart/form-data">
-												<a href="javascript:void(0)" class="btn btn-primary btn-lg" onclick="detailGift();"><?= trans('check'); ?></a>
-												<!-- <p class="card-text" data-name="product_desc">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+												<!--<a href="javascript:void(0)" class="btn btn-primary btn-lg" onclick="detailGift();">?= trans('check'); ?></a>
+												 <p class="card-text" data-name="product_desc">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
 												</form>
 											  </div>
 											  <ul class="list-group list-group-flush">
@@ -52,7 +52,7 @@
 													if($row->promo==null)
 													{
 													?>
-														<li class="list-group-item price pull-left"><?php echo number_format($row->index_point,0,".",","); ?> points</li>
+														<li class="list-group-item price pull-left"><span class="badge bg-primary"><?php echo number_format($row->index_point,0,".",","); ?> points</span></li>
 														<li class="list-group-item">Valid thru: <?php echo $row->tanggal_selesai; ?></li>
 													<?php 
 													}

@@ -20,7 +20,6 @@ class AuthModel extends BaseModel
     public function inputValues()
     {
         return [
-            'username' => inputPost('username'),
             'email' => inputPost('email'),
             'password' => inputPost('password')
         ];
@@ -82,15 +81,28 @@ class AuthModel extends BaseModel
     {
         $data = $this->inputValues();
         $muser = $this->getUserByEmailm($data['email']);
-        if (!empty($muser)) {
-            if (!password_verify($data['password'], $muser->password)) {
-                return false;
-            }
-			if ($muser->status == 'Non Aktif') {
-                return 'banned';
-            }
-            $this->mloginUser($muser);
-            return "success";
+        $muserId = $this->getUserByIdem($data['email']);
+
+        if (!empty($muser)||!empty($muserId)) {
+			if(empty($muser->email)||$muser->email == null){ 
+				if (!password_verify($data['password'], $muserId->password)) {
+					return false;
+				}
+					if ($muserId->status == 'Non Aktif') {
+					return 'banned';
+				}
+				$this->mloginUser($muserId);
+				return "success";
+			}elseif(empty($muserId->email)||$muserId->email == null){
+				if (!password_verify($data['password'], $muser->password)) {
+					return false;
+				}
+				if ($muser->status == 'Non Aktif') {
+					return 'banned';
+				}
+				$this->mloginUser($muser);
+				return "success";
+			}
         }
         return false;
     }
@@ -486,6 +498,12 @@ class AuthModel extends BaseModel
     public function getUserByEmailm($email)
     {
         return $this->builderMstMember->where('email', removeForbiddenCharacters($email))->get()->getRow();
+    }
+	
+	//get user by ID m
+    public function getUserByIdem($idmember)
+    {
+        return $this->builderMstMember->where('id_member', removeForbiddenCharacters($idmember))->get()->getRow();
     }
 
     //get user by username

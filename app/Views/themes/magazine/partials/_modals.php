@@ -11,7 +11,7 @@
                     <div id="result-login"></div>
                     <form id="form-login">
                         <div class="mb-2">
-                            <input type="email" name="email" class="form-control form-input input-account" placeholder="<?= trans("email"); ?>" value="<?= old('email'); ?>" required>
+                            <input type="text" name="email" class="form-control form-input input-account" placeholder="<?= trans("email"); ?>" value="<?= old('email'); ?>" required>
                         </div>
                         <div class="mb-2">
                             <input type="password" name="password" class="form-control form-input input-account" placeholder="<?= trans("password"); ?>" value="<?= old('password'); ?>" required>

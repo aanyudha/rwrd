@@ -25,7 +25,8 @@
                                     <th><?= trans('room_phist'); ?></th>
                                     <th><?= trans('arvdate_phist'); ?></th>
                                     <th><?= trans('depdate_phist'); ?></th>
-                                    <th style="text-align: right"><?= trans('point_phist'); ?></th>
+                                    <th><?= trans('depdate_phist'); ?></th>
+                                    <!--<th style="text-align: right"><= trans('point_phist'); ?></th>-->
                                     <th><?= trans('stat_phist'); ?></th>
                                 </tr>
                                 </thead>
@@ -39,16 +40,16 @@
 									
 											$i++;									
 											if($item->status=="Draft") {
-												$status="<span class='label label-warning'>".$item->status."</span>";
+												$status="<span class='badge bg-danger'>".$item->status."</span>";
 											}
 											if($item->status=="Converted") {
-												$status="<span class='label label-success'>".$item->status."</span>";
+												$status="<span class='badge bg-success'>".$item->status."</span>";
 											}
 											if($item->status=="Expired") {
-												$status="<span class='label label-danger'>".$item->status."</span>";
+												$status="<span class='badge bg-danger'>".$item->status."</span>";
 											}
 											if($item->status=="Void") {
-												$status="<span class='label label-default'>".$item->status."</span>";
+												$status="<span class='badge bg-secondary'>".$item->status."</span>";
 											}
 											$total_all+=$item->total_revenue_converted;
 											if($item->status!='Expired')
@@ -64,36 +65,37 @@
 									?>
                                         <tr>
                                             <td><?= $i ?></td>
-                                            <td><?= priceFormatted($item->room_no); ?></td>
+                                            <td><?= $item->room_no; ?></td>
                                             <td><?= formatDateFront($item->arrival_date); ?></td>
                                             <td><?= formatDateFront($item->departure_date); ?></td>
+                                            <td><?= $item->total_revenue_converted; ?></td>
                                             <!--<td align='right'><= trans($item->created_at); ?></td>-->
                                             <td><?= $status ?></td>
                                         </tr>
                                     <?php endforeach;?>
 									<tr>
 										<td colspan='2'>Total Point In</td>
-										<td colspan='3' align='right'><h4><b class='text text-default'><?=  number_format($total_all);  ?></b></h4></td>
-										<td></td>
-									</tr>;
+										<td colspan='4' align='right'><h4><b class='text text-default'><?=  number_format($total_all);  ?></b></h4></td>
+									
+									</tr>
 									<tr>
 										<td colspan='2'>Total Expired</td>
-										<td colspan='3' align='right'><h4><b class='text text-danger'><?= number_format($total_exp); ?></b></h4></td>
-										<td></td>
-									</tr>;
+										<td colspan='4' align='right'><h4><b class='text text-danger'><?= number_format($total_exp); ?></b></h4></td>
+										
+									</tr>
 									<tr>
-										<th colspan='2'>Total Point In Nett</th>
-										<td colspan='3' align='right'><h4><b class='text text-success'><?= number_format($total_in); ?></b></h4></td>
-										<td></td>
-									</tr>;		
+										<th colspan='4'>Total Point In Nett</th>
+										<td colspan='4' align='right'><h4><b class='text text-success'><?= number_format($total_in); ?></b></h4></td>
+										
+									</tr>		
                                 </tbody>
                             </table>
-                          <!--  ?php if (empty($point_hist)): ?>
-                                <p class="text-center text-muted">?= trans("no_records_found"); ?></p>
-                            <\?php endif; ?>
-                        </div>-->
+                            <?php if (empty($history)): ?>
+                                <p class="text-center text-muted"><?= trans("no_records_found"); ?></p>
+                            <?php endif; ?>
+                        </div>
                         <div class="col-sm-12 col-xs-12">
-                           <!-- ?= view('common/_pagination'); ?> -->
+                           <!--?= view('common/_pagination'); ?>-->
                         </div>
                     </div>
                 </div>
