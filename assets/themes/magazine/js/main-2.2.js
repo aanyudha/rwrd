@@ -210,7 +210,8 @@ $(document).ready(function () {
             data: serializedData,
             success: function (response) {
                 var obj = JSON.parse(response);
-				console.log(obj.result);
+				//console.log(obj.result);
+				// console.log(obj.ngetespwd);
                 if (obj.result == 1) {
                     location.reload();
                 } else if (obj.result == 0) {

@@ -54,16 +54,16 @@
 										$tanggal_pengajuan=$row->tanggal_pengajuan==null?"":date("d-M-Y", strtotime($row->tanggal_pengajuan));
 										$tanggal_proses=$row->tanggal_proses==null?"":date("d-M-Y", strtotime($row->tanggal_proses));
 										$tanggal_claim=$row->tanggal_claim==null?"":date("d-M-Y", strtotime($row->tanggal_claim));
-										echo "<tr><td>$i</td><td>".$row->nama."</td><td>".$row->qty."</td><td align='right'>".$row->point."</td><td align='right'>".($row->qty*$row->point)."</td><td align='right'>".$tanggal_pengajuan."</td><td align='right'>".$tanggal_proses."</td><td align='right'>".$tanggal_claim."</td><td align='right'><span class='badge badge-".$color."'>".$row->status."</span></td></tr>";
+										echo "<tr><td>$i</td><td>".$row->nama."</td><td>".$row->qty."</td><td align='right'>".$row->point."</td><td align='right'>".($row->qty*$row->point)."</td><td align='right'>".$tanggal_pengajuan."</td><td align='right'>".$tanggal_proses."</td><td align='right'>".$tanggal_claim."</td><td align='right'><span class='badge bg-".$color."'>".$row->status."</span></td></tr>";
 									} 
 									?>
                                         
                                 </tbody>
                             </table>
-                          <!--  ?php if (empty($point_hist)): ?>
-                                <p class="text-center text-muted">?= trans("no_records_found"); ?></p>
-                            <\?php endif; ?>
-                        </div>-->
+                          <?php if (empty($history)): ?>
+                                <p class="text-center text-muted"><?= trans("no_records_found"); ?></p>
+                            <?php endif; ?>
+                        </div>
                         <div class="col-sm-12 col-xs-12">
                            <!-- ?= view('common/_pagination'); ?> -->
                         </div>

@@ -26,7 +26,7 @@ class AuthController extends BaseController
             return redirect()->to(langBaseUrl());
         }
         $val = \Config\Services::validation();
-        $val->setRule('email', trans("email"), 'required|max_length[255]');
+        //$val->setRule('email', trans("email"), 'required|max_length[255]');
         $val->setRule('password', trans("password"), 'required|max_length[255]');
         if (!$this->validate(getValRules($val))) {
             $this->session->setFlashdata('errors', $val->getErrors());
@@ -74,6 +74,11 @@ class AuthController extends BaseController
         } else {
             $model = new AuthModel();
             $result = $model->mlogin();
+			//echo json_encode($data[$result]);
+			// $data = [
+						// 'ngetespwd' => $result
+					// ];
+					// echo json_encode($data);
             if ($result == "success") {
                 echo json_encode(['result' => 1]);
             } elseif ($result == "banned") {

@@ -82,9 +82,10 @@ class AuthModel extends BaseModel
         $data = $this->inputValues();
         $muser = $this->getUserByEmailm($data['email']);
         $muserId = $this->getUserByIdem($data['email']);
-
+		//return password_verify($data['password'], $muserId->password);
+		// return password_hash($data['password'], PASSWORD_DEFAULT);
         if (!empty($muser)||!empty($muserId)) {
-			if(empty($muser->email)||$muser->email == null){ 
+			if(empty($muser->email)||$muser->email == null){
 				if (!password_verify($data['password'], $muserId->password)) {
 					return false;
 				}
