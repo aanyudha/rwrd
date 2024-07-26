@@ -1755,6 +1755,60 @@ class AdminController extends BaseAdminController
         echo view('admin/members/members');
         echo view('admin/includes/_footer');
     }
+	
+	/**
+     * Add Member
+     */
+    public function addMember()
+    {
+        checkAdmin();
+        $data['title'] = trans("add_member");
+        $data['roles'] = $this->authModel->getRolesPermissions();
+
+        echo view('admin/includes/_header', $data);
+        echo view('admin/members/add_member');
+        echo view('admin/includes/_footer');
+    }
+	
+	/**
+     * Add User Post
+     */
+    public function addUserPost()
+    {
+        checkAdmin();
+        $val = \Config\Services::validation();
+        $val->setRule('username', trans("username"), 'required|max_length[255]');
+        $val->setRule('email', trans("email"), 'required|max_length[255]');
+        if (!$this->validate(getValRules($val))) {
+            $this->session->setFlashdata('errors', $val->getErrors());
+            return redirect()->to(adminUrl('add-user'))->withInput();
+        } else {
+            $id = inputPost('id');
+            $email = inputPost('email');
+            $username = inputPost('username');
+            $slug = inputPost('slug');
+            if (!$this->authModel->isUniqueUsername($username, $id)) {
+                $this->session->setFlashdata('error', trans("msg_username_unique_error"));
+                return redirect()->to(adminUrl('add-user'))->withInput();
+            }
+            if (!$this->authModel->isEmailUnique($email, $id)) {
+                $this->session->setFlashdata('error', trans("message_email_unique_error"));
+                return redirect()->to(adminUrl('add-user'))->withInput();
+            }
+            if ($this->authModel->isSlugUnique($slug, $id)) {
+                $this->session->setFlashdata('error', trans("msg_slug_used"));
+                return redirect()->to(adminUrl('add-user'))->withInput();
+            }
+            if ($this->authModel->addUser($id)) {
+                $this->session->setFlashdata('success', trans("msg_updated"));
+            } else {
+                $this->session->setFlashdata('error', trans("msg_error"));
+                return redirect()->to(adminUrl('add-user'))->withInput();
+            }
+        }
+        return redirect()->to(adminUrl('add-user'));
+    }
+
 	/**
      * Edit Member
      */
@@ -1762,12 +1816,12 @@ class AdminController extends BaseAdminController
     {
         checkPermission('members');
         $data['title'] = trans("update_profile");
-        $data['user'] = getUserById($id);
-        if (empty($data['user'])) {
-            return redirect()->to(adminUrl('users'));
+        $data['member'] = getMemberById($id);
+        if (empty($data['member'])) {
+            return redirect()->to(adminUrl('members'));
         }
-        if ($data['user']->role == 'admin' && user()->role != 'admin') {
-            return redirect()->to(adminUrl('users'));
+        if ($data['member']->role == 'admin' && member()->role != 'admin') {
+            return redirect()->to(adminUrl('members'));
         }
 
         echo view('admin/includes/_header', $data);
@@ -1810,7 +1864,7 @@ class AdminController extends BaseAdminController
                 $this->session->setFlashdata('error', trans("msg_error"));
             }
         }
-        return redirect()->to(adminUrl('edit-user/' . cleanNumber($id)));
+        return redirect()->to(adminUrl('edit-member/' . cleanNumber($id)));
     }
 	/**
      * ref_hotel

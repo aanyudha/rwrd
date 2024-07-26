@@ -12,20 +12,20 @@
                     <h3 class="box-title"><?= trans('update_profile'); ?></h3>
                 </div>
             </div>
-            <form action="<?= base_url('AdminController/editUserPost'); ?>" method="post" enctype="multipart/form-data">
+            <form action="<?= base_url('AdminController/editMemberPost'); ?>" method="post" enctype="multipart/form-data">
                 <?= csrf_field(); ?>
-                <input type="hidden" name="id" value="<?= $user->id; ?>">
+                <input type="hidden" name="id" value="<?= $member->id_member; ?>">
 
                 <div class="box-body">
                     <div class="form-group">
-                        <?php $role = $authModel->getRoleByKey($user->role);
+                        <?php $role = $authModel->getRoleByKey($member->role);
                         if (!empty($role)):
                             $roleName = parseSerializedNameArray($role->role_name, $activeLang->id);
-                            if ($user->role == 'moderator'):?>
+                            if ($member->role == 'moderator'):?>
                                 <label class="label bg-olive"><?= esc($roleName); ?></label>
-                            <?php elseif ($user->role == 'author'): ?>
+                            <?php elseif ($member->role == 'author'): ?>
                                 <label class="label label-warning"><?= esc($roleName); ?></label>
-                            <?php elseif ($user->role == 'user'): ?>
+                            <?php elseif ($member->role == 'user'): ?>
                                 <label class="label label-default"><?= esc($roleName); ?></label>
                             <?php endif;
                         endif; ?>
@@ -34,7 +34,7 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-sm-12 col-profile">
-                                <img src="<?= getUserAvatar($user->avatar); ?>" alt="" class="thumbnail img-responsive img-update" style="max-width: 300px;">
+                                <img src="<?= getUserAvatar($member->avatar); ?>" alt="" class="thumbnail img-responsive img-update" style="max-width: 300px;">
                             </div>
                         </div>
                         <div class="row">
@@ -49,66 +49,49 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="form-group">
+					<div class="form-group">
                         <label><?= trans('email'); ?></label>
-                        <input type="email" class="form-control form-input" name="email" placeholder="<?= trans('email'); ?>" value="<?= esc($user->email); ?>">
+                        <input type="email" class="form-control form-input" name="email" placeholder="<?= trans('email'); ?>" value="<?= esc($member->email); ?>">
                     </div>
-
-                    <div class="form-group">
-                        <label><?= trans('username'); ?></label>
-                        <input type="text" class="form-control form-input" name="username" placeholder="<?= trans('username'); ?>" value="<?= esc($user->username); ?>">
+					<div class="form-group">
+                        <label><?= trans('fullname'); ?></label>
+                        <input type="email" class="form-control form-input" name="email" placeholder="<?= trans('email'); ?>" value="<?= esc($member->fullname); ?>">
                     </div>
-
-                    <div class="form-group">
-                        <label><?= trans('slug'); ?></label>
-                        <input type="text" class="form-control form-input" name="slug" placeholder="<?= trans('slug'); ?>" value="<?= esc($user->slug); ?>">
+					<div class="form-group">
+                        <label><?= trans('email'); ?></label>
+                        <input type="email" class="form-control form-input" name="email" placeholder="<?= trans('email'); ?>" value="<?= esc($member->name_on_card); ?>">
                     </div>
-
-                    <div class="form-group">
-                        <label class="control-label"><?= trans('about_me'); ?></label>
-                        <textarea class="form-control text-area" name="about_me" placeholder="<?= trans('about_me'); ?>"><?= esc($user->about_me); ?></textarea>
+					<div class="form-group">
+                        <label><?= trans('email'); ?></label>
+                        <input type="email" class="form-control form-input" name="email" placeholder="<?= trans('email'); ?>" value="<?= esc($member->alamat); ?>">
                     </div>
-
-                    <div class="form-group">
-                        <label><?= trans('social_accounts'); ?></label>
-                        <input type="text" class="form-control form-input" name="facebook_url" placeholder="Facebook <?= trans('url'); ?>" value="<?= esc($user->facebook_url); ?>">
+					<div class="form-group">
+                        <label><?= trans('email'); ?></label>
+                        <input type="email" class="form-control form-input" name="email" placeholder="<?= trans('email'); ?>" value="<?= esc($member->tempat_lahir); ?>">
                     </div>
-
-                    <div class="form-group">
-                        <input type="text" class="form-control form-input" name="twitter_url" placeholder="Twitter <?= trans('url'); ?>" value="<?= esc($user->twitter_url); ?>">
+					<div class="form-group">
+                        <label><?= trans('email'); ?></label>
+                        <input type="email" class="form-control form-input" name="email" placeholder="<?= trans('email'); ?>" value="<?= esc($member->tanggal_lahir); ?>">
                     </div>
-
-                    <div class="form-group">
-                        <input type="text" class="form-control form-input" name="instagram_url" placeholder="Instagram <?= trans('url'); ?>" value="<?= esc($user->instagram_url); ?>">
+					<div class="form-group">
+                        <label><?= trans('email'); ?></label>
+                        <input type="email" class="form-control form-input" name="email" placeholder="<?= trans('email'); ?>" value="<?= esc($member->telepon); ?>">
                     </div>
-
-                    <div class="form-group">
-                        <input type="text" class="form-control form-input" name="pinterest_url" placeholder="Pinterest <?= trans('url'); ?>" value="<?= esc($user->pinterest_url); ?>">
+					<div class="form-group">
+                        <label><?= trans('email'); ?></label>
+                        <input type="email" class="form-control form-input" name="email" placeholder="<?= trans('email'); ?>" value="<?= esc($member->handphone); ?>">
                     </div>
-
-                    <div class="form-group">
-                        <input type="text" class="form-control form-input" name="linkedin_url" placeholder="LinkedIn <?= trans('url'); ?>" value="<?= esc($user->linkedin_url); ?>">
-                    </div>
-
-                    <div class="form-group">
-                        <input type="text" class="form-control form-input" name="vk_url" placeholder="VK <?= trans('url'); ?>" value="<?= esc($user->vk_url); ?>">
-                    </div>
-
-                    <div class="form-group">
-                        <input type="text" class="form-control form-input" name="youtube_url" placeholder="Youtube <?= trans('url'); ?>" value="<?= esc($user->youtube_url); ?>">
+					<div class="form-group">
+                        <label><?= trans('email'); ?></label>
+                        <input type="email" class="form-control form-input" name="email" placeholder="<?= trans('email'); ?>" value="<?= esc($member->perusahaan); ?>">
                     </div>
 
                     <hr>
                     <div class="form-group">
                         <label><?= trans('balance'); ?></label>
-                        <input type="text" class="form-control form-input price-input" name="balance" placeholder="<?= trans('balance'); ?>" value="<?= $user->balance; ?>">
+                        <input type="text" class="form-control form-input price-input" name="balance" placeholder="<?= trans('balance'); ?>" value="<?= $member->balance; ?>">
                     </div>
 
-                    <div class="form-group">
-                        <label><?= trans('total_pageviews'); ?></label>
-                        <input type="text" class="form-control form-input" name="total_pageviews" placeholder="<?= trans('total_pageviews'); ?>" value="<?= $user->total_pageviews; ?>">
-                    </div>
                 </div>
 
                 <div class="box-footer">

@@ -250,6 +250,14 @@ if (!function_exists('user')) {
     }
 }
 
+//get active member
+if (!function_exists('member')) {
+    function member()
+    {
+        return Globals::$authMember;
+    }
+}
+
 //get user by id
 if (!function_exists('getUserById')) {
     function getUserById($id)

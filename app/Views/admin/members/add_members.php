@@ -8,16 +8,16 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <div class="left">
-                    <h3 class="box-title"><?= trans("add_user"); ?></h3>
+                    <h3 class="box-title"><?= trans("add_member"); ?></h3>
                 </div>
                 <div class="right">
-                    <a href="<?= adminUrl('users'); ?>" class="btn btn-success btn-add-new">
+                    <a href="<?= adminUrl('member'); ?>" class="btn btn-success btn-add-new">
                         <i class="fa fa-bars"></i>
-                        <?= trans("users"); ?>
+                        <?= trans("member"); ?>
                     </a>
                 </div>
             </div>
-            <form action="<?= base_url('AdminController/addUserPost'); ?>" method="post">
+            <form action="<?= base_url('AdminController/addMemberPost'); ?>" method="post">
                 <?= csrf_field(); ?>
                 <div class="box-body">
                     <div class="form-group">
@@ -32,20 +32,21 @@
                         <label><?= trans("password"); ?></label>
                         <input type="password" name="password" class="form-control auth-form-input" placeholder="<?= trans("password"); ?>" value="<?= old("password"); ?>" required>
                     </div>
-                    <div class="form-group">
-                        <label><?= trans("role"); ?></label>
+					<input type="hidden" name="role" value="4" required>
+                  <!--  <div class="form-group">
+                        <label>?= trans("role"); ?></label>
                         <select name="role" class="form-control">
-                            <?php if (!empty($roles)):
+                            ?php if (!empty($roles)):
                                 foreach ($roles as $role):
                                     $roleName = parseSerializedNameArray($role->role_name, $activeLang->id); ?>
-                                    <option value="<?= $role->role; ?>"><?= esc($roleName); ?></option>
-                                <?php endforeach;
+                                    <option value="?= $role->role; ?>">?= esc($roleName); ?></option>
+                               ?php endforeach;
                             endif; ?>
                         </select>
                     </div>
-                </div>
+                </div>-->
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-primary pull-right"><?= trans('add_user'); ?></button>
+                    <button type="submit" class="btn btn-primary pull-right"><?= trans('add_member'); ?></button>
                 </div>
             </form>
         </div>

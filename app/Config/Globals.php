@@ -21,6 +21,7 @@ class Globals extends BaseConfig
     public static $langBaseUrl = "";
     public static $authCheck = false;
     public static $authUser = null;
+    public static $authMember = null;
     public static $darkMode = 0;
 
     public static function setGlobals()
@@ -75,10 +76,10 @@ class Globals extends BaseConfig
         //authentication
 		if($session->get('tr_ses_role')=='user'){
 			if (!empty($session->get('tr_ses_id')) && !empty($session->get('tr_ses_role')) && !empty($session->get('tr_ses_pass'))) {
-				$user = self::$db->table('mst_member')->where('id_member', cleanNumber($session->get('tr_ses_id')))->get()->getRow();
-				if (!empty($user) && md5($user->password ?? '') == $session->get('tr_ses_pass')) {
+				$member = self::$db->table('mst_member')->where('id_member', cleanNumber($session->get('tr_ses_id')))->get()->getRow();
+				if (!empty($member) && md5($member->password ?? '') == $session->get('tr_ses_pass')) {
 					self::$authCheck = true;
-					self::$authUser = $user;
+					self::$authMember = $member;
 					}	
 			}
 		}else{

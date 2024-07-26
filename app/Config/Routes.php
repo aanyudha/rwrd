@@ -165,6 +165,7 @@ $routes->get($customRoutes->admin . '/add-user', 'AdminController::addUser');
 //members list
 $routes->get($customRoutes->admin . '/members', 'AdminController::members');
 $routes->get($customRoutes->admin . '/edit-member/(:num)', 'AdminController::editMember/$1');
+$routes->get($customRoutes->admin . '/add-member', 'AdminController::addMember');
 //roles permissions
 $routes->get($customRoutes->admin . '/roles-permissions', 'AdminController::rolesPermissions');
 $routes->get($customRoutes->admin . '/edit-role/(:num)', 'AdminController::editRole/$1');
