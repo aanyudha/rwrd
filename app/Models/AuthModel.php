@@ -24,6 +24,40 @@ class AuthModel extends BaseModel
             'password' => inputPost('password')
         ];
     }
+	//input values
+    public function inputValuesMmbr()
+    {
+        return [
+            'id_member' => inputPost('id_member'),
+            'id_guest' => inputPost('id_guest'),
+            'id_tipe_member' => inputPost('id_tipe_member'),
+            'is_print_card' => inputPost('is_print_card'),
+            'initial_point' => inputPost('initial_point'),
+            'initial_number_of_stays' => inputPost('initial_number_of_stays'),
+            'join_date' => inputPost('join_date'),
+            'jenis_identitas' => inputPost('jenis_identitas'),
+            'no_identitas' => inputPost('no_identitas'),
+            'first_name' => inputPost('first_name'),
+            'last_name' => inputPost('last_name'),
+            'title' => inputPost('title'),
+            'fullname' => inputPost('fullname'),
+            'name_on_card' => inputPost('name_on_card'),
+            'tempat_lahir' => inputPost('tempat_lahir'), //formatDateOnly(inputPost('tempat_lahir')),
+            'tanggal_lahir' => inputPost('tanggal_lahir'), //formatDateOnly(inputPost('tanggal_lahir')),
+            'id_negara' => inputPost('id_negara'),
+            'alamat' => inputPost('alamat'),
+            'kota' => inputPost('kota'),
+            'propinsi' => inputPost('propinsi'),
+            'kode_pos' => inputPost('kode_pos'),
+            'telepon' => inputPost('telepon'),
+            'handphone' => inputPost('handphone'),
+            'status' => inputPost('status'),
+            'perusahaan' => inputPost('perusahaan'),
+            'email' => inputPost('email'),
+            'username' => inputPost('email'),
+			'password' => inputPost('password')
+        ];
+    }
 	//input values Spc
     public function inputValuesSpc()
     {
@@ -347,6 +381,25 @@ class AuthModel extends BaseModel
         $data['last_seen'] = date('Y-m-d H:i:s');
         $data['created_at'] = date('Y-m-d H:i:s');
         return $this->builder->insert($data);
+    }
+	
+	 //add Member
+    public function addMember()
+    {
+        $data = $this->inputValuesMmbr();
+		$data['id_member'] = $this->memberID();
+        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        $data['user_type'] = "registered";
+        // $data["slug"] = $this->generateUniqueSlug($data["username"]);
+        $data['status'] = 1;
+        $data['email_status'] = 1;
+        $data['token'] = generateToken();
+        $data['role'] = 'user';
+        $data['balance'] = 0;
+        $data['reward_system_enabled'] = 1;
+        //$data['last_seen'] = date('Y-m-d H:i:s');
+        $data['created_at'] = date('Y-m-d H:i:s');
+        return $this->builderMstMember->insert($data);
     }
 
     //generate unique username
@@ -738,7 +791,7 @@ class AuthModel extends BaseModel
 			if (checkUserPermission('admin_panel')){
 				$this->builder->where('id', user()->id)->update(['last_seen' => date('Y-m-d H:i:s')]);
 			}else{
-				$this->builderMstMember->where('id_member', user()->id_member)->update(['last_seen' => date('Y-m-d H:i:s')]);
+				$this->builderMstMember->where('id_member', member()->id_member)->update(['last_seen' => date('Y-m-d H:i:s')]);
 			}
         }
     }

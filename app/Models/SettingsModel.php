@@ -11,6 +11,9 @@ class SettingsModel extends BaseModel
     protected $builderNegara;
     protected $builderHotels;
     protected $builderCountries;
+    protected $builderIdentitas;
+    protected $builderTitle;
+    protected $builderPilih;
 
     public function __construct()
     {
@@ -22,6 +25,9 @@ class SettingsModel extends BaseModel
         $this->builderNegara = $this->db->table('ref_negara');
         $this->builderHotels = $this->db->table('ref_hotel');
         $this->builderCountries = $this->db->table('ref_negara');
+        $this->builderIdentitas = $this->db->table('ref_identitas');
+        $this->builderTitle = $this->db->table('ref_title');
+        $this->builderPilih = $this->db->table('ref_pilih');
     }
 
     //input values
@@ -749,6 +755,11 @@ class SettingsModel extends BaseModel
         $this->filterHotels();
         return $this->builderHotels->orderBy('id_hotel ASC')->limit($perPage, $offset)->get()->getResult();
     }
+	//get hotels all
+    public function getHotelsAll()
+    {
+        return $this->builderHotels->get()->getResult();
+    }
 	//get hotel by id
     public function getHotel($id)
     {
@@ -907,4 +918,18 @@ class SettingsModel extends BaseModel
 		$enum_fields = $enum_array[1];
 		return( $enum_fields );
 	}
+	//IDENTITAS dan TITLE
+	//get identitas all
+    public function getIdentitasAll()
+    {
+        return $this->builderIdentitas->get()->getResult();
+    }
+	public function getTitleAll()
+    {
+        return $this->builderTitle->get()->getResult();
+    }
+	public function getPilihAll()
+    {
+        return $this->builderPilih->get()->getResult();
+    }
 }

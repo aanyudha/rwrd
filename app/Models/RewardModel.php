@@ -362,6 +362,11 @@ class RewardModel extends BaseModel
             $this->builderRefTipeMember->groupStart()->like('nama', cleanStr($q))->orLike('id_tipe_member', cleanStr($q))->orLike('min_stays', cleanStr($q))->orLike('max_stays', cleanStr($q))->orLike('benefit', cleanStr($q))->groupEnd();
         }
     }
+	//get MemberTypes all
+    public function getMemberTypesAll()
+    {
+        return $this->builderRefTipeMember->get()->getResult();
+    }
 	 //get hotel by MemberTypes nama
     public function getMemberTypesByNama($nama)
     {

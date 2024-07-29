@@ -24,6 +24,7 @@ class AdminController extends BaseAdminController
     protected $authModel;
     protected $commonModel;
     protected $newsletterModel;
+    protected $RewardModel;
 
     public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
     {
@@ -34,6 +35,7 @@ class AdminController extends BaseAdminController
         $this->authModel = new AuthModel();
         $this->commonModel = new CommonModel();
         $this->newsletterModel = new NewsletterModel();
+        $this->rewardModel = new RewardModel();
 
         if(checkCronTime(1)){
             //delete old posts
@@ -1764,49 +1766,46 @@ class AdminController extends BaseAdminController
         checkAdmin();
         $data['title'] = trans("add_member");
         $data['roles'] = $this->authModel->getRolesPermissions();
+        $data['negoro'] = $this->settingsModel->getCountriesAll();
+        $data['_htl'] = $this->settingsModel->getHotelsAll();
+        $data['_mmbrtp'] = $this->rewardModel->getMemberTypesAll();
+        $data['_idn'] = $this->settingsModel->getIdentitasAll();
+        $data['_ttl'] = $this->settingsModel->getTitleAll();
+        $data['_pilih'] = $this->settingsModel->getPilihAll();
 
         echo view('admin/includes/_header', $data);
-        echo view('admin/members/add_member');
+        echo view('admin/members/add_members');
         echo view('admin/includes/_footer');
     }
 	
 	/**
-     * Add User Post
+     * Add Member Post
      */
-    public function addUserPost()
+    public function addMemberPost()
     {
-        checkAdmin();
+        //checkAdmin();
         $val = \Config\Services::validation();
-        $val->setRule('username', trans("username"), 'required|max_length[255]');
+        // $val->setRule('username', trans("username"), 'required|max_length[255]');
         $val->setRule('email', trans("email"), 'required|max_length[255]');
+        $val->setRule('password', trans("password"), 'required|min_length[4]|max_length[200]');
         if (!$this->validate(getValRules($val))) {
             $this->session->setFlashdata('errors', $val->getErrors());
-            return redirect()->to(adminUrl('add-user'))->withInput();
+            return redirect()->to(adminUrl('add-member'))->withInput();
         } else {
-            $id = inputPost('id');
+            //$id_member = $this->memberID();
             $email = inputPost('email');
-            $username = inputPost('username');
-            $slug = inputPost('slug');
-            if (!$this->authModel->isUniqueUsername($username, $id)) {
-                $this->session->setFlashdata('error', trans("msg_username_unique_error"));
-                return redirect()->to(adminUrl('add-user'))->withInput();
-            }
-            if (!$this->authModel->isEmailUnique($email, $id)) {
+            if (!$this->authModel->isEmailUniqueMember($email)) {
                 $this->session->setFlashdata('error', trans("message_email_unique_error"));
-                return redirect()->to(adminUrl('add-user'))->withInput();
+                return redirect()->to(adminUrl('add-member'))->withInput();
             }
-            if ($this->authModel->isSlugUnique($slug, $id)) {
-                $this->session->setFlashdata('error', trans("msg_slug_used"));
-                return redirect()->to(adminUrl('add-user'))->withInput();
-            }
-            if ($this->authModel->addUser($id)) {
+            if ($this->authModel->addMember()) {
                 $this->session->setFlashdata('success', trans("msg_updated"));
             } else {
                 $this->session->setFlashdata('error', trans("msg_error"));
-                return redirect()->to(adminUrl('add-user'))->withInput();
+                return redirect()->to(adminUrl('add-member'))->withInput();
             }
         }
-        return redirect()->to(adminUrl('add-user'));
+        return redirect()->to(adminUrl('add-member'));
     }
 
 	/**

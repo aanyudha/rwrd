@@ -1,54 +1,44 @@
 <div class="row">
     <div class="col-sm-12">
-        <?= view('admin/includes/_messages'); ?>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-6 col-md-12">
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <div class="left">
-                    <h3 class="box-title"><?= trans("add_member"); ?></h3>
-                </div>
-                <div class="right">
-                    <a href="<?= adminUrl('member'); ?>" class="btn btn-success btn-add-new">
+        <form action="<?= base_url('AdminController/addMemberPost'); ?>" method="post" enctype="multipart/form-data" onkeypress="return event.keyCode != 13;">
+            <?= csrf_field(); ?>
+            <input type="hidden" name="post_type" value="article">
+            <div class="row">
+                <div class="col-sm-12 form-header">
+                    <h1 class="form-title"><?= trans('add_member'); ?></h1>
+                    <a href="<?= adminUrl('members'); ?>" class="btn btn-success btn-add-new pull-right">
                         <i class="fa fa-bars"></i>
-                        <?= trans("member"); ?>
+                        <?= trans('member'); ?>
                     </a>
                 </div>
+				
             </div>
-            <form action="<?= base_url('AdminController/addMemberPost'); ?>" method="post">
-                <?= csrf_field(); ?>
-                <div class="box-body">
-                    <div class="form-group">
-                        <label><?= trans("username"); ?></label>
-                        <input type="text" name="username" class="form-control auth-form-input" placeholder="<?= trans("username"); ?>" value="<?= old("username"); ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label><?= trans("email"); ?></label>
-                        <input type="email" name="email" class="form-control auth-form-input" placeholder="<?= trans("email"); ?>" value="<?= old("email"); ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label><?= trans("password"); ?></label>
-                        <input type="password" name="password" class="form-control auth-form-input" placeholder="<?= trans("password"); ?>" value="<?= old("password"); ?>" required>
-                    </div>
-					<input type="hidden" name="role" value="4" required>
-                  <!--  <div class="form-group">
-                        <label>?= trans("role"); ?></label>
-                        <select name="role" class="form-control">
-                            ?php if (!empty($roles)):
-                                foreach ($roles as $role):
-                                    $roleName = parseSerializedNameArray($role->role_name, $activeLang->id); ?>
-                                    <option value="?= $role->role; ?>">?= esc($roleName); ?></option>
-                               ?php endforeach;
-                            endif; ?>
-                        </select>
-                    </div>
-                </div>-->
-                <div class="box-footer">
-                    <button type="submit" class="btn btn-primary pull-right"><?= trans('add_member'); ?></button>
+            <div class="row">
+                <div class="col-sm-12">
+                    <?= view('admin/includes/_messages'); ?>
                 </div>
-            </form>
-        </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-post">
+                        <div class="form-post-left">
+                            <?= view("admin/members/_form_add_members"); ?>
+                        </div>
+                        <div class="form-post-right">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <?= view('admin/members/_upload_image_members'); ?>
+                                </div>
+                                <div class="col-sm-12">
+                                   <?= view('admin/members/_submit_box_members', ['url' => adminUrl('add-member')]); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
+
+<?= view('admin/file-manager/_load_file_manager', ['loadImages' => true, 'loadFiles' => false, 'loadVideos' => false, 'loadAudios' => false]); ?>

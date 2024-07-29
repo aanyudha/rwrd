@@ -246,7 +246,7 @@ if (!function_exists('authCheck')) {
 if (!function_exists('user')) {
     function user()
     {
-        return Globals::$authUser;
+		if(getMU()=='user'){return Globals::$authMember;}else{return Globals::$authUser;}
     }
 }
 
@@ -412,20 +412,20 @@ if (!function_exists('checkUserPermission')) {
     function checkUserPermission($permission)
     {
         if (authCheck()) {
-            $userRole = user()->role;
-            if ($userRole == 'admin') {
-                return true;
-            }
-            $rolePermission = array_filter(Globals::$rolesPermissions, function ($item) use ($userRole) {
-                return $item->role == $userRole;
-            });
-            foreach ($rolePermission as $key => $value) {
-                $rolePermission = $value;
-                break;
-            }
-            if (!empty($rolePermission) && $rolePermission->$permission == 1) {
-                return true;
-            }
+				$userRole = user()->role;
+				if ($userRole == 'admin') {
+					return true;
+				}
+				$rolePermission = array_filter(Globals::$rolesPermissions, function ($item) use ($userRole) {
+					return $item->role == $userRole;
+				});
+				foreach ($rolePermission as $key => $value) {
+					$rolePermission = $value;
+					break;
+				}
+				if (!empty($rolePermission) && $rolePermission->$permission == 1) {
+					return true;
+				}
         }
         return false;
     }
@@ -929,6 +929,19 @@ if (!function_exists('getSession')) {
             return $session->get($name);
         }
         return null;
+    }
+}//if($session->get('tr_ses_role')=='user'){
+
+//get MEMBER OR USER BACK
+if (!function_exists('getMU')) {
+    function getMU()
+    {
+        $session = \Config\Services::session();
+		if($session->get('tr_ses_role')=='user'){
+			return 'user';
+		}else{
+			return 'alien';
+		}
     }
 }
 
