@@ -1679,7 +1679,7 @@ if (!function_exists('getCategory')) {
     }
 }
 
-/*//get categories
+//get categories
 if (!function_exists('getCategories')) {
     function getCategories()
     {
@@ -1763,7 +1763,7 @@ if (!function_exists('getPostsByCategoryId')) {
         }
         return null;
     }
-}*/
+}
 
 //get post by id
 if (!function_exists('getPostById')) {

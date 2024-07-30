@@ -127,13 +127,13 @@
                         <li class="nav-post-format nav-add-post">
                             <a href="<?= adminUrl('post-format'); ?>"><i class="fa fa-file"></i><span><?= trans("add_post"); ?></span></a>
                         </li>
-                        <li class="nav-import-posts">
-                            <a href="<?= adminUrl('bulk-post-upload'); ?>"><i class="fa fa-cloud-upload"></i><span><?= trans("bulk_post_upload"); ?></span></a>
-                        </li>
+                       <!-- <li class="nav-import-posts">
+                            <a href="?= adminUrl('bulk-post-upload'); ?>"><i class="fa fa-cloud-upload"></i><span>?= trans("bulk_post_upload"); ?></span></a>
+                        </li>-->
                         <li class="treeview<?php isAdminNavActive(['posts', 'slider-posts', 'featured-posts', 'breaking-news', 'recommended-posts', 'pending-posts', 'scheduled-posts', 'drafts', 'update-post']); ?>">
                             <a href="#"><i class="fa fa-bars"></i> <span><?= trans("posts"); ?></span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
                             <ul class="treeview-menu">
-                                <li class="nav-posts"><a href="?= adminUrl('posts'); ?>"><?= trans("posts"); ?></a></li>
+                                <li class="nav-posts"><a href="<?= adminUrl('posts'); ?>"><?= trans("posts"); ?></a></li>
                                 <?php if (checkUserPermission('manage_all_posts')): ?>
                                     <li class="nav-slider-posts"><a href="<?= adminUrl('slider-posts'); ?>"><?= trans("slider_posts"); ?></a></li>
                                     <li class="nav-featured-posts"><a href="<?= adminUrl('featured-posts'); ?>"><?= trans("featured_posts"); ?></a></li>
@@ -156,7 +156,7 @@
                         <li class="nav-widgets"><a href="<?= adminUrl('widgets'); ?>"><i class="fa fa-th" aria-hidden="true"></i><span><?= trans("widgets"); ?></span></a></li>
                     <?php endif;
                     if (checkUserPermission('polls')): ?>
-                        <li class="nav-polls"><a href="<?= adminUrl('polls'); ?>"><i class="fa fa-list" aria-hidden="true"></i><span><?= trans("polls"); ?></span></a></li>
+                       <!-- <li class="nav-polls"><a href="?= adminUrl('polls'); ?>"><i class="fa fa-list" aria-hidden="true"></i><span>?= trans("polls"); ?></span></a></li>-->
                     <?php endif;
                     if (checkUserPermission('gallery')): ?>
                         <li class="treeview<?php isAdminNavActive(['gallery-images', 'gallery-albums', 'gallery-categories', 'update-gallery-image', 'update-gallery-album', 'update-gallery-category', 'gallery-add-image']); ?>">
