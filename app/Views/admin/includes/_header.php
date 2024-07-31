@@ -108,11 +108,11 @@
                     <li class="nav-home">
                         <a href="<?= adminUrl(); ?>"><i class="fa fa-home"></i><span><?= trans("home"); ?></span></a>
                     </li>
-                  <!--   <?php if (checkUserPermission('navigation')): ?>
+                    <?php if (checkUserPermission('navigation')): ?>
                         <li class="nav-navigation">
                             <a href="<?= adminUrl('navigation?lang=' . $activeLang->id); ?>"><i class="fa fa-th"></i><span><?= trans("navigation"); ?></span></a>
                         </li>
-                    <?php endif;
+                    <!-- <?php endif;
                     if (isAdmin()): ?>
                         <li class="nav-themes">
                             <a href="<?= adminUrl('themes'); ?>"><i class="fa fa-leaf"></i><span><?= trans("themes"); ?></span></a>
@@ -242,9 +242,9 @@
                     <?php endif;
                     if (checkUserPermission('settings')): ?>
                         <li class="header"><?= trans("settings"); ?></li>
-                        <!--<li class="nav-preferences">
+                        <li class="nav-preferences">
                             <a href="<?= adminUrl('preferences'); ?>"><i class="fa fa-check-square-o"></i><span><?= trans("preferences"); ?></span></a>
-                        </li> -->
+                        </li> 
 						<li class="nav-cache-system">
                             <a href="<?= adminUrl('cache-system'); ?>"><i class="fa fa-database"></i><span><?= trans("cache_system"); ?></span></a>
                         </li>
@@ -254,9 +254,9 @@
 						<li class="nav-ad-spaces">
                             <a href="<?= adminUrl('ref-countries'); ?>"><i class="fa fa-empire"></i><span><?= trans("negara_setting"); ?></span></a>
                         </li>
-                       <!-- <li class="nav-route-settings">
+                       <li class="nav-route-settings">
                             <a href="<?= adminUrl('route-settings'); ?>"><i class="fa fa-map-signs"></i><span><?= trans("route_settings"); ?></span></a>
-                        </li> -->
+                        </li> 
                         <li class="nav-email-settings">
                             <a href="<?= adminUrl('email-settings'); ?>"><i class="fa fa-mail-forward"></i><span><?= trans("email_settings"); ?></span></a>
                         </li>

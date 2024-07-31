@@ -11,7 +11,7 @@ $itemsMegaMenu = array(); ?>
 <li class="nav-item">
 <a href="<?= langBaseUrl(); ?>" class="nav-link"><?= trans("home"); ?></a>
 </li>
-<?php endif;
+<?php endif; //var_dump($item->item_id);
 $totalItem = 0;
 $i = 1;
 if (!empty($baseMenuLinks)):
@@ -21,6 +21,7 @@ if ($i < $menuLimit):
 $subLinks = getSubMenuLinks($baseMenuLinks, $item->item_id, $item->item_type);
 if ($item->item_type == "category"):
 $category = getCategory($item->item_id, $baseCategories);
+// var_dump($baseCategories);
 if (!empty($category)): ?>
 <li class="nav-item nav-item-category nav-item-category-<?= $category->id; ?>" data-category-id="<?= $category->id; ?>">
 <a href="<?= generateCategoryURL($category); ?>" class="nav-link" data-toggle="dropdown" role="button" aria-expanded="false"><?= esc($category->name); ?><i class="icon-arrow-down"></i></a>

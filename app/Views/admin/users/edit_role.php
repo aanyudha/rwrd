@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="form-group">
+                        <div class="form-group">
                             <div class="row">
                                 <div class="col-md-1 col-sm-2 col-xs-2">
                                     <input type="checkbox" name="navigation" value="1" id="role_navigation" class="square-purple" <?= $role->navigation == 1 ? 'checked' : ''; ?>>
@@ -60,7 +60,7 @@
                                     <label for="role_navigation" class="control-label cursor-pointer"><?= trans('navigation'); ?></label>
                                 </div>
                             </div>
-                        </div>-->
+                        </div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-1 col-sm-2 col-xs-2">
@@ -80,7 +80,7 @@
                                     <label for="role_rss_feeds" class="control-label cursor-pointer"><?= trans('rss_feeds'); ?></label>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-1 col-sm-2 col-xs-2">
@@ -101,7 +101,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <div class="row">
                                 <div class="col-md-1 col-sm-2 col-xs-2">
                                     <input type="checkbox" name="polls" value="1" id="role_polls" class="square-purple" <?= $role->polls == 1 ? 'checked' : ''; ?>>
@@ -110,7 +110,7 @@
                                     <label for="role_polls" class="control-label cursor-pointer"><?= trans('polls'); ?></label>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-1 col-sm-2 col-xs-2">
@@ -121,7 +121,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <div class="row">
                                 <div class="col-md-1 col-sm-2 col-xs-2">
                                     <input type="checkbox" name="comments_contact" value="1" id="role_comments_contact" class="square-purple" <?= $role->comments_contact == 1 ? 'checked' : ''; ?>>

@@ -79,7 +79,7 @@ abstract class BaseController extends Controller
         $this->request = \Config\Services::request();
         $this->settingsModel = new SettingsModel();
         $this->commonModel = new CommonModel();
-        //$this->postModel = new PostModel();
+        $this->postModel = new PostModel();
 
         //general settings
         $this->generalSettings = Globals::$generalSettings;
@@ -128,7 +128,7 @@ abstract class BaseController extends Controller
             setCacheData('widgets', $this->widgets);
         }
         //categories
-       /* $this->categories = getCachedData('categories');
+        $this->categories = getCachedData('categories');
         if (empty($this->categories)) {
             $this->categories = getCategoriesByLang($this->activeLang->id);
             setCacheData('categories', $this->categories);
@@ -139,7 +139,7 @@ abstract class BaseController extends Controller
             $this->latestCategoryPosts = $this->postModel->getLatestCategoryPosts($this->activeLang->id);
             setCacheData('latest_category_posts', $this->latestCategoryPosts);
         }
-*/
+
         //ad spaces
         //$this->adSpaces = $this->commonModel->getAdSpacesByLang($this->activeLang->id);
 

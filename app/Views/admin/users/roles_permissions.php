@@ -39,29 +39,29 @@
                                             <?php endif; 
                                             /*if ($role->manage_all_posts == 1): ?>
                                                 <label class="label label-success"><?= trans("manage_all_posts") ?></label>
-                                            <?php endif;
+                                            <?php endif;*/
                                             if ($role->navigation == 1): ?>
                                                 <label class="label label-success"><?= trans("navigation") ?></label>
-                                            <?php endif;*/
+                                            <?php endif;
                                             if ($role->pages == 1): ?>
                                                 <label class="label label-success"><?= trans("pages") ?></label>
                                             <?php endif;/*
                                             if ($role->rss_feeds == 1): ?>
                                                 <label class="label label-success"><?= trans("rss_feeds") ?></label>
-                                            <?php endif;
+                                            <?php endif;*/
                                             if ($role->categories == 1): ?>
                                                 <label class="label label-success"><?= trans("categories") ?></label>
                                             <?php endif;
                                             if ($role->widgets == 1): ?>
                                                 <label class="label label-success"><?= trans("widgets") ?></label>
                                             <?php endif;
-                                            if ($role->polls == 1): ?>
+                                           /* if ($role->polls == 1): ?>
                                                 <label class="label label-success"><?= trans("polls") ?></label>
-                                            <?php endif;
+                                            <?php endif;*/
                                             if ($role->gallery == 1): ?>
                                                 <label class="label label-success"><?= trans("gallery") ?></label>
                                             <?php endif;
-                                            if ($role->comments_contact == 1): ?>
+                                           /* if ($role->comments_contact == 1): ?>
                                                 <label class="label label-success"><?= trans("comments") ?>, <?= trans("contact_messages") ?></label>
                                             <?php endif;*/?>
                                            <?php if ($role->newsletter == 1): ?>

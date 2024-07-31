@@ -98,15 +98,22 @@ class HomeController extends BaseController
         } else {
             $categoryModel = new CategoryModel();
             $category = $categoryModel->getCategoryBySlug($slug);
+			
             if (!empty($category)) {
                 $this->category($category);
             } else {
-                $post = $this->postModel->getPostBySlug($slug);
-                if (!empty($post)) {
-                    $this->post($post);
-                } else {
-                    $this->error404();
-                }
+				//var_dump($slug);
+				$post = $this->postModel->getPostBySlug($slug);
+				// var_dump($this->postModel->getPostBySlug($post));
+				$abc= $this->postModel->getLastQuery()->getQuery();
+				var_dump ($abc);
+                // $post = $this->postModel->getPostBySlug($slug);
+				// var_dump($post);
+                // if (!empty($post)) {
+                    // $this->post($post);
+                // } else {
+                    // $this->error404();
+                // }
             }
         }
     }
