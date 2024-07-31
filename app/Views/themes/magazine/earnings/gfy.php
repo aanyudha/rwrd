@@ -14,10 +14,10 @@
                         <?= loadView('earnings/_tabs'); ?>
 						<!--<li class="list-group-item <?= $activeTab == 'payouts' ? 'active' : ''; ?>">
 							<a class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Cart</a>
-						</li>-->
+						</li>
 						<li class="list-group-item">
 							<a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCart">Cart</a>
-						</li>
+						</li>-->
                     </div>
                     <div class="col-sm-12 col-md-9">
 						<div class="left">
@@ -39,7 +39,7 @@
 										?>
 										<div class="col-sm-6">
 											 <div id="reward-<?php echo $row->id_reward; ?>" class="card sc-product-item thumbnail text-center " style="width: 18rem;">
-											  <a class="card-title center" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions2" aria-controls="offcanvasWithBothOptions2"><img data-name="product_image" src="<?= getPostImage3($row->foto); ?>" class="card-img-top" alt="..."></a>
+											  <a class="card-title center" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions2"><img data-name="product_image" src="<?= getPostImage3($row->foto); ?>" class="card-img-top" alt="..."></a>
 											  <div class="card-body">
 												<a id="reward-<?php echo $row->id_reward; ?>" class="card-title center" type="button" data-name="product_name" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions2" aria-controls="offcanvasWithBothOptions2"><?php echo $row->nama; ?></a>
 												<form  action="" enctype="multipart/form-data">
@@ -81,7 +81,11 @@
 												<?php 
 												}
 												?>
+												<?php //if($last_point<$row->index_point){ ?>
+												<!--<button class="card-link sc-add-to-cart btn btn-success btn-sm pull-right" disabled>Add to cart</button>-->
+												<?php //}else{ ?>
 												<button class="card-link sc-add-to-cart btn btn-success btn-sm pull-right">Add to cart</button>
+												<?php //} ?>
 											  </div>
 											</div>
 										</div>

@@ -1,4 +1,4 @@
-<div id="nav-top" class="d-flex align-items-center">
+<div id="nav-top" class="d-flex align-items-center sticky-top">
 <div class="container-xl d-flex justify-content-center justify-content-between">
 <div class="d-flex align-items-center">
 <ul class="navbar-nav flex-row top-left">
@@ -17,10 +17,24 @@ endif; ?>
 <li class="nav-item"><a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#modalAddPost"><?= trans("add_post"); ?></a></li>
 <?php endif;
 if (authCheck()): ?>
+<?php if (getMU()=='user'){ ?>
+<li class="nav-item dropdown profile-dropdown display-flex align-items-center">
+		<!--<a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCart">Cart</a>
+		<div class="panel-heading sc-cart-heading">
+			<span class="sc-cart-count badge rounded-pill bg-danger">0</span>
+		</div>-->
+		<button type="button" class="btn btn-primary position-relative" data-bs-toggle="modal" data-bs-target="#modalCart">
+		  Cart
+		  <span class="badge rounded-pill bg-danger">
+			99+
+			<span class="visually-hidden">unread messages</span>
+		  </span>
+		</button>
+</li><?php }?>
 <li class="nav-item dropdown profile-dropdown display-flex align-items-center">
 <a href="#" class="nav-link dropdown-toggle display-flex align-items-center" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-<img src="<?= getUserAvatar(user()->avatar); ?>" alt="<?= esc(user()->username); ?>" width="28" height="28">&nbsp;
-<?= esc(user()->username); ?>
+<img src="<?= getUserAvatar(user()->avatar); ?>" alt="<?= esc(user()->email); ?>" width="28" height="28">&nbsp;
+<?= esc(user()->email); ?>
 </a>
 <ul class="dropdown-menu">
 <?php if (checkUserPermission('admin_panel')): ?>
@@ -28,7 +42,7 @@ if (authCheck()): ?>
 <?php endif; ?>
 <!--<li><a href="?= generateProfileURL(user()->slug); ?>" class="dropdown-item">?= trans("profile"); ?></a></li>-->
 <?php if (user()->reward_system_enabled == 1): ?>
-<li><a href="<?= generateURL('pointhist'); ?>" class="dropdown-item"><?= trans("earnings"); ?>&nbsp;(<strong class="lbl-earnings"><?= priceFormatted(user()->balance); ?></strong>)</a></li>
+<li><a href="<?= generateURL('pointhist'); ?>" class="dropdown-item"><?= trans("earnings"); ?>&nbsp;(<strong class="lbl-earnings"><?= (user()->balance); ?></strong>)</a></li>
 <?php endif; ?>
 <!--<li><a href="?= generateURL('reading_list'); ?>" class="dropdown-item">?= trans("reading_list"); ?></a></li>-->
 <li><a href="<?= generateURL('settings'); ?>" class="dropdown-item"><?= trans("settings"); ?></a></li>

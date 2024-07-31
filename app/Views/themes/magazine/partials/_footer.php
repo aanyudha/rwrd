@@ -73,10 +73,10 @@
             </div>
         </div>
     </footer>
-    <!--<a href="#" class="scrollup"><i class="icon-arrow-up"></i></a>-->
-	<li class="scrollup">
-							<a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCart">Cart</a>
-						</li>
+    <a href="#" class="scrollup"><i class="icon-arrow-up"></i></a>
+	<!--<li class="scrollup">
+		<a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCart">Cart</a>
+	</li>-->
 <?php if (empty(helperGetCookie('cks_warning')) && $baseSettings->cookies_warning): ?>
     <div class="cookies-warning">
         <button type="button" aria-label="close" class="close" onclick="closeCookiesWarning();">

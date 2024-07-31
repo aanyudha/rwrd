@@ -116,7 +116,7 @@
             this.cart_element.append(cartListElement);
             // Set the cart main element
             this.cart_element.addClass('panel panel-default sc-cart sc-theme-' + this.options.theme);
-            this.cart_element.append('<div class="panel-heading sc-cart-heading">' + this.options.lang.cartTitle + ' <span class="sc-cart-count badge">0</span></div>');
+            this.cart_element.append('<div class="panel-heading sc-cart-heading">' + this.options.lang.cartTitle + ' <span class="sc-cart-count badge rounded-pill bg-danger">0</span></div>');
             this.cart_element.append('<div class="list-group sc-cart-item-list"></div>');
         },
         /* 
