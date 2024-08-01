@@ -26,7 +26,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <!--<div class="row">
                         <div class="col-sm-6 col-xs-6">
                             <div class="form-group">
                                 <input type="text" class="form-control" name="profile_readonly" value="profile" readonly>
@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-sm-6 col-xs-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="profile" value="<?= $routes->profile; ?>" maxlength="100" required>
+                                <input type="text" class="form-control" name="profile" value="?= $routes->profile; ?>" maxlength="100" required>
                             </div>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                         </div>
                         <div class="col-sm-6 col-xs-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="tag" value="<?= $routes->tag; ?>" maxlength="100" required>
+                                <input type="text" class="form-control" name="tag" value="?= $routes->tag; ?>" maxlength="100" required>
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                         </div>
                         <div class="col-sm-6 col-xs-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="reading_list" value="<?= $routes->reading_list; ?>" maxlength="100" required>
+                                <input type="text" class="form-control" name="reading_list" value="?= $routes->reading_list; ?>" maxlength="100" required>
                             </div>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                         </div>
                         <div class="col-sm-6 col-xs-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="settings" value="<?= $routes->settings; ?>" maxlength="100" required>
+                                <input type="text" class="form-control" name="settings" value="?= $routes->settings; ?>" maxlength="100" required>
                             </div>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
                         </div>
                         <div class="col-sm-6 col-xs-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="social_accounts" value="<?= $routes->social_accounts; ?>" maxlength="100" required>
+                                <input type="text" class="form-control" name="social_accounts" value="?= $routes->social_accounts; ?>" maxlength="100" required>
                             </div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                         </div>
                         <div class="col-sm-6 col-xs-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="preferences" value="<?= $routes->preferences; ?>" maxlength="100" required>
+                                <input type="text" class="form-control" name="preferences" value="?= $routes->preferences; ?>" maxlength="100" required>
                             </div>
                         </div>
                     </div>
@@ -106,7 +106,7 @@
                         </div>
                         <div class="col-sm-6 col-xs-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="change_password" value="<?= $routes->change_password; ?>" maxlength="100" required>
+                                <input type="text" class="form-control" name="change_password" value="?= $routes->change_password; ?>" maxlength="100" required>
                             </div>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                         </div>
                         <div class="col-sm-6 col-xs-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="forgot_password" value="<?= $routes->forgot_password; ?>" maxlength="100" required>
+                                <input type="text" class="form-control" name="forgot_password" value="?= $routes->forgot_password; ?>" maxlength="100" required>
                             </div>
                         </div>
                     </div>
@@ -130,7 +130,7 @@
                         </div>
                         <div class="col-sm-6 col-xs-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="reset_password" value="<?= $routes->reset_password; ?>" maxlength="100" required>
+                                <input type="text" class="form-control" name="reset_password" value="?= $routes->reset_password; ?>" maxlength="100" required>
                             </div>
                         </div>
                     </div>
@@ -142,7 +142,7 @@
                         </div>
                         <div class="col-sm-6 col-xs-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="delete_account" value="<?= $routes->delete_account; ?>" maxlength="100" required>
+                                <input type="text" class="form-control" name="delete_account" value="?= $routes->delete_account; ?>" maxlength="100" required>
                             </div>
                         </div>
                     </div>
@@ -154,7 +154,7 @@
                         </div>
                         <div class="col-sm-6 col-xs-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="register" value="<?= $routes->register; ?>" maxlength="100" required>
+                                <input type="text" class="form-control" name="register" value="?= $routes->register; ?>" maxlength="100" required>
                             </div>
                         </div>
                     </div>
@@ -166,7 +166,7 @@
                         </div>
                         <div class="col-sm-6 col-xs-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="posts" value="<?= $routes->posts; ?>" maxlength="100" required>
+                                <input type="text" class="form-control" name="posts" value="?= $routes->posts; ?>" maxlength="100" required>
                             </div>
                         </div>
                     </div>
@@ -178,7 +178,7 @@
                         </div>
                         <div class="col-sm-6 col-xs-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="search" value="<?= $routes->search; ?>" maxlength="100" required>
+                                <input type="text" class="form-control" name="search" value="?= $routes->search; ?>" maxlength="100" required>
                             </div>
                         </div>
                     </div>
@@ -190,7 +190,7 @@
                         </div>
                         <div class="col-sm-6 col-xs-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="rss_feeds" value="<?= $routes->rss_feeds; ?>" maxlength="100" required>
+                                <input type="text" class="form-control" name="rss_feeds" value="?= $routes->rss_feeds; ?>" maxlength="100" required>
                             </div>
                         </div>
                     </div>
@@ -202,7 +202,7 @@
                         </div>
                         <div class="col-sm-6 col-xs-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="gallery_album" value="<?= $routes->gallery_album; ?>" maxlength="100" required>
+                                <input type="text" class="form-control" name="gallery_album" value="?= $routes->gallery_album; ?>" maxlength="100" required>
                             </div>
                         </div>
                     </div>
@@ -214,7 +214,7 @@
                         </div>
                         <div class="col-sm-6 col-xs-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="earnings" value="<?= $routes->earnings; ?>" maxlength="100" required>
+                                <input type="text" class="form-control" name="earnings" value="?= $routes->earnings; ?>" maxlength="100" required>
                             </div>
                         </div>
                     </div>
@@ -226,7 +226,7 @@
                         </div>
                         <div class="col-sm-6 col-xs-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="payouts" value="<?= $routes->payouts; ?>" maxlength="100" required>
+                                <input type="text" class="form-control" name="payouts" value="?= $routes->payouts; ?>" maxlength="100" required>
                             </div>
                         </div>
                     </div>
@@ -238,7 +238,7 @@
                         </div>
                         <div class="col-sm-6 col-xs-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="set_payout_account" value="<?= $routes->set_payout_account; ?>" maxlength="100" required>
+                                <input type="text" class="form-control" name="set_payout_account" value="?= $routes->set_payout_account; ?>" maxlength="100" required>
                             </div>
                         </div>
                     </div>
@@ -250,11 +250,11 @@
                         </div>
                         <div class="col-sm-6 col-xs-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="logout" value="<?= $routes->logout; ?>" maxlength="100" required>
+                                <input type="text" class="form-control" name="logout" value="?= $routes->logout; ?>" maxlength="100" required>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>-->
 
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary pull-right"><?= trans('save_changes'); ?></button>

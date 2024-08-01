@@ -138,14 +138,14 @@
                             <?php endforeach; ?>
                         </div>
                     <?php endif; ?>
-                    <div class="d-flex flex-row post-tags align-items-center mt-5">
-                        <h2 class="title"><?= trans("post_tags"); ?></h2>
+                    <!--<div class="d-flex flex-row post-tags align-items-center mt-5">
+                        <h2 class="title">?= trans("post_tags"); ?></h2>
                         <ul class="d-flex flex-row">
-                            <?php foreach ($postTags as $tag) : ?>
-                                <li><a href="<?= generateTagURL($tag->tag_slug); ?>"><?= esc($tag->tag); ?></a></li>
-                            <?php endforeach; ?>
+                            ?php foreach ($postTags as $tag) : ?>
+                                <li><a href="?= generateTagURL($tag->tag_slug); ?>">?= esc($tag->tag); ?></a></li>
+                            ?php endforeach; ?>
                         </ul>
-                    </div>
+                    </div>-->
                     <div class="post-next-prev mt-5">
                         <div class="row">
                             <div class="col-sm-6 col-xs-12 left">

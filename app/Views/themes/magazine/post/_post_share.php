@@ -3,21 +3,21 @@ $postTitle = urlencode($post->title); ?>
 <div class="btn-share">
     <a href="javascript:void(0)" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=<?= $postURL; ?>', 'Share This Post', 'width=640,height=450');return false" class="color-facebook"><i class="icon-facebook"></i></a>
 </div>
-<div class="btn-share">
-    <a href="javascript:void(0)" onclick="window.open('https://twitter.com/share?url=<?= $postURL; ?>&amp;text=<?= $postTitle; ?>', 'Share This Post', 'width=640,height=450');return false" class="color-twitter"><i class="icon-twitter"></i></a>
-</div>
+<!--<div class="btn-share">
+    <a href="javascript:void(0)" onclick="window.open('https://twitter.com/share?url=?= $postURL; ?>&amp;text=?= $postTitle; ?>', 'Share This Post', 'width=640,height=450');return false" class="color-twitter"><i class="icon-twitter"></i></a>
+</div>-->
 <div class="btn-share">
     <a href="javascript:void(0)" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&amp;url=<?= $postURL; ?>', 'Share This Post', 'width=640,height=450');return false" class="color-linkedin"><i class="icon-linkedin"></i></a>
 </div>
 <div class="btn-share">
     <a href="https://api.whatsapp.com/send?text=<?= $postTitle; ?> - <?= $postURL; ?>" class="color-whatsapp" target="_blank"><i class="icon-whatsapp"></i></a>
 </div>
-<div class="btn-share">
-    <a href="javascript:void(0)" onclick="window.open('http://pinterest.com/pin/create/button/?url=<?= $postURL; ?>&amp;media=<?= base_url($post->image_default); ?>', 'Share This Post', 'width=640,height=450');return false" class="color-pinterest"><i class="icon-pinterest"></i></a>
+<!--<div class="btn-share">
+    <a href="javascript:void(0)" onclick="window.open('http://pinterest.com/pin/create/button/?url=?= $postURL; ?>&amp;media=?= base_url($post->image_default); ?>', 'Share This Post', 'width=640,height=450');return false" class="color-pinterest"><i class="icon-pinterest"></i></a>
 </div>
 <div class="btn-share">
-    <a href="javascript:void(0)" onclick="window.open('http://www.tumblr.com/share/link?url=<?= $postURL; ?>&amp;title=<?= $postTitle; ?>', 'Share This Post', 'width=640,height=450');return false" class="color-tumblr"><i class="icon-tumblr"></i></a>
-</div>
+    <a href="javascript:void(0)" onclick="window.open('http://www.tumblr.com/share/link?url=?= $postURL; ?>&amp;title=?= $postTitle; ?>', 'Share This Post', 'width=640,height=450');return false" class="color-tumblr"><i class="icon-tumblr"></i></a>
+</div>-->
 <div class="btn-share ms-auto">
     <div class="btn-inner">
         <a href="javascript:void(0)" id="print_post" class="btn-print" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<?= trans("print"); ?>">

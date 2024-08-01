@@ -108,14 +108,33 @@
                     <li class="nav-home">
                         <a href="<?= adminUrl(); ?>"><i class="fa fa-home"></i><span><?= trans("home"); ?></span></a>
                     </li>
-                    <?php if (checkUserPermission('navigation')): ?>
+					<?php if (checkUserPermission('reward_system')): ?>
+                        <li class="treeview<?php isAdminNavActive(['reward-system']); ?>">
+                            <a href="#"><i class="fa fa-money"></i> <span><?= trans("reward_system"); ?></span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+                            <ul class="treeview-menu">
+								<li class="nav-users"><a href="<?= adminUrl('members'); ?>"> <?= trans("member"); ?></a></li>
+                                <li class="nav-reward-system"><a href="<?= adminUrl('reward-system/ref-tipe-member'); ?>"><?= trans("ref-tipe-member"); ?></a></li>
+                                <li class="nav-reward-system-earnings"><a href="<?= adminUrl('reward-system/ref-reward'); ?>"><?= trans("rewards-list"); ?></a></li>
+								<hr>
+                                <li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/trn-hotel'); ?>"><?= trans("trn-hotel"); ?></a></li>
+                                <li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/trn-hotel-upl'); ?>"><?= trans("trn-hotel-upl"); ?></a></li>
+                                <hr>
+								<li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/trn-point-out'); ?>"><?= trans("trn-point-out"); ?></a></li>
+                                <li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/mmbr-type-mtr'); ?>"><?= trans("mmbr-type-mtr"); ?></a></li>
+                                <li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/rpt-point-mmbr'); ?>"><?= trans("rpt-point-mmbr"); ?></a></li>
+                                <!--<li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/payouts'); ?>"><?= trans("payouts"); ?></a></li>
+                                <li class="nav-reward-system-pageviews"><a href="<?= adminUrl('reward-system/pageviews'); ?>"><?= trans("pageviews"); ?></a></li>
+                            --></ul>
+                        </li>
+                    <?php endif;
+                     if (checkUserPermission('navigation')): ?>
                         <li class="nav-navigation">
                             <a href="<?= adminUrl('navigation?lang=' . $activeLang->id); ?>"><i class="fa fa-th"></i><span><?= trans("navigation"); ?></span></a>
                         </li>
                     <!-- <?php endif;
                     if (isAdmin()): ?>
                         <li class="nav-themes">
-                            <a href="<?= adminUrl('themes'); ?>"><i class="fa fa-leaf"></i><span><?= trans("themes"); ?></span></a>
+                            <a href="?= adminUrl('themes'); ?>"><i class="fa fa-leaf"></i><span>?= trans("themes"); ?></span></a>
                         </li>-->
                     <?php endif;
                     if (checkUserPermission('pages')): ?>
@@ -138,11 +157,11 @@
                                     <li class="nav-slider-posts"><a href="<?= adminUrl('slider-posts'); ?>"><?= trans("slider_posts"); ?></a></li>
                                     <li class="nav-featured-posts"><a href="<?= adminUrl('featured-posts'); ?>"><?= trans("featured_posts"); ?></a></li>
                                     <li class="nav-breaking-news"><a href="<?= adminUrl('breaking-news'); ?>"><?= trans("breaking_news"); ?></a></li>
-                                    <li class="nav-recommended-posts"><a href="<?= adminUrl('recommended-posts'); ?>"><?= trans("recommended_posts"); ?></a></li>
+                                    <!--<li class="nav-recommended-posts"><a href="?= adminUrl('recommended-posts'); ?>">?= trans("recommended_posts"); ?></a></li>
                                 <?php endif; ?>
-                                <li class="nav-pending-posts"><a href="<?= adminUrl('pending-posts'); ?>"><?= trans("pending_posts"); ?></a></li>
-                                <li class="nav-scheduled-posts"><a href="<?= adminUrl('scheduled-posts'); ?>"><?= trans("scheduled_posts"); ?></a></li>
-                                <li class="nav-drafts"><a href="<?= adminUrl('drafts'); ?>"><?= trans("drafts"); ?></a></li>
+                                <li class="nav-pending-posts"><a href="?= adminUrl('pending-posts'); ?>">?= trans("pending_posts"); ?></a></li>
+                                <li class="nav-scheduled-posts"><a href="?= adminUrl('scheduled-posts'); ?>">?= trans("scheduled_posts"); ?></a></li>
+                                <li class="nav-drafts"><a href="?= adminUrl('drafts'); ?>">?= trans("drafts"); ?></a></li>-->
                             </ul>
                         </li>
                     <?php endif;
@@ -153,10 +172,10 @@
                         <li class="nav-categories"><a href="<?= adminUrl('categories'); ?>"><i class="fa fa-folder-open" aria-hidden="true"></i><span><?= trans("categories"); ?></span></a></li>
                     <?php endif;
                     if (checkUserPermission('widgets')): ?>
-                        <li class="nav-widgets"><a href="<?= adminUrl('widgets'); ?>"><i class="fa fa-th" aria-hidden="true"></i><span><?= trans("widgets"); ?></span></a></li>
+                        <!--<li class="nav-widgets"><a href="?= adminUrl('widgets'); ?>"><i class="fa fa-th" aria-hidden="true"></i><span>?= trans("widgets"); ?></span></a></li>
                     <?php endif;
                     if (checkUserPermission('polls')): ?>
-                       <!-- <li class="nav-polls"><a href="?= adminUrl('polls'); ?>"><i class="fa fa-list" aria-hidden="true"></i><span>?= trans("polls"); ?></span></a></li>-->
+                        <li class="nav-polls"><a href="?= adminUrl('polls'); ?>"><i class="fa fa-list" aria-hidden="true"></i><span>?= trans("polls"); ?></span></a></li>-->
                     <?php endif;
                     if (checkUserPermission('gallery')): ?>
                         <li class="treeview<?php isAdminNavActive(['gallery-images', 'gallery-albums', 'gallery-categories', 'update-gallery-image', 'update-gallery-album', 'update-gallery-category', 'gallery-add-image']); ?>">
@@ -172,11 +191,11 @@
                         <li class="nav-contact-messages">
                             <a href="<?= adminUrl('contact-messages'); ?>"><i class="fa fa-paper-plane" aria-hidden="true"></i><span><?= trans("contact_messages"); ?></span></a>
                         </li>
-                        <!--<li class="treeview<?php isAdminNavActive(['comments', 'pending-comments']); ?>">
-                            <a href="#"><i class="fa fa-comments"></i> <span><?= trans("comments"); ?></span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+                        <!--<li class="treeview?php isAdminNavActive(['comments', 'pending-comments']); ?>">
+                            <a href="#"><i class="fa fa-comments"></i> <span>?= trans("comments"); ?></span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
                             <ul class="treeview-menu">
-                                <li class="nav-pending-comments"><a href="<?= adminUrl('pending-comments'); ?>"><?= trans("pending_comments"); ?></a></li>
-                                <li class="nav-comments"><a href="<?= adminUrl('comments'); ?>"><?= trans("approved_comments"); ?></a></li>
+                                <li class="nav-pending-comments"><a href="?= adminUrl('pending-comments'); ?>">?= trans("pending_comments"); ?></a></li>
+                                <li class="nav-comments"><a href="?= adminUrl('comments'); ?>">?= trans("approved_comments"); ?></a></li>
                             </ul>
                         </li>-->
                     <?php endif;
@@ -185,28 +204,9 @@
                             <a href="<?= adminUrl('newsletter'); ?>"><i class="fa fa-envelope" aria-hidden="true"></i><span><?= trans("newsletter"); ?></span></a>
                         </li>
                     <?php endif;
-                    if (checkUserPermission('reward_system')): ?>
-                        <li class="treeview<?php isAdminNavActive(['reward-system']); ?>">
-                            <a href="#"><i class="fa fa-money"></i> <span><?= trans("reward_system"); ?></span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
-                            <ul class="treeview-menu">
-								<li class="nav-users"><a href="<?= adminUrl('members'); ?>"> <?= trans("member"); ?></a></li>
-                                <li class="nav-reward-system"><a href="<?= adminUrl('reward-system/ref-tipe-member'); ?>"><?= trans("ref-tipe-member"); ?></a></li>
-                                <li class="nav-reward-system-earnings"><a href="<?= adminUrl('reward-system/ref-reward'); ?>"><?= trans("rewards-list"); ?></a></li>
-								<hr>
-                                <li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/trn-hotel'); ?>"><?= trans("trn-hotel"); ?></a></li>
-                                <li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/trn-hotel-upl'); ?>"><?= trans("trn-hotel-upl"); ?></a></li>
-                                <hr>
-								<li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/trn-point-out'); ?>"><?= trans("trn-point-out"); ?></a></li>
-                                <li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/mmbr-type-mtr'); ?>"><?= trans("mmbr-type-mtr"); ?></a></li>
-                                <li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/rpt-point-mmbr'); ?>"><?= trans("rpt-point-mmbr"); ?></a></li>
-                                <!--<li class="nav-reward-system-payouts"><a href="<?= adminUrl('reward-system/payouts'); ?>"><?= trans("payouts"); ?></a></li>
-                                <li class="nav-reward-system-pageviews"><a href="<?= adminUrl('reward-system/pageviews'); ?>"><?= trans("pageviews"); ?></a></li>
-                            --></ul>
-                        </li>
-                    <?php endif;
                     if (checkUserPermission('ad_spaces')): ?>
                       <!--  <li class="nav-ad-spaces">
-                            <a href="<?= adminUrl('ad-spaces'); ?>"><i class="fa fa-dollar" aria-hidden="true"></i><span><?= trans("ad_spaces"); ?></span></a>
+                            <a href="?= adminUrl('ad-spaces'); ?>"><i class="fa fa-dollar" aria-hidden="true"></i><span><?= trans("ad_spaces"); ?></span></a>
                         </li>-->
                     <?php endif;
                     if (checkUserPermission('users')): ?>
@@ -228,26 +228,26 @@
                     <?php endif;
                     if (checkUserPermission('seo_tools')): ?>
                       <!--  <li class="nav-seo-tools">
-                            <a href="<?= adminUrl('seo-tools'); ?>"><i class="fa fa-wrench"></i><span><?= trans("seo_tools"); ?></span></a>
+                            <a href="?= adminUrl('seo-tools'); ?>"><i class="fa fa-wrench"></i><span>?= trans("seo_tools"); ?></span></a>
                         </li> -->
                     <?php endif;
                     if (isAdmin()): ?>
                         <!--<li class="nav-storage">
-                            <a href="<?= adminUrl('storage'); ?>"><i class="fa fa-cloud-upload"></i><span><?= trans("storage"); ?></span></a>
+                            <a href="?= adminUrl('storage'); ?>"><i class="fa fa-cloud-upload"></i><span>?= trans("storage"); ?></span></a>
                         </li>-->
                         
                        <!-- <li class="nav-google-news">
-                            <a href="<?= adminUrl('google-news'); ?>"><i class="fa fa-newspaper-o"></i><span><?= trans("google_news"); ?></span></a>
+                            <a href="?= adminUrl('google-news'); ?>"><i class="fa fa-newspaper-o"></i><span>?= trans("google_news"); ?></span></a>
                         </li> -->
                     <?php endif;
                     if (checkUserPermission('settings')): ?>
                         <li class="header"><?= trans("settings"); ?></li>
-                        <li class="nav-preferences">
-                            <a href="<?= adminUrl('preferences'); ?>"><i class="fa fa-check-square-o"></i><span><?= trans("preferences"); ?></span></a>
+                        <!--<li class="nav-preferences">
+                            <a href="?= adminUrl('preferences'); ?>"><i class="fa fa-check-square-o"></i><span>?= trans("preferences"); ?></span></a>
                         </li> 
 						<li class="nav-cache-system">
-                            <a href="<?= adminUrl('cache-system'); ?>"><i class="fa fa-database"></i><span><?= trans("cache_system"); ?></span></a>
-                        </li>
+                            <a href="?= adminUrl('cache-system'); ?>"><i class="fa fa-database"></i><span>?= trans("cache_system"); ?></span></a>
+                        </li>-->
 						<li class="nav-storage">
                             <a href="<?= adminUrl('ref-hotel'); ?>"><i class="fa fa-hotel"></i><span><?= trans("hotels_setting"); ?></span></a>
                         </li>
@@ -261,13 +261,13 @@
                             <a href="<?= adminUrl('email-settings'); ?>"><i class="fa fa-mail-forward"></i><span><?= trans("email_settings"); ?></span></a>
                         </li>
                        <!-- <li class="nav-font-settings">
-                            <a href="<?= adminUrl('font-settings'); ?>"><i class="fa fa-font" aria-hidden="true"></i><span><?= trans("font_settings"); ?></span></a>
+                            <a href="<= adminUrl('font-settings'); ?>"><i class="fa fa-font" aria-hidden="true"></i><span><?= trans("font_settings"); ?></span></a>
                         </li>
                         <li class="nav-social-login-settings">
-                            <a href="<?= adminUrl('social-login-settings'); ?>"><i class="fa fa-share-alt" aria-hidden="true"></i><span><?= trans("social_login_settings"); ?></span></a>
+                            <a href="?= adminUrl('social-login-settings'); ?>"><i class="fa fa-share-alt" aria-hidden="true"></i><span><?= trans("social_login_settings"); ?></span></a>
                         </li>
                         <li class="nav-language-settings">
-                            <a href="<?= adminUrl('language-settings'); ?>"><i class="fa fa-language"></i><span><?= trans("language_settings"); ?></span></a>
+                            <a href="?= adminUrl('language-settings'); ?>"><i class="fa fa-language"></i><span><?= trans("language_settings"); ?></span></a>
                         </li> -->
                         <li class="nav-general-settings">
                             <a href="<?= adminUrl('general-settings'); ?>"><i class="fa fa-cogs"></i><span><?= trans("general_settings"); ?></span></a>

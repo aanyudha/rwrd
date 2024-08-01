@@ -169,20 +169,20 @@ endif; ?>
                             <input type="text" class="form-control" name="instagram_url" placeholder="Instagram <?= trans('url'); ?>" value="<?= esc($settings->instagram_url); ?>">
                         </div>
 
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label class="control-label">Pinterest <?= trans('url'); ?></label>
                             <input type="text" class="form-control" name="pinterest_url" placeholder="Pinterest <?= trans('url'); ?>" value="<?= esc($settings->pinterest_url); ?>">
-                        </div>
+                        </div>-->
 
                         <div class="form-group">
                             <label class="control-label">LinkedIn <?= trans('url'); ?></label>
                             <input type="text" class="form-control" name="linkedin_url" placeholder="LinkedIn <?= trans('url'); ?>" value="<?= esc($settings->linkedin_url); ?>">
                         </div>
 
-                        <div class="form-group">
-                            <label class="control-label">VK <?= trans('url'); ?></label>
-                            <input type="text" class="form-control" name="vk_url" placeholder="VK <?= trans('url'); ?>" value="<?= esc($settings->vk_url); ?>">
-                        </div>
+                        <!--<div class="form-group">
+                            <label class="control-label">VK ?= trans('url'); ?></label>
+                            <input type="text" class="form-control" name="vk_url" placeholder="VK ?= trans('url'); ?>" value="?= esc($settings->vk_url); ?>">
+                        </div>-->
 
                         <div class="form-group">
                             <label class="control-label">Telegram <?= trans('url'); ?></label>

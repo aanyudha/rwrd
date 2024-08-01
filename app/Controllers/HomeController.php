@@ -106,14 +106,14 @@ class HomeController extends BaseController
 				$post = $this->postModel->getPostBySlug($slug);
 				// var_dump($this->postModel->getPostBySlug($post));
 				$abc= $this->postModel->getLastQuery()->getQuery();
-				var_dump ($abc);
-                // $post = $this->postModel->getPostBySlug($slug);
+				//var_dump ($abc);
+                $post = $this->postModel->getPostBySlug($slug);
 				// var_dump($post);
-                // if (!empty($post)) {
-                    // $this->post($post);
-                // } else {
-                    // $this->error404();
-                // }
+                if (!empty($post)) {
+                    $this->post($post);
+                } else {
+                    $this->error404();
+                }
             }
         }
     }
@@ -155,8 +155,8 @@ class HomeController extends BaseController
             $data['feed'] = $rssModel->getFeed($post->feed_id);
         }
         $data = setPostMetaTags($post, $data['postTags'], $data);
-        $reactionModel = new ReactionModel();
-        $data['reactions'] = $reactionModel->getReaction($post->id);
+        // $reactionModel = new ReactionModel();
+        // $data['reactions'] = $reactionModel->getReaction($post->id);
         //gallery post
         if ($post->post_type == 'gallery') {
             if ($pageNumber == null || empty($pageNumber)) {
@@ -177,13 +177,13 @@ class HomeController extends BaseController
             $data['sortedListItems'] = $postItemModel->getPostListItems($post->id, $post->post_type);
         }
         //quiz
-        if ($post->post_type == 'trivia_quiz' || $post->post_type == 'personality_quiz' || $post->post_type == 'poll') {
-            $quizModel = new QuizModel();
-            $data['quizQuestions'] = $quizModel->getQuizQuestions($post->id);
-            if ($post->post_type == 'poll') {
-                $data['userPollAnswers'] = $quizModel->getUserPollAnswers($post->id);
-            }
-        }
+        // if ($post->post_type == 'trivia_quiz' || $post->post_type == 'personality_quiz' || $post->post_type == 'poll') {
+            // $quizModel = new QuizModel();
+            // $data['quizQuestions'] = $quizModel->getQuizQuestions($post->id);
+            // if ($post->post_type == 'poll') {
+                // $data['userPollAnswers'] = $quizModel->getUserPollAnswers($post->id);
+            // }
+        // }
 
         echo loadView('partials/_header', $data);
         echo loadView('post/post', $data);
