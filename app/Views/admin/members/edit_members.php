@@ -15,6 +15,7 @@
             <form action="<?= base_url('AdminController/editMemberPost'); ?>" method="post" enctype="multipart/form-data">
                 <?= csrf_field(); ?>
                 <input type="hidden" name="id" value="<?= $member->id_member; ?>">
+                <input type="hidden" name="status" value="<?= $member->status; ?>">
 
                 <div class="box-body">
                     <div class="form-group">
@@ -34,7 +35,7 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-sm-12 col-profile">
-                                <img src="<?= getUserAvatar($member->avatar); ?>" alt="" class="thumbnail img-responsive img-update" style="max-width: 300px;">
+                                <img src="<?= getMemberAvatar($member->avatar); ?>" alt="" class="thumbnail img-responsive img-update" style="max-width: 300px;">
                             </div>
                         </div>
                         <div class="row">
@@ -50,47 +51,51 @@
                         </div>
                     </div>
 					<div class="form-group">
-                        <label><?= trans('email'); ?></label>
-                        <input type="email" class="form-control form-input" name="email" placeholder="<?= trans('email'); ?>" value="<?= esc($member->email); ?>">
+                        <label><?= trans('member_email'); ?></label>
+                        <input type="email" class="form-control form-input" name="email" placeholder="<?= trans('member_email'); ?>" value="<?= esc($member->email); ?>">
                     </div>
 					<div class="form-group">
-                        <label><?= trans('fullname'); ?></label>
-                        <input type="email" class="form-control form-input" name="email" placeholder="<?= trans('email'); ?>" value="<?= esc($member->fullname); ?>">
+                        <label><?= trans('members_idguest'); ?></label>
+                        <input type="text" class="form-control form-input" name="id_guest" placeholder="<?= trans('members_idguest'); ?>" value="<?= esc($member->id_guest); ?>">
                     </div>
 					<div class="form-group">
-                        <label><?= trans('email'); ?></label>
-                        <input type="email" class="form-control form-input" name="email" placeholder="<?= trans('email'); ?>" value="<?= esc($member->name_on_card); ?>">
+                        <label><?= trans('member_fullname'); ?></label>
+                        <input type="text" class="form-control form-input" name="fullname" placeholder="<?= trans('member_fullname'); ?>" value="<?= esc($member->fullname); ?>">
                     </div>
 					<div class="form-group">
-                        <label><?= trans('email'); ?></label>
-                        <input type="email" class="form-control form-input" name="email" placeholder="<?= trans('email'); ?>" value="<?= esc($member->alamat); ?>">
+                        <label><?= trans('member_namecard'); ?></label>
+                        <input type="text" class="form-control form-input" name="name_on_card" placeholder="<?= trans('member_namecard'); ?>" value="<?= esc($member->name_on_card); ?>">
                     </div>
 					<div class="form-group">
-                        <label><?= trans('email'); ?></label>
-                        <input type="email" class="form-control form-input" name="email" placeholder="<?= trans('email'); ?>" value="<?= esc($member->tempat_lahir); ?>">
+                        <label><?= trans('member_address'); ?></label>
+                        <input type="text" class="form-control form-input" name="alamat" placeholder="<?= trans('member_address'); ?>" value="<?= esc($member->alamat); ?>">
                     </div>
 					<div class="form-group">
-                        <label><?= trans('email'); ?></label>
-                        <input type="email" class="form-control form-input" name="email" placeholder="<?= trans('email'); ?>" value="<?= esc($member->tanggal_lahir); ?>">
+                        <label><?= trans('member_pob'); ?></label>
+                        <input type="text" class="form-control form-input" name="tempat_lahir" placeholder="<?= trans('member_pob'); ?>" value="<?= esc($member->tempat_lahir); ?>">
                     </div>
 					<div class="form-group">
-                        <label><?= trans('email'); ?></label>
-                        <input type="email" class="form-control form-input" name="email" placeholder="<?= trans('email'); ?>" value="<?= esc($member->telepon); ?>">
+                        <label><?= trans('member_dob'); ?></label>
+                        <input type="text" class="form-control form-input" name="tanggal_lahir" placeholder="<?= trans('member_dob'); ?>" value="<?= esc($member->tanggal_lahir); ?>">
                     </div>
 					<div class="form-group">
-                        <label><?= trans('email'); ?></label>
-                        <input type="email" class="form-control form-input" name="email" placeholder="<?= trans('email'); ?>" value="<?= esc($member->handphone); ?>">
+                        <label><?= trans('member_phone'); ?></label>
+                        <input type="text" class="form-control form-input" name="telepon" placeholder="<?= trans('member_phone'); ?>" value="<?= esc($member->telepon); ?>">
                     </div>
 					<div class="form-group">
-                        <label><?= trans('email'); ?></label>
-                        <input type="email" class="form-control form-input" name="email" placeholder="<?= trans('email'); ?>" value="<?= esc($member->perusahaan); ?>">
+                        <label><?= trans('member_hape'); ?></label>
+                        <input type="text" class="form-control form-input" name="handphone" placeholder="<?= trans('member_hape'); ?>" value="<?= esc($member->handphone); ?>">
+                    </div>
+					<div class="form-group">
+                        <label><?= trans('member_institution'); ?></label>
+                        <input type="text" class="form-control form-input" name="perusahaan" placeholder="<?= trans('member_institution'); ?>" value="<?= esc($member->perusahaan); ?>">
                     </div>
 
-                    <hr>
+                    <!--<hr>
                     <div class="form-group">
-                        <label><?= trans('balance'); ?></label>
-                        <input type="text" class="form-control form-input price-input" name="balance" placeholder="<?= trans('balance'); ?>" value="<?= $member->balance; ?>">
-                    </div>
+                        <label>?= trans('balance'); ?></label>
+                        <input type="text" class="form-control form-input price-input" name="balance" placeholder="?= trans('balance'); ?>" value="<?= $member->balance; ?>">
+                    </div>-->
 
                 </div>
 

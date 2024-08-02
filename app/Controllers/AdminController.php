@@ -1829,13 +1829,13 @@ class AdminController extends BaseAdminController
     }
 
     /**
-     * Edit User Post
+     * Edit Member Post
      */
     public function editMemberPost()
     {
-        checkPermission('members');
+        //checkPermission('members');
         $val = \Config\Services::validation();
-        $val->setRule('username', trans("username"), 'required|max_length[255]');
+        // $val->setRule('username', trans("username"), 'required|max_length[255]');
         $val->setRule('email', trans("email"), 'required|max_length[255]');
         if (!$this->validate(getValRules($val))) {
             $this->session->setFlashdata('errors', $val->getErrors());
@@ -1843,21 +1843,21 @@ class AdminController extends BaseAdminController
         } else {
             $id = inputPost('id');
             $email = inputPost('email');
-            $username = inputPost('username');
-            $slug = inputPost('slug');
-            if (!$this->authModel->isEmailUnique($email, $id)) {
+            // $username = inputPost('username');
+            // $slug = inputPost('slug');
+            if (!$this->authModel->isEmailUniqueMember($email, $id)) {
                 $this->session->setFlashdata('error', trans("message_email_unique_error"));
                 return redirect()->back();
             }
-            if (!$this->authModel->isUniqueUsername($username, $id)) {
-                $this->session->setFlashdata('error', trans("msg_username_unique_error"));
-                return redirect()->back();
-            }
-            if ($this->authModel->isSlugUnique($slug, $id)) {
-                $this->session->setFlashdata('error', trans("msg_slug_used"));
-                return redirect()->back();
-            }
-            if ($this->authModel->editUser($id)) {
+            // if (!$this->authModel->isUniqueUsername($username, $id)) {
+                // $this->session->setFlashdata('error', trans("msg_username_unique_error"));
+                // return redirect()->back();
+            // }
+            // if ($this->authModel->isSlugUnique($slug, $id)) {
+                // $this->session->setFlashdata('error', trans("msg_slug_used"));
+                // return redirect()->back();
+            // }
+            if ($this->authModel->editMember($id)) {
                 $this->session->setFlashdata('success', trans("msg_updated"));
             } else {
                 $this->session->setFlashdata('error', trans("msg_error"));

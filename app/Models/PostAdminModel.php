@@ -534,9 +534,9 @@ class PostAdminModel extends BaseModel
             $postItemModel->deletePostListItems($post->id, 'gallery');
             $postItemModel->deletePostListItems($post->id, 'sorted_list');
             //delete quiz questions
-            $quizModel = new QuizModel();
-            $quizModel->deleteQuizQuestions($post->id);
-            $quizModel->deleteQuizResults($post->id);
+            // $quizModel = new QuizModel();
+            // $quizModel->deleteQuizQuestions($post->id);
+            // $quizModel->deleteQuizResults($post->id);
             //delete post tags
             $tagModel = new TagModel();
             $tagModel->deletePostTags($post->id);

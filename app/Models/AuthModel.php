@@ -760,7 +760,7 @@ class AuthModel extends BaseModel
             }
             return true;
         } else {
-            if (!empty($member) && $member->id != $memberId) {
+            if (!empty($member) && $member->id_member != $memberId) {
                 return false;
             }
             return true;
@@ -925,6 +925,50 @@ class AuthModel extends BaseModel
         if ($rewardSystem != null && ($rewardSystem == 1 || $rewardSystem == 0)) {
             $this->builderMstMember->where('reward_system_enabled', cleanNumber($rewardSystem));
         }
+    }
+	
+	 //edit Member
+    public function editMember($id_member)
+    {
+        $member = $this->getMember($id_member);
+        if (!empty($member)) {
+            $data = [
+                // 'username' => inputPost('username'),
+				// 'slug' => inputPost('slug'),
+				// 'balance' => inputPost('balance'),
+                'email' => inputPost('email'),
+				'id_guest' => inputPost('id_guest'),
+				'id_tipe_member' => inputPost('id_tipe_member'),
+				'is_print_card' => inputPost('is_print_card'),
+				'initial_point' => inputPost('initial_point'),
+				'initial_number_of_stays' => inputPost('initial_number_of_stays'),
+				'join_date' => formatDateOnly(inputPost('join_date')),
+				'jenis_identitas' => inputPost('jenis_identitas'),
+				'no_identitas' => inputPost('no_identitas'),
+				'first_name' => inputPost('first_name'),
+				'last_name' => inputPost('last_name'),
+			    'title' => inputPost('title'),
+				'fullname' => inputPost('fullname'),
+				'name_on_card' => inputPost('name_on_card'),
+				'tempat_lahir' => inputPost('tempat_lahir'),
+				'tanggal_lahir' => formatDateOnly(inputPost('tanggal_lahir')), //formatDateOnly(inputPost('tanggal_lahir')),
+				'id_negara' => inputPost('id_negara'),
+				'telepon' => inputPost('telepon'),
+				'handphone' => inputPost('handphone'),
+				'status' => inputPost('status'),
+				'perusahaan' => inputPost('perusahaan')
+                
+            ];
+            $uploadModel = new UploadModel();
+            $file = $uploadModel->uploadTempFile('file', true);
+            if (!empty($file) && !empty($file['path'])) {
+                $data["avatar"] = $uploadModel->uploadAvatarMbr($member->id_member, $file['path']);
+                @unlink(FCPATH . $member->avatar);
+                $uploadModel->deleteTempFile($file['path']);
+            }
+            return $this->builderMstMember->where('id_member', $member->id_member)->update($data);
+        }
+        return false;
     }
 
     //delete Member

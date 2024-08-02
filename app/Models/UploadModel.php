@@ -155,6 +155,17 @@ class UploadModel extends BaseModel
         $img->save(FCPATH . $newPath . $this->imgExt, 100);
         return $this->convertImageFormat($newPath);
     }
+	
+	//avatar image upload
+    public function uploadAvatarMbr($memberId, $path)
+    {
+        $directory = $this->createUploadDirectory('mbr');
+        $newPath = 'uploads/mbr/' . $directory . 'mb_' . $memberId . '_' . uniqid();
+        $img = Image::make($path)->orientate();
+        $img->fit(240, 240);
+        $img->save(FCPATH . $newPath . $this->imgExt, 100);
+        return $this->convertImageFormat($newPath);
+    }
 
     //cover image upload
     public function uploadCoverImage($userId, $path)
