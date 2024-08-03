@@ -20,7 +20,7 @@
             <input type="text" class="form-control" name="title_slug" placeholder="<?= trans('slug'); ?>" value="<?= esc($post->title_slug); ?>">
         </div>
 
-        <div class="form-group">
+       <!-- <div class="form-group">
             <label class="control-label"><?= trans('summary'); ?> & <?= trans("description"); ?> (<?= trans('meta_tag'); ?>)</label>
             <textarea class="form-control text-area" name="summary" placeholder="<?= trans('summary'); ?> & <?= trans("description"); ?> (<?= trans('meta_tag'); ?>)"><?= esc($post->summary); ?></textarea>
         </div>
@@ -46,7 +46,7 @@
                     </div>
                 </div>
             </div>
-        <?php endif; ?>
+        <?php endif; ?>-->
 
         <?php if (checkUserPermission('manage_all_posts')): ?>
             <div class="form-group">
@@ -92,64 +92,23 @@
             <input type="hidden" name="show_right_column" value="<?= $post->show_right_column; ?>">
         <?php endif; ?>
 
-        <?php if (checkUserPermission('manage_all_posts')): ?>
+        
+		<?php if (checkUserPermission('manage_all_posts')): ?>
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-4 col-sm-12">
-                        <label class="control-label"><?= trans('add_featured'); ?></label>
+                        <label class="control-label"><?= trans('add_full'); ?></label>
                     </div>
                     <div class="col-md-8 col-sm-12">
-                        <input type="checkbox" name="is_featured" value="1" class="square-purple" <?= $post->is_featured == 1 ? 'checked' : ''; ?>>
+                        <input type="checkbox" name="is_full" value="1" class="square-purple" <?= $post->is_full == 1 ? 'checked' : ''; ?>>
                     </div>
                 </div>
             </div>
         <?php else: ?>
-            <input type="hidden" name="is_featured" value="<?= $post->is_featured; ?>">
-        <?php endif;
-        if (checkUserPermission('manage_all_posts')): ?>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-md-4 col-sm-12">
-                        <label class="control-label"><?= trans('add_breaking'); ?></label>
-                    </div>
-                    <div class="col-md-8 col-sm-12">
-                        <input type="checkbox" name="is_breaking" value="1" class="square-purple" <?= $post->is_breaking == 1 ? 'checked' : ''; ?>>
-                    </div>
-                </div>
-            </div>
-        <?php else: ?>
-            <input type="hidden" name="is_breaking" value="<?= $post->is_breaking; ?>">
-        <?php endif;
-        if (checkUserPermission('manage_all_posts')): ?>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-md-4 col-sm-12">
-                        <label class="control-label"><?= trans('add_slider'); ?></label>
-                    </div>
-                    <div class="col-md-8 col-sm-12">
-                        <input type="checkbox" name="is_slider" value="1" class="square-purple" <?= $post->is_slider == 1 ? 'checked' : ''; ?>>
-                    </div>
-                </div>
-            </div>
-        <?php else: ?>
-            <input type="hidden" name="is_slider" value="<?= $post->is_slider; ?>">
-        <?php endif;
-		if (checkUserPermission('manage_all_posts')): ?>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-md-4 col-sm-12">
-                        <label class="control-label"><?= trans('add_recommended'); ?></label>
-                    </div>
-                    <div class="col-md-8 col-sm-12">
-                        <input type="checkbox" name="is_recommended" value="1" class="square-purple" <?= $post->is_recommended == 1 ? 'checked' : ''; ?>>
-                    </div>
-                </div>
-            </div>
-        <?php else: ?>
-            <input type="hidden" name="is_recommended" value="<?= $post->is_recommended; ?>">
+            <input type="hidden" name="is_full" value="<?= $post->is_full; ?>">
         <?php endif; ?>
 
-        <div class="form-group">
+        <!--<div class="form-group">
             <div class="row">
                 <div class="col-md-4 col-sm-12">
                     <label class="control-label"><?= trans('show_only_registered'); ?></label>
@@ -182,7 +141,7 @@
         <div class="form-group row-optional-url">
             <label class="control-label"><?= trans('optional_url'); ?></label>
             <input type="text" class="form-control" name="optional_url" placeholder="<?= trans('optional_url'); ?>" value="<?= esc($post->optional_url); ?>">
-        </div>
+        </div>-->
     </div>
 </div>
 

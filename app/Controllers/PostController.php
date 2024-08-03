@@ -54,7 +54,7 @@ class PostController extends BaseAdminController
     {
         checkPermission('add_post');
         $type = inputGet('type');
-        if ($type != 'article' && $type != 'gallery' && $type != 'sorted_list' && $type != 'video' && $type != 'audio' && $type != 'trivia_quiz' && $type != 'personality_quiz' && $type != 'poll') {
+        if ($type != 'article' && $type != 'full' && $type != 'gallery' && $type != 'sorted_list' && $type != 'video' && $type != 'audio' && $type != 'trivia_quiz' && $type != 'personality_quiz' && $type != 'poll') {
             $type = 'article';
         }
         $postFormat = "post_format_" . $type;
@@ -88,7 +88,8 @@ class PostController extends BaseAdminController
         $postType = inputPost('post_type');
         $val = \Config\Services::validation();
         $val->setRule('title', trans("title"), 'required|max_length[500]');
-        $val->setRule('category_id', trans("category"), 'required');
+		if($postType != 'full'){
+        $val->setRule('category_id', trans("category"), 'required');}
         $val->setRule('optional_url', trans("cateoptional_urlgory"), 'max_length[1000]');
         if (!$this->validate(getValRules($val))) {
             $this->session->setFlashdata('errors', $val->getErrors());
@@ -99,8 +100,8 @@ class PostController extends BaseAdminController
                 //update slug
                 $this->postAdminModel->updateSlug($postId);
                 //add post tags
-                $tagModel = new TagModel();
-                $tagModel->addPostTags($postId, inputPost('tags'));
+                // $tagModel = new TagModel();
+                // $tagModel->addPostTags($postId, inputPost('tags'));
 
                 if ($postType == 'article') {
                     $this->postAdminModel->addPostAdditionalImages($postId);
@@ -118,7 +119,7 @@ class PostController extends BaseAdminController
                     $this->quizModel->addQuizQuestions($postId);
                 } elseif ($postType == 'poll') {
                     $this->quizModel->addQuizQuestions($postId);
-                }
+                } 
                 //add post files
                 if ($postType != 'gallery' && $postType != 'sorted_list') {
                     $this->postAdminModel->addPostFiles($postId);
@@ -201,7 +202,7 @@ class PostController extends BaseAdminController
         }
         $val = \Config\Services::validation();
         $val->setRule('title', trans("title"), 'required|max_length[500]');
-        $val->setRule('category_id', trans("category"), 'required');
+        //$val->setRule('category_id', trans("category"), 'required');
         $val->setRule('optional_url', trans("cateoptional_urlgory"), 'max_length[1000]');
         if (!$this->validate(getValRules($val))) {
             $this->session->setFlashdata('errors', $val->getErrors());
@@ -211,8 +212,8 @@ class PostController extends BaseAdminController
             if ($this->postAdminModel->editPost($postId, $postType)) {
                 $this->postAdminModel->updateSlug($postId);
                 //edit tags
-                $tagModel = new TagModel();
-                $tagModel->editPostTags($postId);
+                // $tagModel = new TagModel();
+                // $tagModel->editPostTags($postId);
 
                 if ($postType == 'article') {
                     $this->postAdminModel->addPostAdditionalImages($postId);
@@ -381,6 +382,26 @@ class PostController extends BaseAdminController
         echo view('admin/post/scheduled_posts', $data);
         echo view('admin/includes/_footer');
     }
+	
+	/**
+     * Full Posts
+     */
+    public function fullPosts()
+    {
+        checkPermission('manage_all_posts');
+        $data['title'] = trans('full_posts');
+        $data['authors'] = $this->authModel->getUsersHavePosts();
+        $data['formAction'] = adminUrl('full-posts');
+        $data['listType'] = 'full_posts';
+        $data['panelSettings'] = panelSettings();
+        $numRows = $this->postAdminModel->getFullsCount('full_posts');
+        $pager = paginate($this->perPage, $numRows);
+        $data['posts'] = $this->postAdminModel->getFullsPaginated('full_posts', $this->perPage, $pager->offset);
+
+        echo view('admin/includes/_header', $data);
+        echo view('admin/post/posts', $data);
+        echo view('admin/includes/_footer');
+    }
 
     /**
      * Drafts
@@ -419,6 +440,11 @@ class PostController extends BaseAdminController
             if ($this->postAdminModel->addRemoveSlider($post)) {
                 $result = true;
             }
+        } elseif ($option == 'add_remove_full') {
+            checkPermission('manage_all_posts');
+            if ($this->postAdminModel->addRemoveFull($post)) {
+                $result = true;
+            }
         } elseif ($option == 'add_remove_featured') {
             checkPermission('manage_all_posts');
             if ($this->postAdminModel->addRemoveFeatured($post)) {
@@ -432,6 +458,11 @@ class PostController extends BaseAdminController
         } elseif ($option == 'add_remove_recommended') {
             checkPermission('manage_all_posts');
             if ($this->postAdminModel->addRemoveRecommended($post)) {
+                $result = true;
+            }
+        } elseif ($option == 'add_remove_full') {
+            checkPermission('manage_all_posts');
+            if ($this->postAdminModel->addRemoveFull($post)) {
                 $result = true;
             }
         } elseif ($option == 'approve') {
@@ -783,7 +814,18 @@ class PostController extends BaseAdminController
         if (checkUserPermission('manage_all_posts')) {
             $id = inputPost('id');
             $order = inputPost('order');
-            $this->postAdminModel->setFeauredPostOrder($id, $order);
+            $this->postAdminModel->setFullPostOrder($id, $order);
+            resetCacheDataOnChange();
+        }
+    }
+	
+	//Set Home Full Post Order
+    public function setHomeFullPostOrderPost()
+    {
+        if (checkUserPermission('manage_all_posts')) {
+            $id = inputPost('id');
+            $order = inputPost('order');
+            $this->postAdminModel->setHomeFullPostOrder($id, $order);
             resetCacheDataOnChange();
         }
     }

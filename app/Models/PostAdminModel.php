@@ -42,6 +42,7 @@ class PostAdminModel extends BaseModel
             'is_featured' => inputPost('is_featured'),
             'is_recommended' => inputPost('is_recommended'),
             'is_breaking' => inputPost('is_breaking'),
+            'is_full' => inputPost('is_full'),
             'visibility' => inputPost('visibility'),
             'show_right_column' => inputPost('show_right_column'),
             'keywords' => inputPost('keywords'),
@@ -184,6 +185,9 @@ class PostAdminModel extends BaseModel
         if (!isset($data['need_auth'])) {
             $data['need_auth'] = 0;
         }
+		if (!isset($data['is_full'])) {
+            $data['is_full'] = 0;
+        }
         $subCategoryId = inputPost('subcategory_id');
         if (!empty($subCategoryId)) {
             $data['category_id'] = $subCategoryId;
@@ -245,14 +249,28 @@ class PostAdminModel extends BaseModel
     public function getPostsCount($list = null)
     {
         $this->filterPosts($list);
-        return $this->builder->where('is_scheduled', 0)->where('status', 1)->where('visibility', 1)->countAllResults();
+        return $this->builder->where('is_scheduled', 0)->where('status', 1)->where('visibility', 1)->where('category_id !=', null)->countAllResults();
     }
 
     //get paginated posts
     public function getPostsPaginated($list, $perPage, $offset)
     {
         $this->filterPosts($list);
-        return $this->builder->where('posts.visibility', 1)->where('posts.status', 1)->where('posts.is_scheduled', 0)->orderBy('created_at DESC')->limit($perPage, $offset)->get()->getResult();
+        return $this->builder->where('posts.visibility', 1)->where('posts.status', 1)->where('posts.is_scheduled', 0)->where('category_id !=', null)->orderBy('created_at DESC')->limit($perPage, $offset)->get()->getResult();
+    }
+	
+	//get full count
+    public function getFullsCount($list = null)
+    {
+        $this->filterPosts($list);
+        return $this->builder->where('is_scheduled', 0)->where('status', 1)->where('visibility', 1)->where('category_id', null)->countAllResults();
+    }
+
+    //get paginated full
+    public function getFullsPaginated($list, $perPage, $offset)
+    {
+        $this->filterPosts($list);
+        return $this->builder->where('posts.visibility', 1)->where('posts.status', 1)->where('posts.is_scheduled', 0)->orderBy('created_at DESC')->where('category_id', null)->limit($perPage, $offset)->get()->getResult();
     }
 
     //get pending posts count
@@ -350,6 +368,9 @@ class PostAdminModel extends BaseModel
             if ($list == 'recommended_posts') {
                 $this->builder->where('posts.is_recommended', 1);
             }
+			if ($list == 'full_posts') {
+                $this->builder->where('posts.is_full', 1);
+            }
         }
     }
 
@@ -400,6 +421,19 @@ class PostAdminModel extends BaseModel
                 return $this->builder->where('id', $post->id)->update(['is_recommended' => 0]);
             } else {
                 return $this->builder->where('id', $post->id)->update(['is_recommended' => 1]);
+            }
+        }
+        return false;
+    }
+	
+	//add or remove post from full
+    public function addRemoveFull($post)
+    {
+        if (!empty($post)) {
+            if ($post->is_full == 1) {
+                return $this->builder->where('id', $post->id)->update(['is_full' => 0]);
+            } else {
+                return $this->builder->where('id', $post->id)->update(['is_full' => 1]);
             }
         }
         return false;
@@ -475,6 +509,19 @@ class PostAdminModel extends BaseModel
                 $order = 999999;
             }
             $this->builder->where('id', $post->id)->update(['featured_order' => $order]);
+        }
+    }
+	
+	//save full post order
+    public function setFullPostOrder($id, $order)
+    {
+        $post = $this->getPost($id);
+        if (!empty($post)) {
+            $order = cleanNumber($order);
+            if ($order > 999999) {
+                $order = 999999;
+            }
+            $this->builder->where('id', $post->id)->update(['full_order' => $order]);
         }
     }
 

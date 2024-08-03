@@ -38,6 +38,9 @@
                             if ($listType == 'featured_posts'): ?>
                                 <th><?= trans('featured_order'); ?></th>
                             <?php endif; ?>
+							<?php if ($listType == 'full_posts'): ?>
+                                <th><?= trans('full_posts'); ?></th>
+                            <?php endif; ?>
                             <th><?= trans('pageviews'); ?></th>
                             <th><?= trans('date_added'); ?></th>
                             <th><?= trans('options'); ?></th>
@@ -78,6 +81,9 @@
                                                     if ($item->is_breaking): ?>
                                                         <label class="label bg-teal label-table"><?= trans('breaking'); ?></label>
                                                     <?php endif;
+													if ($item->is_full): ?>
+                                                        <label class="label bg-teal label-table"><?= trans('full'); ?></label>
+                                                    <?php endif;
                                                     if ($item->need_auth): ?>
                                                         <label class="label label-warning label-table"><?= trans('only_registered'); ?></label>
                                                     <?php endif; ?>
@@ -112,6 +118,11 @@
                                             <input type="number" class="form-control input-slider-post-order" data-id="<?= $item->id; ?>" value="<?= esc($item->slider_order); ?>">
                                         </td>
                                     <?php endif;
+									if ($listType == "full_posts"): ?>
+                                        <td style="max-width: 150px;">
+                                            <input type="number" class="form-control input-full-post-order" data-id="<?= $item->id; ?>" value="<?= esc($item->full_order); ?>">
+                                        </td>
+									<?php endif;
                                     if ($listType == "featured_posts"): ?>
                                         <td style="max-width: 150px;">
                                             <input type="number" class="form-control input-featured-post-order" data-id="<?= $item->id; ?>" value="<?= esc($item->featured_order); ?>">
@@ -133,6 +144,7 @@
                                                         <a href="<?= adminUrl('edit-post/' . $item->id); ?>"><i class="fa fa-edit option-icon"></i><?= trans('edit'); ?></a>
                                                     </li>
                                                     <?php if (checkUserPermission('manage_all_posts')):
+													if ($listType != "full_posts"){
                                                         if ($item->is_slider == 1): ?>
                                                             <li>
                                                                 <button type="submit" name="option" value="add_remove_slider" class="btn-list-button">
@@ -185,6 +197,20 @@
                                                                 </button>
                                                             </li>
                                                         <?php endif;
+													} else {
+														if ($item->is_full == 1): ?>
+                                                            <li>
+                                                                <button type="submit" name="option" value="add_remove_full" class="btn-list-button">
+                                                                    <i class="fa fa-times option-icon"></i><?= trans('remove_full'); ?>
+                                                                </button>
+                                                            </li>
+                                                        <?php else: ?>
+                                                            <li>
+                                                                <button type="submit" name="option" value="add_remove_full" class="btn-list-button">
+                                                                    <i class="fa fa-plus option-icon"></i><?= trans('add_full'); ?>
+                                                                </button>
+                                                            </li>
+												<?php	endif;}
                                                     endif; ?>
                                                     <li>
                                                         <a href="javascript:void(0)" onclick="deleteItem('PostController/deletePost','<?= $item->id; ?>','<?= clrQuotes(trans("confirm_post")); ?>');"><i class="fa fa-trash option-icon"></i><?= trans('delete'); ?></a>

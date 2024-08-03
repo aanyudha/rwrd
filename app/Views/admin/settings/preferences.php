@@ -294,6 +294,29 @@ if ($tab != "general" && $tab != "homepage" && $tab != "posts" && $tab != "post_
                                 <?php endif; ?>
                             </div>
                         </div>
+						
+						<div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+                                    <label><?= trans('sort_full_posts'); ?></label>
+                                </div>
+                                <?php if ($generalSettings->show_latest_posts_on_full != 1): ?>
+                                    <div class="col-sm-6 col-md-5 col-xs-12 col-option">
+                                        <input type="radio" id="sort_full_posts_1" name="sort_full_posts" value="by_full_order" class="square-purple" <?= $generalSettings->sort_full_posts == "by_full_order" ? 'checked' : ''; ?>>
+                                        <label for="sort_full_posts_1" class="cursor-pointer"><?= trans('by_full_order'); ?></label>
+                                    </div>
+                                    <div class="col-sm-6 col-md-7 col-xs-12 col-option">
+                                        <input type="radio" id="sort_full_posts_2" name="sort_full_posts" value="by_date" class="square-purple" <?= $generalSettings->sort_full_posts == "by_date" ? 'checked' : ''; ?>>
+                                        <label for="sort_full_posts_2" class="cursor-pointer"><?= trans('by_date'); ?></label>
+                                    </div>
+                                <?php else: ?>
+                                    <div class="col-sm-6 col-md-5 col-xs-12 col-option">
+                                        <input type="radio" id="sort_full_posts_2" name="sort_full_posts" value="by_date" class="square-purple" checked>
+                                        <label for="sort_full_posts_2" class="cursor-pointer"><?= trans('by_date'); ?></label>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
 
                         <div class="form-group text-right" style="margin-top: 60px;">
                             <button type="submit" name="submit" value="homepage" class="btn btn-primary"><?= trans('save_changes'); ?></button>

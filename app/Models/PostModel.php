@@ -9,6 +9,7 @@ class PostModel extends BaseModel
     protected $breakingPostsLimit;
     protected $popularPostsLimit;
     protected $recommendedPostsLimit;
+    protected $fullPostsLimit;
 
     public function __construct()
     {
@@ -19,6 +20,7 @@ class PostModel extends BaseModel
         $this->breakingPostsLimit = 20;
         $this->popularPostsLimit = 5;
         $this->recommendedPostsLimit = 5;
+        $this->fullPostsLimit = 5;
     }
 
     //build sql query
@@ -35,7 +37,7 @@ class PostModel extends BaseModel
         if ($fetchContent) {
             $this->builder->select('posts.*');
         } else {
-            $this->builder->select('posts.id, posts.lang_id, posts.title, posts.title_slug, posts.summary, posts.category_id, posts.image_big, posts.image_slider, posts.image_mid, posts.image_small, posts.image_mime, posts.image_storage, posts.slider_order, posts.featured_order, posts.post_type, posts.image_url, posts.user_id, posts.pageviews, posts.post_url, posts.updated_at, posts.created_at');
+            $this->builder->select('posts.id, posts.lang_id, posts.title, posts.title_slug, posts.summary, posts.category_id, posts.image_big, posts.image_slider, posts.image_mid, posts.image_small, posts.image_mime, posts.image_storage, posts.slider_order,  posts.full_order, posts.featured_order, posts.post_type, posts.image_url, posts.user_id, posts.pageviews, posts.post_url, posts.updated_at, posts.created_at');
         }
         $this->builder->select('categories.name AS category_name, categories.name_slug AS category_slug , categories.color AS category_color, users.username AS author_username, users.slug AS author_slug,(SELECT COUNT(comments.id) FROM comments WHERE posts.id = comments.post_id AND comments.parent_id = 0 AND comments.status = 1) AS comment_count');
         if ($isPreview == false) {
@@ -121,6 +123,20 @@ class PostModel extends BaseModel
     {
         $this->buildQuery();
         return $this->builder->where('posts.is_recommended', 1)->orderBy('posts.created_at DESC')->get($this->recommendedPostsLimit)->getResult();
+    }
+	
+	//get full posts
+    public function getFullPosts()
+    {
+        //$this->buildQuery();
+        $this->builder->where('posts.is_full', 1)->where('posts.category_id', null);
+        if ($this->generalSettings->sort_full_posts == 'by_full_order') {
+            $this->builder->orderBy('posts.full_order, posts.id');
+        } else {
+            $this->builder->orderBy('posts.created_at DESC');
+        }
+		// return $this->postModel->getLastQuery()->getQuery();
+        return $this->builder->get($this->fullPostsLimit)->getResult();
     }
 
     //get most viewed posts

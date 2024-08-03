@@ -45,6 +45,10 @@ class HomeController extends BaseController
         if ($this->generalSettings->show_latest_posts_on_featured != 1) {
             $data['featuredPosts'] = getFeaturedPosts();
         }
+		//full posts
+        if ($this->generalSettings->show_latest_posts_on_full != 1) {
+            $data['fullPosts'] = getFullPosts();
+        }
         //breaking news
         $data['breakingNews'] = getBreakingNews();
         $data['limitLoadMorePosts'] = POST_NUM_LOAD_MORE;

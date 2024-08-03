@@ -340,6 +340,23 @@ $(document).on('input', '.input-slider-post-order', function () {
     });
 });
 
+//set home full order
+$(document).on('input', '.input-full-post-order', function () {
+    var id = $(this).attr('data-id');
+    var order = $(this).val();
+    var data = {
+        'id': id,
+        'order': order
+    };
+    $.ajax({
+        type: 'POST',
+        url: TrConfig.baseURL + "/PostController/setHomeFullPostOrderPost",
+        data: setAjaxData(data),
+        success: function (response) {
+        }
+    });
+});
+
 //set featured order
 $(document).on('input', '.input-featured-post-order', function () {
     var id = $(this).attr('data-id');

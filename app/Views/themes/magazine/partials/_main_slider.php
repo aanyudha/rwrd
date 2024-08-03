@@ -1,4 +1,13 @@
 <section class="section section-featured">
+	<div class=".col-xl-">
+        <div class="d-flex justify-content-center align-items-center mb-3">
+			<?php foreach ($fullPosts as $item):  ?>
+				<?= loadView('post/_post_content', ['post' => $item]); ?>
+			<?php endforeach; ?>
+		</div>
+	</div>
+</section>
+<section class="section section-featured">
     <div class="container-xl">
         <div class="row">
             <div class="col-md-12 col-lg-6 col-featured-left">

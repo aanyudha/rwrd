@@ -154,6 +154,7 @@
                             <ul class="treeview-menu">
                                 <li class="nav-posts"><a href="<?= adminUrl('posts'); ?>"><?= trans("posts"); ?></a></li>
                                 <?php if (checkUserPermission('manage_all_posts')): ?>
+                                    <li class="nav-recommended-posts"><a href="<?= adminUrl('full-posts'); ?>"><?= trans("full_posts"); ?></a></li>
                                     <li class="nav-slider-posts"><a href="<?= adminUrl('slider-posts'); ?>"><?= trans("slider_posts"); ?></a></li>
                                     <li class="nav-featured-posts"><a href="<?= adminUrl('featured-posts'); ?>"><?= trans("featured_posts"); ?></a></li>
                                     <li class="nav-breaking-news"><a href="<?= adminUrl('breaking-news'); ?>"><?= trans("breaking_news"); ?></a></li>

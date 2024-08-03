@@ -1848,6 +1848,20 @@ if (!function_exists('getBreakingNews')) {
     }
 }
 
+//get full posts
+if (!function_exists('getFullPosts')) {
+    function getFullPosts()
+    {
+        $fullPosts = getCachedData('full_posts');
+        if (empty($fullPosts)) {
+            $model = new \App\Models\PostModel();
+            $fullPosts = $model->getFullPosts();
+            setCacheData('full_posts', $fullPosts);
+        }
+        return $fullPosts;
+    }
+}
+
 //check post image exist
 if (!function_exists('checkPostImg')) {
     function checkPostImg($post, $type = '')

@@ -154,6 +154,7 @@ class SettingsModel extends BaseModel
                 'show_latest_posts_on_slider' => inputPost('show_latest_posts_on_slider'),
                 'show_latest_posts_on_featured' => inputPost('show_latest_posts_on_featured'),
                 'sort_slider_posts' => inputPost('sort_slider_posts'),
+                'sort_full_posts' => inputPost('sort_full_posts'),
                 'sort_featured_posts' => inputPost('sort_featured_posts')
             ];
         } elseif ($form == 'posts') {

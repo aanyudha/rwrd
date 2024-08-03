@@ -83,6 +83,23 @@
                 </a>
             </div>
         <?php endif;
+		if ($generalSettings->post_format_full == 1):
+            $formatCount += 1; ?>
+            <div class="col-xs-12 col-sm-4 col-lg-3 col-add-post">
+                <a href="<?= adminUrl('add-post?type=full'); ?>">
+                    <div class="item">
+                        <div class="item-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#1abc9c" class="bi bi-play-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"/>
+                            </svg>
+                        </div>
+                        <h5 class="title"><?= trans("full"); ?></h5>
+                        <p class="desc"><?= trans("full_post_exp"); ?></p>
+                    </div>
+                </a>
+            </div>
+        <?php endif;
         if ($generalSettings->post_format_audio == 1): ?>
             <div class="col-xs-12 col-sm-4 col-lg-3 col-add-post">
                 <a href="<?= adminUrl('add-post?type=audio'); ?>">

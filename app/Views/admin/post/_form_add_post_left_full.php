@@ -15,7 +15,7 @@
             <input type="text" class="form-control" name="title_slug" placeholder="<?= trans('slug'); ?>" value="<?= old('title_slug'); ?>">
         </div>
 
-        <div class="form-group">
+       <!-- <div class="form-group">
             <label class="control-label"><?= trans('summary'); ?> & <?= trans("description"); ?> (<?= trans('meta_tag'); ?>)</label>
             <textarea class="form-control text-area" name="summary" placeholder="<?= trans('summary'); ?> & <?= trans("description"); ?> (<?= trans('meta_tag'); ?>)"><?= old('summary'); ?></textarea>
         </div>
@@ -41,7 +41,7 @@
                     </div>
                 </div>
             </div>
-        <?php endif; ?>
+        <?php endif; ?>-->
 
         <?php if (checkUserPermission('manage_all_posts')): ?>
             <div class="form-group">
@@ -91,61 +91,19 @@
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-4 col-sm-12">
-                        <label class="control-label"><?= trans('add_featured'); ?></label>
+                        <label class="control-label"><?= trans('add_full'); ?></label>
                     </div>
                     <div class="col-md-8 col-sm-12">
-                        <input type="checkbox" name="is_featured" value="1" class="square-purple" <?= old('is_featured') == 1 ? 'checked' : ''; ?>>
+                        <input type="checkbox" name="is_full" value="1" class="square-purple" <?= old('is_full') == 1 ? 'checked' : ''; ?>>
                     </div>
                 </div>
             </div>
         <?php else: ?>
-            <input type="hidden" name="is_featured" value="0">
-        <?php endif;
-        if (checkUserPermission('manage_all_posts')): ?>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-md-4 col-sm-12">
-                        <label class="control-label"><?= trans('add_breaking'); ?></label>
-                    </div>
-                    <div class="col-md-8 col-sm-12">
-                        <input type="checkbox" name="is_breaking" value="1" class="square-purple" <?= old('is_breaking') == 1 ? 'checked' : ''; ?>>
-                    </div>
-                </div>
-            </div>
-        <?php else: ?>
-            <input type="hidden" name="is_breaking" value="0">
-        <?php endif;
-        if (checkUserPermission('manage_all_posts')): ?>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-md-4 col-sm-12">
-                        <label class="control-label"><?= trans('add_slider'); ?></label>
-                    </div>
-                    <div class="col-md-8 col-sm-12">
-                        <input type="checkbox" name="is_slider" value="1" class="square-purple" <?= old('is_slider') == 1 ? 'checked' : ''; ?>>
-                    </div>
-                </div>
-            </div>
-        <?php else: ?>
-            <input type="hidden" name="is_slider" value="0">
-        <?php endif;
-        if (checkUserPermission('manage_all_posts')): ?>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-md-4 col-sm-12">
-                        <label class="control-label"><?= trans('add_recommended'); ?></label>
-                    </div>
-                    <div class="col-md-8 col-sm-12">
-                        <input type="checkbox" name="is_recommended" value="1" class="square-purple" <?= old('is_recommended') == 1 ? 'checked' : ''; ?>>
-                    </div>
-                </div>
-            </div>
-        <?php else: ?>
-            <input type="hidden" name="is_recommended" value="0">
+            <input type="hidden" name="is_full" value="0">
         <?php endif; ?>
 		
 
-        <div class="form-group">
+        <!--<div class="form-group">
             <div class="row">
                 <div class="col-md-4 col-sm-12">
                     <label class="control-label"><?= trans('show_only_registered'); ?></label>
@@ -154,7 +112,7 @@
                     <input type="checkbox" name="need_auth" value="1" class="square-purple" <?= old('need_auth') == 1 ? 'checked' : ''; ?>>
                 </div>
             </div>
-        </div>
+        </div>-->
 
         <?php if ($postType == 'gallery' || $postType == 'sorted_list'): ?>
             <div class="form-group">
@@ -169,7 +127,7 @@
             </div>
         <?php endif; ?>
 
-        <div class="form-group">
+        <!--<div class="form-group">
             <div class="row">
                 <div class="col-sm-12">
                     <label class="control-label"><?= trans('tags'); ?></label>
@@ -186,7 +144,7 @@
                     <input type="text" class="form-control" name="optional_url" placeholder="<?= trans('optional_url'); ?>" value="<?= old('optional_url'); ?>">
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
 </div>
 

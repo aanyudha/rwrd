@@ -86,7 +86,7 @@ function select_image() {
     var img_big_file_path = $('#selected_img_big_file_path').val();
     var img_storage = $('#selected_img_storage').val();
     var img_base_url = $('#selected_img_base_url').val();
-
+	console.log(image_type);
     if (image_type == 'additional') {
         var image = '<div class="additional-item additional-item-' + file_id + '"><img class="img-additional" src="' + img_base_url + img_mid_file_path + '" alt="">' +
             '<input type="hidden" name="additional_post_image_id[]" value="' + file_id + '">' +
@@ -547,8 +547,16 @@ $(document).on('input', '#input_search_file', function () {
 * VIDEOS
 *------------------------------------------------------------------------------------------
 */
-
+var video_type = 'main';
 $('#file_manager_video').on('show.bs.modal', function (e) {
+	video_type = $(e.relatedTarget).attr('data-video-type');
+    // data_is_update = $(e.relatedTarget).attr('data-is-update');
+    // if (video_type == 'list_item') {
+        // data_list_item_id = $(e.relatedTarget).attr('data-list-item-id');
+    // }
+    // if (video_type == 'list_item_editor') {
+        // data_editor_id = $(e.relatedTarget).attr('data-editor-id');
+    // }
     refresh_videos();
 });
 
@@ -607,11 +615,20 @@ function select_video() {
         '</video>' +
         '<input type="hidden" name="video_path" value="' + video_path + '">' +
         '<input type="hidden" name="video_storage" value="' + video_storage + '">';
+		console.log(video_type);
+	if(video_type== 'editor_full'){
+		tinymce.activeEditor.execCommand('mceInsertContent', false, '<p><video src="' + video_base_url + video_path + '" alt=""/></p>');
+		 
+		var video = ' <div id="post_selected_video" class="col-sm-12"></div>';
+	} else{
     document.getElementById("post_selected_video").innerHTML = video;
+	}
     $('#file_manager_video').modal('toggle');
     $('#file_manager_video .file-box').removeClass('selected');
     $('#btn_video_delete').hide();
     $('#btn_video_select').hide();
+	
+	
 }
 
 //refresh videos

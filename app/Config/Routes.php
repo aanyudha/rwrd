@@ -90,6 +90,7 @@ $routes->get($customRoutes->admin . '/post-format', 'PostController::postFormat'
 $routes->get($customRoutes->admin . '/add-post', 'PostController::addPost');
 $routes->get($customRoutes->admin . '/posts', 'PostController::posts');
 $routes->get($customRoutes->admin . '/slider-posts', 'PostController::sliderPosts');
+$routes->get($customRoutes->admin . '/full-posts', 'PostController::fullPosts');
 $routes->get($customRoutes->admin . '/featured-posts', 'PostController::featuredPosts');
 $routes->get($customRoutes->admin . '/breaking-news', 'PostController::breakingNews');
 $routes->get($customRoutes->admin . '/recommended-posts', 'PostController::recommendedPosts');
