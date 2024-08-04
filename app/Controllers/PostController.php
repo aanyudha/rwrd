@@ -194,6 +194,7 @@ class PostController extends BaseAdminController
         checkPermission('add_post');
         $postId = inputPost('id');
         $post = getPostById($postId);
+		$postType = inputPost('post_type');
         if (empty($post)) {
             return redirect()->to(adminUrl());
         }
@@ -202,7 +203,9 @@ class PostController extends BaseAdminController
         }
         $val = \Config\Services::validation();
         $val->setRule('title', trans("title"), 'required|max_length[500]');
-        //$val->setRule('category_id', trans("category"), 'required');
+		if($post->post_type != 'full'){
+        $val->setRule('category_id', trans("category"), 'required');
+		}
         $val->setRule('optional_url', trans("cateoptional_urlgory"), 'max_length[1000]');
         if (!$this->validate(getValRules($val))) {
             $this->session->setFlashdata('errors', $val->getErrors());
