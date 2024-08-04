@@ -32,7 +32,7 @@ class HomeController extends BaseController
         $data['description'] = $this->settings->site_description;
         $data['keywords'] = $this->settings->keywords;
         $data['homeTitle'] = $this->settings->home_title;
-
+		
         $data['latestPosts'] = getLatestPosts(POST_NUM_LOAD_MORE + 2);
         $data['sliderPosts'] = $this->latestCategoryPosts;
         $data['featuredPosts'] = $this->latestCategoryPosts;
@@ -54,7 +54,7 @@ class HomeController extends BaseController
         $data['limitLoadMorePosts'] = POST_NUM_LOAD_MORE;
 
         echo loadView('partials/_header', $data);
-        echo loadView('index', $data);
+		echo loadView('index', $data);
         echo loadView('partials/_footer', $data);
     }
 

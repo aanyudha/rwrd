@@ -23,6 +23,7 @@
                                 <span class="badge badge-category" style="background-color: <?= esc($post->category_color); ?>"><?= esc($post->category_name); ?></span>
                             </a>
                         </div>
+						<?php if (authCheck() && getMU() != 'user'): ?>
                         <div class="bd-highlight ms-auto">
                             <?php if (authCheck() && user()->id == $post->user_id): ?>
                                 <a href="<?= adminUrl('edit-post/' . $post->id); ?>" class="btn btn-sm btn-warning btn-icon">
@@ -34,6 +35,7 @@
                                 </a>
                             <?php endif; ?>
                         </div>
+						<?php endif; ?>
                     </div>
                     <h1 class="post-title"><?= esc($post->title); ?></h1>
                     <?php if (!empty($post->summary)): ?>

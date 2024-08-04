@@ -280,7 +280,7 @@ class PostModel extends BaseModel
     //check post is in the reading list or not
     public function isPostInReadingList($postId)
     {
-        if (authCheck()) {
+        if (authCheck() && getMU() != 'user') {
             if ($this->db->table('reading_lists')->where('post_id', cleanNumber($postId))->where('user_id', cleanNumber(user()->id))->countAllResults() > 0) {
                 return true;
             }

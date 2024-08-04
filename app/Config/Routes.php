@@ -34,7 +34,11 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'HomeController::index');
+if(authCheck()&&user()->reward_system_enabled == 1&&getMU()=='user'){
+	$routes->get('/', 'EarningsController::pointHist');
+}else{
+	$routes->get('/', 'HomeController::index');
+}
 $routes->get('cron/update-feeds', 'CronController::checkFeedPosts');
 $routes->get('cron/update-sitemap', 'CronController::updateSitemap');
 $routes->get('cron/check-scheduled-posts', 'CronController::checkScheduledPosts');
