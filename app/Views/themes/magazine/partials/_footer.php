@@ -1,76 +1,11 @@
 <?= view('common/_json_ld'); ?>
     <footer id="footer">
-        <div class="footer-inner">
-            <div class="container-xl">
-                <div class="row justify-content-between">
-                    <div class="col-sm-12 col-md-6 col-lg-4 footer-widget footer-widget-about">
-                        <div class="footer-logo">
-                            <img src="<?= getLogoFooter(); ?>" alt="logo" class="logo" width="240" height="90">
-                        </div>
-                        <div class="footer-about">
-                            <?= esc($baseSettings->about_footer); ?>
-                        </div>
-                    </div>
-                    <!--<div class="col-sm-12 col-md-6 col-lg-4 footer-widget">
-                        <h4 class="widget-title">?= trans("most_viewed_posts"); ?></h4>
-                        <div class="footer-posts">
-                            ?php $mostViewedPosts = getMostViewedPosts(3);
-                            if (!empty($mostViewedPosts)):
-                                foreach ($mostViewedPosts as $item): ?>
-                                    ?= loadView('post/_post_item_small', ['postItem' => $item, 'showLabel' => false]); ?>
-                                ?php endforeach;
-                            endif; ?>
-                        </div>
-                    </div>-->
-                    <div class="col-sm-12 col-md-6 col-lg-4 footer-widget">
-                        <?php if ($generalSettings->newsletter_status == 1): ?>
-                            <h4 class="widget-title"><?= trans("newsletter"); ?></h4>
-                            <div class="newsletter">
-                                <p class="description"><?= trans("newsletter_desc"); ?></p>
-                                <form id="form_newsletter_footer" class="form-newsletter">
-                                    <div class="newsletter-inputs">
-                                        <input type="email" name="email" class="form-control form-input newsletter-input" maxlength="199" placeholder="<?= trans("email"); ?>">
-                                        <button type="submit" name="submit" value="form" class="btn btn-custom newsletter-button"><?= trans("subscribe"); ?></button>
-                                    </div>
-                                    <input type="text" name="url">
-                                    <div id="form_newsletter_response"></div>
-                                </form>
-                            </div>
-                        <?php else: ?>
-                            <h4 class="widget-title"><?= trans("footer_follow"); ?></h4>
-                        <?php endif; ?>
-                        <div class="footer-social-links">
-                            <ul>
-                                <?= view('common/_social_media_links', ['rssHide' => true]); ?>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="footer-copyright">
-            <div class="container-xl">
-                <div class="row align-items-center">
-                    <div class="col-sm-12 col-md-6">
-                        <div class="copyright text-start">
+          
+                       <div align="center">
                             <?= esc($baseSettings->copyright); ?>
                         </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6">
-                        <div class="nav-footer text-end">
-                            <ul>
-                                <?php if (!empty($baseMenuLinks)):
-                                    foreach ($baseMenuLinks as $item):
-                                        if ($item->item_visibility == 1 && $item->item_location == "footer"):?>
-                                            <li><a href="<?= generateMenuItemURL($item, $baseCategories); ?>"><?= esc($item->item_name); ?> </a></li>
-                                        <?php endif;
-                                    endforeach;
-                                endif; ?>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </footer>
     <a href="#" class="scrollup"><i class="icon-arrow-up"></i></a>
