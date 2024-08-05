@@ -25,7 +25,7 @@
                                     <th><?= trans('room_phist'); ?></th>
                                     <th><?= trans('arvdate_phist'); ?></th>
                                     <th><?= trans('depdate_phist'); ?></th>
-                                    <th><?= trans('depdate_phist'); ?></th>
+                                    <th><?= trans('pointhist_point'); ?></th>
                                     <!--<th style="text-align: right"><= trans('point_phist'); ?></th>-->
                                     <th><?= trans('stat_phist'); ?></th>
                                 </tr>
