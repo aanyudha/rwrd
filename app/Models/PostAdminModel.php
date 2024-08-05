@@ -36,6 +36,7 @@ class PostAdminModel extends BaseModel
             'summary' => inputPost('summary'),
             'category_id' => inputPost('category_id'),
             'content' => inputPost('content'),
+            'content2' => inputPost('content2'),
             'optional_url' => inputPost('optional_url'),
             'need_auth' => inputPost('need_auth'),
             'is_slider' => inputPost('is_slider'),

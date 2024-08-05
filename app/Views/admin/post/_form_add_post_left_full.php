@@ -18,30 +18,7 @@
        <!-- <div class="form-group">
             <label class="control-label"><?= trans('summary'); ?> & <?= trans("description"); ?> (<?= trans('meta_tag'); ?>)</label>
             <textarea class="form-control text-area" name="summary" placeholder="<?= trans('summary'); ?> & <?= trans("description"); ?> (<?= trans('meta_tag'); ?>)"><?= old('summary'); ?></textarea>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label"><?= trans('keywords'); ?> (<?= trans('meta_tag'); ?>)</label>
-            <input type="text" class="form-control" name="keywords" placeholder="<?= trans('keywords'); ?> (<?= trans('meta_tag'); ?>)" value="<?= old('keywords'); ?>">
-        </div>
-
-        <?php if (!empty($postType) && $postType == 'poll'): ?>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-sm-4 col-xs-12">
-                        <label><?= trans('vote_permission'); ?></label>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 col-option">
-                        <input type="radio" name="vote_permission" value="registered" id="vote_permission2" class="square-purple" checked>
-                        <label for="vote_permission2" class="option-label"><?= trans('registered_users_can_vote'); ?></label>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 col-option">
-                        <input type="radio" name="vote_permission" value="all" id="vote_permission1" class="square-purple">
-                        <label for="vote_permission1" class="option-label"><?= trans('all_users_can_vote'); ?></label>
-                    </div>
-                </div>
-            </div>
-        <?php endif; ?>-->
+        </div>-->
 
         <?php if (checkUserPermission('manage_all_posts')): ?>
             <div class="form-group">
@@ -103,17 +80,6 @@
         <?php endif; ?>
 		
 
-        <!--<div class="form-group">
-            <div class="row">
-                <div class="col-md-4 col-sm-12">
-                    <label class="control-label"><?= trans('show_only_registered'); ?></label>
-                </div>
-                <div class="col-md-8 col-sm-12">
-                    <input type="checkbox" name="need_auth" value="1" class="square-purple" <?= old('need_auth') == 1 ? 'checked' : ''; ?>>
-                </div>
-            </div>
-        </div>-->
-
         <?php if ($postType == 'gallery' || $postType == 'sorted_list'): ?>
             <div class="form-group">
                 <div class="row">
@@ -126,25 +92,6 @@
                 </div>
             </div>
         <?php endif; ?>
-
-        <!--<div class="form-group">
-            <div class="row">
-                <div class="col-sm-12">
-                    <label class="control-label"><?= trans('tags'); ?></label>
-                    <input id="tags_1" type="text" name="tags" class="form-control tags"/>
-                    <small>(<?= trans('type_tag'); ?>)</small>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group row-optional-url">
-            <div class="row">
-                <div class="col-sm-12">
-                    <label class="control-label"><?= trans('optional_url'); ?></label>
-                    <input type="text" class="form-control" name="optional_url" placeholder="<?= trans('optional_url'); ?>" value="<?= old('optional_url'); ?>">
-                </div>
-            </div>
-        </div>-->
     </div>
 </div>
 

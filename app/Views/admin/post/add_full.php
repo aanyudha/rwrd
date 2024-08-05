@@ -25,7 +25,7 @@
                             <div class="row">
 							<?= view("admin/post/_form_add_post_left_full"); ?>
                                 <div class="col-sm-12">
-                                    <?= view("admin/post/_text_editor"); ?>
+                                    <?= view("admin/post/_text_editor_full"); ?>
                                 </div>
                             </div>
                         </div>

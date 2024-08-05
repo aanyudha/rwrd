@@ -7,6 +7,13 @@
 		</div>
 	</div>
 </section>
+<section class="section">
+	<div class="container-xl">
+			<?php foreach ($fullPosts as $item):  ?>
+				<?= loadView('post/_post_content2', ['post' => $item]); ?>
+			<?php endforeach; ?>
+	</div>
+</section>
 <section class="section section-featured">
     <div class="container-xl">
         <div class="row">
