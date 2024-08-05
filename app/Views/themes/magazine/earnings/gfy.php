@@ -67,6 +67,8 @@
 												?>
 											  </ul>
 											  <div class="card-body">
+											  
+										<input type="hidden" value="<?php echo $row->id_trn_reward; ?>" name="product_id">
 											   <?php 
 												if($row->promo==null)
 												{

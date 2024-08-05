@@ -725,7 +725,6 @@ $(document).ajaxStop(function () {
 			// Event listener untuk get nilai submit
              $('#smartcart').on('cartSubmitted', function(e, cart) {
                 console.log('Cart Submitted:', cart);
-				// $cart_data = json_decode($cart, true);
 				$.ajax({
                 type: 'POST',
                 url: TrConfig.baseURL + '/EarningsController/cobaPost',

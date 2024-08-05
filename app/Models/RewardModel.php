@@ -723,7 +723,7 @@ class RewardModel extends BaseModel
 	//get paginated Member point hist
     public function getGift4You()
     {
-        $sql = "select t.*,r.tipe,r.nama,r.foto,(select point from trn_point_konversi where trn_point_konversi.id_reward=t.id_reward and now() between tanggal_buka and tanggal_tutup) as promo,(select tanggal_tutup from trn_point_konversi where trn_point_konversi.id_reward=t.id_reward and now() between tanggal_buka and tanggal_tutup) as tanggal_tutup from trn_reward t, ref_reward r where t.id_reward=r.id_reward and now() between tanggal_mulai_berlaku and tanggal_selesai";
+        $sql = "select t.*,t.id_reward,r.tipe,r.nama,r.foto,(select point from trn_point_konversi where trn_point_konversi.id_reward=t.id_reward and now() between tanggal_buka and tanggal_tutup) as promo,(select tanggal_tutup from trn_point_konversi where trn_point_konversi.id_reward=t.id_reward and now() between tanggal_buka and tanggal_tutup) as tanggal_tutup from trn_reward t, ref_reward r where t.id_reward=r.id_reward and now() between tanggal_mulai_berlaku and tanggal_selesai";
         $result = $this->db->query($sql)->getResult();
 		return $result;
 	}
@@ -732,4 +732,22 @@ class RewardModel extends BaseModel
 		$query = $this->db->query("select ifnull(sum(point),0)-ifnull((select sum(point*qty) from trn_point_out where id_member='".user()->id_member."' and status<>'Canceled' and id_reward<>0),0)-ifnull((select sum(point*qty) from trn_point_out where id_member='".user()->id_member."' and id_reward=0),0) as hasil from trn_point_in where id_member='" . user()->id_member . "'")->getResult();		
 		return $query[0]->hasil;
 	}
+	//
+    public function getGift4YouPostCart($idTrnReward)
+    {
+        $sql = "select id_reward from trn_reward where id_trn_reward=$idTrnReward";
+        $result = $this->db->query($sql)->getResult();
+		return $result;
+	}
+	public function getGift4YouPointPostCart($idTrnReward)
+    {
+        $sql = "select ifnull((select point from trn_point_konversi where id_reward=t.id_reward and now() between tanggal_buka and tanggal_tutup),t.index_point) as point from trn_reward t where t.id_trn_reward=$idTrnReward and now() between t.tanggal_mulai_berlaku and t.tanggal_selesai";
+        $result = $this->db->query($sql)->getResult();
+		return $result;
+	}
+	public function addTrnPointOut($data)
+    {
+		var_dump($data);
+        // return $this->builderTrnOut->insert($data);
+    }
 }
