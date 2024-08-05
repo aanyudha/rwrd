@@ -85,6 +85,22 @@ endif; ?>
 </div>
 <?php if (authCheck()) : ?>
 <div class="row">
+<?php if (authCheck()): ?>
+<?php if (getMU()=='user'){ ?>
+<li class="nav-item dropdown profile-dropdown display-flex align-items-center">
+		<!--<a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCart">Cart</a>
+		<div class="panel-heading sc-cart-heading">
+			<span class="sc-cart-count badge rounded-pill bg-danger">0</span>
+		</div>-->
+		<button type="button" class="btn btn-primary position-relative" data-bs-toggle="modal" data-bs-target="#modalCart">
+		  Cart
+		  <span class="badge rounded-pill bg-danger">
+			99+
+			<span class="visually-hidden">unread messages</span>
+		  </span>
+		</button>
+</li><?php }?>
+<?php endif; ?>
 <div class="col-sm-12">
 <div class="nav-item dropdown profile-dropdown-mobile">
 <a href="#" class="nav-link dropdown-toggle nav-link-mobile-profile" data-bs-toggle="dropdown" aria-expanded="false">
@@ -103,6 +119,7 @@ endif; ?>
 <li><a href="<?= generateURL('logout'); ?>" class="dropdown-item"><?= trans("logout"); ?></a></li>
 </ul>
 </div>
+
 </div>
 </div>
 <?php endif; ?>
@@ -111,7 +128,34 @@ endif; ?>
 <ul class="nav navbar-nav">
 <?php if ($generalSettings->show_home_link == 1): ?>
 <li class="nav-item"><a href="<?= langBaseUrl(); ?>" class="nav-link"><?= trans("home"); ?></a></li>
-<?php endif; ?>
+<?php endif; 
+if (!empty($baseMenuLinks)):
+foreach ($baseMenuLinks as $item):
+if ($item->item_visibility == 1 && ($item->item_location == "top" || $item->item_location == "main") && $item->item_parent_id == "0"):
+$subLinks = getSubMenuLinks($baseMenuLinks, $item->item_id, $item->item_type);
+if (!empty($subLinks)): ?>
+<li class="nav-item dropdown">
+<a href="#" class="dropdown-toggle d-flex justify-content-between nav-link" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+<span><?= esc($item->item_name) ?></span>
+<i class="icon-arrow-down"></i>
+</a>
+<ul class="dropdown-menu menu-sub-items">
+<?php if ($item->item_type == "category"): ?>
+<li class="nav-item"><a href="<?= generateMenuItemURL($item, $baseCategories); ?>" class="nav-link"><?= trans("all"); ?></a></li>
+<?php endif;
+foreach ($subLinks as $sub):
+if ($sub->item_visibility == 1):?>
+<li class="nav-item"><a href="<?= generateMenuItemURL($sub, $baseCategories); ?>" class="nav-link"><?= esc($sub->item_name) ?></a></li>
+<?php endif;
+endforeach; ?>
+</ul>
+</li>
+<?php else: ?>
+<li class="nav-item"><a href="<?= generateMenuItemURL($item, $baseCategories); ?>" class="nav-link"><?= esc($item->item_name) ?></a></li>
+<?php endif;
+endif;
+endforeach;
+endif; ?>
 </ul>
 </div>
 

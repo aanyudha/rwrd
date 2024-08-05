@@ -691,10 +691,20 @@ $(document).ajaxStop(function () {
 });
 
 //cart
-$(document).ready(function() {
-  $('#smartcart').smartCart();
-});
-
+// $(document).ready(function() {
+  // $('#smartcart').smartCart();
+// });
+        $(document).ready(function(){
+            // Initialize Smart Cart    	
+            $('#smartcart').smartCart({
+                                submitSettings: {
+                                    submitType: 'paypal' // form, paypal, ajax
+                                },
+                                toolbarSettings: {
+                                    checkoutButtonStyle: 'paypal' // default, paypal, image
+                                }
+                            });
+		});
 function detailGift() {
 		var idGift = $("#inputNya").val(); 
             var data = {

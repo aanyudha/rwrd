@@ -25,10 +25,7 @@ if (authCheck()): ?>
 		</div>-->
 		<button type="button" class="btn btn-primary position-relative" data-bs-toggle="modal" data-bs-target="#modalCart">
 		  Cart
-		  <span class="badge rounded-pill bg-danger">
-			99+
-			<span class="visually-hidden">unread messages</span>
-		  </span>
+		  <span class="sc-cart-count badge rounded-pill bg-danger">0</span>
 		</button>
 </li><?php }?>
 <li class="nav-item dropdown profile-dropdown display-flex align-items-center">
