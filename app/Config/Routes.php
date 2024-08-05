@@ -68,8 +68,10 @@ $routes->post('change-password-post', 'ProfileController::changePasswordPost');
 $routes->post('delete-account-post', 'ProfileController::deleteAccountPost');
 $routes->post('download-file', 'CommonController::downloadFile');
 $routes->post('set-paypal-payout-account-post', 'EarningsController::setPaypalPayoutAccountPost');
-$routes->post('set-iban-payout-account-post', 'EarningsController::setIbanPayoutAccountPost');
-$routes->post('set-swift-payout-account-post', 'EarningsController::setSwiftPayoutAccountPost');
+// $routes->post('set-iban-payout-account-post', 'EarningsController::setIbanPayoutAccountPost');
+// $routes->post('set-iban-payout-account-post', 'EarningsController::giftePost');
+//$routes->post('set-swift-payout-account-post', 'EarningsController::setSwiftPayoutAccountPost');
+//$routes->post('ngepos-pos', 'EarningsController::cobaPost');
 $routes->post('add-newsletter-post', 'AjaxController::addNewsletterPost');
 $routes->post('close-cookies-warning-post', 'AjaxController::closeCookiesWarningPost');
 

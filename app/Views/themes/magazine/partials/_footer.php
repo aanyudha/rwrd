@@ -26,10 +26,12 @@
     </div>
 <?php endif; ?>
     <script src="<?= base_url($assetsPath . '/js/jquery-3.6.1.min.js'); ?> "></script>
+	<!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
     <script src="<?= base_url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js'); ?> "></script>
 	<script src="<?= base_url('assets/vendor/cart/js/jquery.smartCart.min.js'); ?> "></script>
+	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.smartCart/3.0.2/js/jquery.smartCart.min.js"></script>-->
     <script src="<?= base_url($assetsPath . '/js/plugins.js'); ?> "></script>
-    <script src="<?= base_url($assetsPath . '/js/main-2.2.min.js'); ?> "></script>
+    <script src="<?= base_url($assetsPath . '/js/main-2.2.js'); ?> "></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
     
 <?= loadView('partials/_js_footer'); ?>

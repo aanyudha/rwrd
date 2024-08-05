@@ -368,6 +368,7 @@
          */
         _hasCartChange: function () {
             $('.sc-cart-count', this.cart_element).text(this.cart.length);
+            $('.display-cart-count', this.element).text(this.cart.length);
             $('.sc-cart-subtotal', this.element).text(this._getCartSubtotal());
 
             if (this.cart.length === 0) {

@@ -8,6 +8,7 @@
 <line x1="2" y1="11" x2="22" y2="11"></line>
 <line x1="2" y1="18" x2="22" y2="18"></line>
 </svg>
+<span class="display-cart-count badge rounded-pill bg-danger badge-custom">0</span>
 </button>
 <div class="mobile-logo">
 <a href="<?= langBaseUrl(); ?>">
@@ -94,10 +95,7 @@ endif; ?>
 		</div>-->
 		<button type="button" class="btn btn-primary position-relative" data-bs-toggle="modal" data-bs-target="#modalCart">
 		  Cart
-		  <span class="badge rounded-pill bg-danger">
-			99+
-			<span class="visually-hidden">unread messages</span>
-		  </span>
+		 <span class="display-cart-count badge rounded-pill bg-danger badge-custom">0</span>
 		</button>
 </li><?php }?>
 <?php endif; ?>

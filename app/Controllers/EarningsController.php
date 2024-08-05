@@ -183,6 +183,42 @@ class EarningsController extends BaseController
         echo loadView('partials/_footer');
     }
 	
+	public function cobaPost()
+    {
+			$request = service('request'); // Mengambil instance request
+        
+        // Mengambil data POST menggunakan request
+        $cartDataJson = $request->getPost('cart');
+        
+        // Decode JSON data
+        $cartData = json_decode($cartDataJson, true); // true untuk array, false untuk objek
+
+        if (json_last_error() === JSON_ERROR_NONE) {
+            // Data JSON berhasil di-decode
+            foreach ($cartData as $item) {
+                // Proses setiap item sesuai kebutuhan
+                $data = [
+                    'product_image' => $item['product_image'],
+                    'product_name' => $item['product_name'],
+                    'product_price' => $item['product_price'],
+                    'product_quantity' => $item['product_quantity'],
+                    'unique_key' => $item['unique_key']
+                ];
+
+                // Simpan data ke database jika diperlukan
+                // $this->db->insert('your_table', $data);
+
+                // Debug data
+                var_dump($data);
+            }
+        } else {
+            // Tangani error jika JSON tidak valid
+            echo 'Invalid JSON';
+        }
+    }
+	
+
+	
 	public function getDtlGift()
     {
 		$idParkir = inputPost('id_reward');

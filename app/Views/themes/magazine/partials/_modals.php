@@ -186,11 +186,14 @@ if (authCheck()): ?>
                 </div>
                 <div class="modal-body">
                     <div class="offcanvas-body">
-						<!-- Cart submit form -->
+						<!-- Cart submit form 
 							<form action="results.php" method="POST"> 
+							<form action="?= base_url('ngepos-pos'); ?>" method="post">
+							<form class="row g-1" id="ttt-form">-->
+                            <?= csrf_field(); ?>
 								<!-- SmartCart element -->
-								<div id="smartcart"></div>
-							</form>
+								<div id="smartcart"></div> 
+							<!--</form> -->
 					 </div>
                 </div>
             </div>

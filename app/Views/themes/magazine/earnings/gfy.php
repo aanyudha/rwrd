@@ -39,7 +39,7 @@
 										?>
 										<div class="col-sm-6">
 											 <div id="reward-<?php echo $row->id_reward; ?>" class="card sc-product-item thumbnail text-center " style="width: 18rem;">
-											  <a class="card-title center" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions2"><img data-name="product_image" src="<?= getPostImage3($row->foto); ?>" class="card-img-top" alt="..."></a>
+											  <a class="card-title center" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><img data-name="product_image" src="<?= getPostImage3($row->foto); ?>" class="card-img-top" alt="..."></a>
 											  <div class="card-body">
 												<a id="reward-<?php echo $row->id_reward; ?>" class="card-title center" type="button" data-name="product_name" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions2" aria-controls="offcanvasWithBothOptions2"><?php echo $row->nama; ?></a>
 												<form  action="" enctype="multipart/form-data">

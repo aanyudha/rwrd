@@ -691,20 +691,93 @@ $(document).ajaxStop(function () {
 });
 
 //cart
-// $(document).ready(function() {
-  // $('#smartcart').smartCart();
-// });
-        $(document).ready(function(){
-            // Initialize Smart Cart    	
-            $('#smartcart').smartCart({
-                                submitSettings: {
-                                    submitType: 'paypal' // form, paypal, ajax
-                                },
-                                toolbarSettings: {
-                                    checkoutButtonStyle: 'paypal' // default, paypal, image
-                                }
-                            });
-		});
+// $(document).ready(function(){
+            // $('#smartcart').smartCart();
+			
+// var form = new FormData(document.getElementById("ttt-form"));
+				// return new Promise(function (resolve) {
+						  // $.ajax({
+								// type: 'POST',
+								// url: TrConfig.baseURL + '/EarningsController/cobaPost',
+								// data: form,
+								// dataType: "JSON",
+								// contentType: false,       // The content type used when sending data to the server.
+								// cache: false,             // To unable request pages to be cached
+								// processData:false,
+								// success: function(result){
+									// console.log(result);
+								// }
+							// })
+							// .done(function (response) {
+								// var resToPrint = response;
+							  	// console.log("disini sukses ajax_print88");
+							  	
+							// })
+							// .fail(function (erordata, response) {
+							  // Swal.fire('Data tidak masuk', 'error');
+							// })
+				// });
+        // });
+		
+		
+		$(document).ready(function(){
+            $('#smartcart').smartCart();
+			// Event listener untuk get nilai submit
+             $('#smartcart').on('cartSubmitted', function(e, cart) {
+                console.log('Cart Submitted:', cart);
+				// $cart_data = json_decode($cart, true);
+				$.ajax({
+                type: 'POST',
+                url: TrConfig.baseURL + '/EarningsController/cobaPost',
+                data: setAjaxData({ cart: JSON.stringify(cart) }),
+                success: function (result) {
+                    console.log(result);
+                }
+				});
+            });
+            // Coba Event listener untuk mengupdate nilai badge saat keranjang diperbarui
+			// $('#smartcart').on('itemAdded', function(e, cart) {
+				// Ambil jumlah item dari keranjang
+				// var itemCount = cart.length;
+				// console.log(cart);
+				// Perbarui nilai badge
+				// $('.sc-cart-count').text(itemCount);
+			// });
+			// Coba Event listener untuk mengupdate nilai badge saat keranjang diperbarui
+			// $('#smartcart').on('itemRemoved', function(e, cart) {
+				// console.log(cart);
+			// });
+			// Coba Event listener untuk mengupdate nilai badge saat keranjang diperbarui
+			// $('#smartcart').on('eventName', function(e, cart) {
+				// console.log(cart);
+			// });
+        });
+
+function ajax_print88() {
+		var form = new FormData(document.getElementById("ttt-form"));
+				return new Promise(function (resolve) {
+						  $.ajax({
+								type: 'POST',
+								url: tntrConfig.baseURL + '/EarningsController/cobaPost',
+								data: form,
+								dataType: "JSON",
+								contentType: false,       // The content type used when sending data to the server.
+								cache: false,             // To unable request pages to be cached
+								processData:false,
+								success: function(result){
+									console.log(result);
+								}
+							})
+							.done(function (response) {
+								var resToPrint = response;
+							  	console.log("disini sukses ajax_print88");
+							  	
+							})
+							.fail(function (erordata, response) {
+							  Swal.fire('Data tidak masuk', 'error');
+							})
+				});
+}
 function detailGift() {
 		var idGift = $("#inputNya").val(); 
             var data = {

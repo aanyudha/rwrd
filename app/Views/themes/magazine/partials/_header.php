@@ -68,6 +68,7 @@ if ($generalSettings->pwa_status == 1): ?>
 <link href="<?= base_url($assetsPath . '/css/plugins-2.2.min.css'); ?>" rel="stylesheet">
 <link href="<?= base_url($assetsPath . '/css/style-2.2.min.css'); ?>" rel="stylesheet">
 <link href="<?= base_url('assets/vendor/cart/css/smart_cart.min.css'); ?>" rel="stylesheet">
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.smartCart/3.0.2/css/smart_cart.min.css">-->
 <?php if ($rtl): ?>
 <link href="<?= base_url($assetsPath . '/css/rtl-2.2.min.css'); ?>" rel="stylesheet"/>
 <?php endif;
