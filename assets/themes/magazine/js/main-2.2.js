@@ -724,15 +724,39 @@ $(document).ajaxStop(function () {
             $('#smartcart').smartCart();
 			// Event listener untuk get nilai submit
              $('#smartcart').on('cartSubmitted', function(e, cart) {
-                console.log('Cart Submitted:', cart);
+                // console.log('Cart Submitted:', cart);
 				$.ajax({
                 type: 'POST',
                 url: TrConfig.baseURL + '/EarningsController/cobaPost',
                 data: setAjaxData({ cart: JSON.stringify(cart) }),
                 success: function (result) {
-                    console.log(result);
+                    // console.log(result);
                 }
-				});
+				})
+				.done(function (response) {
+								var resToPrint = response;
+							  	console.log("disini sukses");
+							  	console.log(resToPrint.getLastID);
+							  Swal.fire({
+								title: 'Sukses',
+								type: 'success',
+								showCancelButton: false,
+								confirmButtonColor: '#3085d6',
+								cancelButtonColor: '#d33',
+								confirmButtonText: 'OK'
+							  }).then((result) => {
+								 if(result){
+								   // Do Stuff here for success
+								   location.reload();
+								   // $("#plat_number").val("");
+								 }else{
+								  // something other stuff
+								 }
+							  })
+							})
+				.fail(function (erordata, response) {
+				Swal.fire('Data tidak masuk', 'error');
+				})
             });
             // Coba Event listener untuk mengupdate nilai badge saat keranjang diperbarui
 			// $('#smartcart').on('itemAdded', function(e, cart) {

@@ -187,16 +187,19 @@
             $(this.cart_element).on("click", '.sc-cart-remove', function (e) {
                 e.preventDefault();
                 $(this).parents('.sc-cart-item').fadeOut("normal", function () {
-                    mi._removeFromCart($(this).data('unique-key'));
+                    // mi._removeFromCart($(this).data('unique-key'));
+					self._removeFromCart($(this).data('unique-key'));
                     $(this).remove();
-                    mi._hasCartChange();
+                    // mi._hasCartChange();
+					self._hasCartChange();
                 });
             });
 
             // Item quantity change event
             $(this.cart_element).on("change", '.sc-cart-item-qty', function (e) {
                 e.preventDefault();
-                mi._updateCartQuantity($(this).parents('.sc-cart-item').data('unique-key'), $(this).val());
+                // mi._updateCartQuantity($(this).parents('.sc-cart-item').data('unique-key'), $(this).val());
+				self._updateCartQuantity($(this).parents('.sc-cart-item').data('unique-key'), $(this).val());
             });
 
             // Cart checkout event
@@ -205,7 +208,8 @@
                     return false;
                 }
                 e.preventDefault();
-                mi._submitCart();
+                // mi._submitCart();
+				self._submitCart();
             });
 
             // Cart clear event
@@ -216,8 +220,10 @@
                 e.preventDefault();
                 $('.sc-cart-item-list > .sc-cart-item', this.cart_element).fadeOut("normal", function () {
                     $(this).remove();
-                    mi._clearCart();
-                    mi._hasCartChange();
+                    // mi._clearCart();
+                    // mi._hasCartChange();
+					self._clearCart();
+                    self._hasCartChange();
                 });
             });
         },
@@ -296,7 +302,8 @@
                     mi._hasCartChange();
 
                     // Trigger "itemRemoved" event
-                    this._triggerEvent("itemRemoved", [itemRemove]);
+                    // this._triggerEvent("itemRemoved", [itemRemove]);
+					mi._triggerEvent("itemRemoved", [itemRemove]);
                     return false;
                 }
             });
@@ -323,7 +330,8 @@
                     }
                     mi._addUpdateCartItem(mi.cart[i]);
                     // Trigger "quantityUpdate" event
-                    this._triggerEvent("quantityUpdated", [mi.cart[i], qty]);
+                    // this._triggerEvent("quantityUpdated", [mi.cart[i], qty]);
+					mi._triggerEvent("quantityUpdated", [mi.cart[i], qty]);
                     return false;
                 }
             });

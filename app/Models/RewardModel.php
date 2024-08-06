@@ -745,9 +745,52 @@ class RewardModel extends BaseModel
         $result = $this->db->query($sql)->getResult();
 		return $result;
 	}
-	public function addTrnPointOut($data)
+	
+	public function addTrnPointOut()
     {
-		var_dump($data);
-        // return $this->builderTrnOut->insert($data);
+		$request = service('request'); // Mengambil instance request
+        
+        // Mengambil data POST menggunakan request
+        $cartDataJson = $request->getPost('cart');
+        
+        // Decode JSON data
+        $cartData = json_decode($cartDataJson, true); // true untuk array, false untuk objek
+
+        if (json_last_error() === JSON_ERROR_NONE) {
+            // Data JSON berhasil di-decode
+            foreach ($cartData as $key1=>$value1 ) {
+                // Proses setiap item sesuai kebutuhan
+                // $data = [
+                    // 'product_image' => $item['product_id'],
+                    // 'product_image' => $item['product_image'],
+                    // 'product_name' => $item['product_name'],
+                    // 'product_price' => $item['product_price'],
+                    // 'product_quantity' => $item['product_quantity'],
+                    // 'unique_key' => $item['unique_key']
+                // ];
+                $qty=$value1['product_quantity'];
+                $membere=member()->id_member;
+				$query1=$this->getGift4YouPostCart($value1['product_id']);
+				$point=$this->getGift4YouPointPostCart($value1['product_id']);			
+				$data = array(
+					'id_member'=>$membere,
+					'id_reward'=>$query1[0]->id_reward,
+					'qty'=>$qty,
+					'point'=>$point[0]->point,
+					'tanggal_pengajuan'=>date("Y-m-d"),
+				);
+				
+				$result = $this->builderTrnPointOut->insert($data);
+				if($result){
+					$lastIDPost = $this->db->insertID();
+					return ['lastIDPost' => $lastIDPost, 'id_member' => $data['id_member'],'id_reward' => $data['id_reward'],'qty' => $data['qty'],'point' => $data['point'],'tanggal_pengajuan' => $data['tanggal_pengajuan']];
+				}else {
+					return false;
+				}
+            }
+        } else {
+            // Tangani error jika JSON tidak valid
+            echo 'Invalid JSON';
+        }
     }
 }

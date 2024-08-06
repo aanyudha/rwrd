@@ -184,63 +184,16 @@ class EarningsController extends BaseController
     }
 	
 	public function cobaPost()
-    {
-			$request = service('request'); // Mengambil instance request
-        
-        // Mengambil data POST menggunakan request
-        $cartDataJson = $request->getPost('cart');
-        
-        // Decode JSON data
-        $cartData = json_decode($cartDataJson, true); // true untuk array, false untuk objek
-
-        if (json_last_error() === JSON_ERROR_NONE) {
-            // Data JSON berhasil di-decode
-            foreach ($cartData as $item) {
-                // Proses setiap item sesuai kebutuhan
-                // $data = [
-                    // 'product_image' => $item['product_id'],
-                    // 'product_image' => $item['product_image'],
-                    // 'product_name' => $item['product_name'],
-                    // 'product_price' => $item['product_price'],
-                    // 'product_quantity' => $item['product_quantity'],
-                    // 'unique_key' => $item['unique_key']
-                // ];
-
-                $qty=$item['product_quantity'];
-				// $query1 = $this->rewardModel->getGift4YouPostCart($item['product_id']);
-				$id_reward=$this->rewardModel->getGift4YouPostCart($item['product_id']);	
-				// var_dump($item['product_id']);
-				
-				// echo json_encode($item["product_quantity"]);
-				// $query2 = $this->rewardModel->getGift4YouPointPostCart($item['product_id']);
-				$point=$this->rewardModel->getGift4YouPointPostCart($item['product_id']);			
-				$data = array(
-					'id_member'=>user()->id_member,
-					'id_reward'=>$id_reward,
-					'qty'=>$qty,
-					'point'=>$point,
-					'tanggal_pengajuan'=>date("Y-m-d"),
-				);
-				// $this->db->insert('trn_point_out', $data);
-				// if (!$this->rewardModel->isUniqueMemberTypesName($nama, $id_tipe_member)) {
-					// $this->session->setFlashdata('error', trans("msg_member_type_kode_unique_error"));
-					// return redirect()->to(adminUrl('reward-system/add-tipe-member'))->withInput();
-				// }
-				// if ($this->rewardModel->addTrnPointOut($data)) {
-					// $this->session->setFlashdata('success', trans("msg_updated"));
-				// } else {
-					// $this->session->setFlashdata('error', trans("msg_error"));
-					// return redirect()->to(adminUrl('reward-system/add-tipe-member'))->withInput();
-				// }
-                var_dump($data);
+	{
+		if ($lastID=$this->rewardModel->addTrnPointOut()) {
+				$data = [
+					'getLastID' => $lastID['lastIDPost']
+				];
+				echo json_encode($data); 
+            } else {
+                $this->session->setFlashdata('error', trans("msg_error"));
             }
-        } else {
-            // Tangani error jika JSON tidak valid
-            echo 'Invalid JSON';
-        }
     }
-	
-
 	
 	public function getDtlGift()
     {

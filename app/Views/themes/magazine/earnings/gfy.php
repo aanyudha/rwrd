@@ -68,7 +68,8 @@
 											  </ul>
 											  <div class="card-body">
 											  
-										<input type="hidden" value="<?php echo $row->id_trn_reward; ?>" name="product_id">
+												<input type="hidden" value="<?php echo $row->id_trn_reward; ?>" name="product_id">
+												<input class="sc-cart-item-qty" name="product_quantity" min="1" value="1" type="hidden">
 											   <?php 
 												if($row->promo==null)
 												{
@@ -83,11 +84,11 @@
 												<?php 
 												}
 												?>
-												<?php //if($last_point<$row->index_point){ ?>
-												<!--<button class="card-link sc-add-to-cart btn btn-success btn-sm pull-right" disabled>Add to cart</button>-->
-												<?php //}else{ ?>
+												<?php if($last_point<$row->index_point){ ?>
+												<button class="card-link sc-add-to-cart btn btn-success btn-sm pull-right" disabled>Add to cart</button>
+												<?php }else{ ?>
 												<button class="card-link sc-add-to-cart btn btn-success btn-sm pull-right">Add to cart</button>
-												<?php //} ?>
+												<?php } ?>
 											  </div>
 											</div>
 										</div>

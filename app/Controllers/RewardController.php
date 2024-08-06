@@ -498,6 +498,11 @@ class RewardController extends BaseAdminController
 	public function simpan_upload_trn_hotel($filemanual=null)	
 	{
 		checkAdmin();
+		$filename=$_FILES["file_csv"]["name"];
+		if (!$this->postAdminModel->isUniqueFilename($filename)) {
+                $this->session->setFlashdata('error', trans("msg_member_filename_unique_error"));
+                return redirect()->to(adminUrl('reward-system/trn-hotel-upl'))->withInput();
+            }
 		if (!$this->postAdminModel->simpan_upload_mod($filemanual=null)) {
 			$this->session->setFlashdata('error', trans("msg_member_type_kode_unique_error"));
             return redirect()->to(adminUrl('reward-system/trn-hotel-upl'))->withInput();

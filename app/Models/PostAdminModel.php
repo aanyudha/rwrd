@@ -787,7 +787,7 @@ class PostAdminModel extends BaseModel
                         'post_id' => $postId,
                         'file_id' => $file->id
                     ];
-                    $this->builderPostFiles->insert($item);
+                    return $this->builderPostFiles->insert($item);
                 }
             }
         }
@@ -1011,6 +1011,29 @@ class PostAdminModel extends BaseModel
 				return $this->builderTrnHotel->where('id_member', $id_member)->where('status!=', 'Expired')->update($data);
 	}
 	
+	//get filename by filename
+    public function getTrnByfilename($filename)
+    {
+        return $this->builderTrnHotel->where('filename', $filename)->get()->getRow();
+    }
+	//check if filename is unique
+    public function isUniqueFilename($filename, $fileId = 0)
+    {
+        $file = $this->getTrnByfilename($filename);
+        if ($fileId == 0) {
+            if (!empty($file)) {
+                return false;
+            }
+            return true;
+        } 
+		// else {
+            // if (!empty(file)) {
+                // return false;
+            // }
+            // return true;
+        // }
+    }
+	
 	public function simpan_upload_mod($filemanual=null){
 			//$query = $this->db->query("select * from ref_konversi")->result();
 			$query = $this->builderRefKonversi->get()->getResult();
@@ -1162,7 +1185,8 @@ class PostAdminModel extends BaseModel
 					//exec("rm -rf $path_upload/$filename");
 					exec("mv $path_upload/$filename $path_upload/processed");
 					//redirect("kelola/trn_hotel","refresh");
-					$this->session->setFlashdata('success', trans("msg_updated"));
+					// $this->session->setFlashdata('success', trans("msg_updated"));
+					return true;
 				}
 			}
 			catch(Exception $e)
