@@ -529,6 +529,40 @@ class RewardController extends BaseAdminController
     }
 	
 	/**
+     * Edit trnPointOut
+     */
+    public function editTrnPointOut($id)
+    {
+        checkAdmin();
+        $data['panelSettings'] = panelSettings();
+        $data['title'] = trans("trn-point-out-edit");
+        $data['trnpout'] = getTrnPointOutById($id);
+        $data['stat'] = getTrnPointOutStatusById($id);
+        if (empty($data['trnpout'])) {
+            return redirect()->to(adminUrl('reward-system/trn-point-out'));
+        }
+
+        echo view('admin/includes/_header', $data);
+        echo view('admin/rwrdd/edit_trnpointout', $data);
+        echo view('admin/includes/_footer');
+    }
+	
+	/**
+     * Edit Post editTrnPointOutPost
+     */
+    public function editTrnPointOutPost()
+    {
+        //checkAdmin();
+        $id_point_out = inputPost('id_point_out');
+        if ($this->rewardModel->editPointOutPost($id_point_out)) {
+            $this->session->setFlashdata('success', trans("msg_updated"));
+        } else {
+            $this->session->setFlashdata('error', trans("msg_error"));
+        }
+        return redirect()->to(adminUrl('reward-system/trn-point-out'));
+    }
+	
+	/**
      * View member type mtr
      */
 	public function mmbrTypeMtr()

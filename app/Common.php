@@ -2323,6 +2323,22 @@ if (!function_exists('isBot')) {
 			return $model->getTrnHotelById($id);
 		}
 	}
+	//get getTrnPointOutById by id
+	if (!function_exists('getTrnPointOutById')) {
+		function getTrnPointOutById($id)
+		{
+			$model = new \App\Models\RewardModel();
+			return $model->getTrnPointOut($id);
+		}
+	}
+	//get getTrnPointOutStatusById by id
+	if (!function_exists('getTrnPointOutStatusById')) {
+		function getTrnPointOutStatusById($id)
+		{
+			$model = new \App\Models\RewardModel();
+			return $model->getStatusForPointOut();
+		}
+	}
 	//get member by id
 if (!function_exists('getMemberById')) {
     function getMemberById($id)

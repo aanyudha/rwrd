@@ -18,6 +18,7 @@ class RewardModel extends BaseModel
     protected $builderPointHist;
     protected $builderTrnPointOut;
     protected $builderTrnReward;
+    protected $builderTrnStatus;
 
     public function __construct()
     {
@@ -36,6 +37,7 @@ class RewardModel extends BaseModel
         $this->builderPointHist = $this->db->table('ref_reward');
         $this->builderTrnPointOut = $this->db->table('trn_point_out');
         $this->builderTrnReward = $this->db->table('trn_reward');
+        $this->builderTrnStatus = $this->db->table('trn_status');
     }
 	
 	//input values hotel
@@ -603,7 +605,7 @@ class RewardModel extends BaseModel
     public function getTrnPointOutPaginated($perPage, $offset)
     {
         $this->filterTrnPointOut();
-        return $this->builderTrnOut->orderBy('id_point_out ASC')->limit($perPage, $offset)->get()->getResult();
+        return $this->builderTrnOut->orderBy('tanggal_pengajuan DESC')->limit($perPage, $offset)->get()->getResult();
     }
 
     //ref TrnPointOut filter
@@ -614,6 +616,27 @@ class RewardModel extends BaseModel
             $this->builderTrnOut->groupStart()->like('id_member', cleanStr($q))->orLike('id_point_out', cleanStr($q))->groupEnd();
         }
     }
+	
+	public function getStatusForPointOut()
+    {
+		return $this->builderTrnStatus->get()->getResult();
+	}
+	
+	//edit ref reward
+    public function editPointOutPost($id)
+    {
+        $pointout = $this->getTrnPointOut($id);
+        if (!empty($pointout)) {
+            $data = [
+            'status' => inputPost('status'),
+            'tanggal_pengajuan' => formatDateOnly(inputPost('tanggal_pengajuan')),
+            'tanggal_proses' => formatDateOnly(inputPost('tanggal_proses')),
+            'tanggal_claim' => formatDateOnly(inputPost('tanggal_claim'))
+            ];
+            return $this->builderTrnPointOut->where('id_point_out', $pointout->id_point_out)->update($data);
+        }
+        return false;
+	}
 	//Mmbr_type_mtr
 	//get Mmbr_type_monitor
     public function getMmbrTypeMtr($id)

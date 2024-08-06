@@ -25,14 +25,14 @@
                         <?= view('admin/rwrdd/_filter', ['url' => adminUrl('reward-system/trn-point-out')]); ?>
                         <thead>
                         <tr role="row">
-                            <th><?= trans('trn-hotel-filename'); ?></th>
-                            <th><?= trans('trn-hotel-hotel-code'); ?></th>
-                            <th><?= trans('trn-hotel-id-member'); ?></th>
-                            <th><?= trans('trn-hotel-room-no'); ?></th>
-                            <th><?= trans('trn-hotel-room-type'); ?></th>
-                            <th><?= trans('trn-hotel-room-code'); ?></th>
-                            <th><?= trans('trn-hotel-market-code'); ?></th>
-                            <th><?= trans('trn-hotel-market-code-converted'); ?></th>
+                            <th><?= trans('trnpointo_idnumber'); ?></th>
+                            <th><?= trans('trnpointo_id_reward'); ?></th>
+                            <th><?= trans('trnpointo_qty'); ?></th>
+                            <th><?= trans('trnpointo_point'); ?></th>
+                            <th><?= trans('trnpointo_tanggalPengajuan'); ?></th>
+                            <th><?= trans('trnpointo_status'); ?></th>
+                            <th><?= trans('trnpointo_tglproses'); ?></th>
+                            <th><?= trans('trnpointo_tglclaim'); ?></th>
                             <th><?= trans('options'); ?></th>
                         </tr>
                         </thead>
@@ -54,15 +54,15 @@
                                                 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu options-dropdown">
-                                                <li>
-                                                    <a href="<?= adminUrl('reward-system/view-trn-hotel/' . $item->id_point_out); ?>"><i class="fa fa-play option-icon"></i><?= trans('trn-hotel-view'); ?></a>
-                                                </li>
+                                                <!--<li>
+                                                    <a href="?= adminUrl('reward-system/view-trn-point-out/' . $item->id_point_out); ?>"><i class="fa fa-play option-icon"></i>?= trans('trn-hotel-view'); ?></a>
+                                                </li>-->
 												<li>
-                                                    <a href="<?= adminUrl('reward-system/edit-trn-hotel/' . $item->id_point_out); ?>"><i class="fa fa-edit option-icon"></i><?= trans('trn-hotel-edit'); ?></a>
+                                                    <a href="<?= adminUrl('reward-system/edit-trn-point-out/' . $item->id_point_out); ?>"><i class="fa fa-edit option-icon"></i><?= trans('trn-hotel-edit'); ?></a>
                                                 </li>
-												<li>
-                                                        <a href="javascript:void(0)" onclick="deleteItem('RewardController/deleteTrnHotel','<?= $item->id_point_out; ?>','<?= clrQuotes(trans("confirm_post_delete_trn_hotel")); ?>');"><i class="fa fa-trash option-icon"></i><?= trans('delete'); ?></a>
-                                                </li>
+												<!--<li>
+                                                        <a href="javascript:void(0)" onclick="deleteItem('RewardController/deleteTrnHotel','?= $item->id_point_out; ?>','?= clrQuotes(trans("confirm_post_delete_trn_hotel")); ?>');"><i class="fa fa-trash option-icon"></i>?= trans('delete'); ?></a>
+                                                </li>-->
                                             </ul>
                                         </div>
                                     </td>
