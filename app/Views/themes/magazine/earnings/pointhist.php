@@ -14,7 +14,7 @@
                         <?= loadView('earnings/_tabs'); ?>
                     </div>
                     <div class="col-sm-12 col-md-9">
-						 <div class="left">
+						<div class="left">
 							<h3 class="box-title"><?= trans('point_hist'); ?></h3>
 						</div>
                         <div class="table-responsive table-payouts">

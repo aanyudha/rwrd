@@ -41,6 +41,9 @@
 								</select>
 							</div>
 							<div class="mb-2">
+                                <input type="text" name="no_identitas" class="form-control form-input input-account" placeholder="<?= trans("no_identitas_reg"); ?>" value="<?= old("no_identitas"); ?>" required autocomplete="off">
+                            </div>
+							<div class="mb-2">
                                 <input type="text" name="fullname" class="form-control form-input input-account" placeholder="<?= trans("fullnamedesc"); ?>" value="<?= old("fullname"); ?>" required autocomplete="off">
                             </div>
 							<div class="mb-2">

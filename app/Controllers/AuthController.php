@@ -348,6 +348,7 @@ class AuthController extends BaseController
         }
         $val = \Config\Services::validation();
         $val->setRule('fullname', trans("fullname"), 'required|min_length[4]|max_length[100]');
+        $val->setRule('no_identitas', trans("no_identitas_reg"), 'required|min_length[4]|max_length[100]');
         $val->setRule('namecard', trans("namecard"), 'required|min_length[4]|max_length[100]');
         $val->setRule('dob', trans("dob"), 'required|min_length[4]|max_length[100]');
         $val->setRule('nationality', trans("nationality"), 'required');
@@ -355,8 +356,8 @@ class AuthController extends BaseController
         $val->setRule('city', trans("city"), 'required|min_length[4]|max_length[100]');
         $val->setRule('province', trans("province"), 'required|min_length[4]|max_length[100]');
         $val->setRule('postalcode', trans("postalcode"), 'required|min_length[4]|max_length[100]');
-        $val->setRule('hometelp', trans("hometelp"), 'required|min_length[4]|max_length[100]');
-        $val->setRule('mobilenomer', trans("mobilenomer"), 'required|min_length[4]|max_length[100]');
+        // $val->setRule('hometelp', trans("hometelp"), 'required|min_length[4]|max_length[100]');
+        // $val->setRule('mobilenomer', trans("mobilenomer"), 'required|min_length[4]|max_length[100]');
         $val->setRule('email', trans("email"), 'required|max_length[255]');
         $val->setRule('password', trans("password"), 'required|min_length[4]|max_length[200]');
         $val->setRule('confirm_password', trans("confirm_password"), 'required|matches[password]');

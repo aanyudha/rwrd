@@ -64,6 +64,7 @@ class AuthModel extends BaseModel
         return [
             'id_member' => inputPost('id_member'),
             'fullname' => inputPost('fullname'),
+            'no_identitas' => inputPost('no_identitas'),
             'name_on_card' => inputPost('namecard'),
             'tanggal_lahir' => formatDateOnly(inputPost('dob')),
             'id_negara' => inputPost('nationality'),
