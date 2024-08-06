@@ -48,7 +48,7 @@ if (authCheck()): ?>
 </li>
 <?php else:
 if ($generalSettings->registration_system == 1): ?>
-<li class="nav-item display-flex align-items-center"><a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#modalLogin"><?= trans("login"); ?></a><span class="span-login-sep">&nbsp;/&nbsp;</span><a href="<?= generateURL('register'); ?>" class="nav-link"><?= trans("register"); ?></a></li>
+<li class="nav-item display-flex align-items-center"><a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#modalLogin"><?= trans("login"); ?></a><span class="span-login-sep">&nbsp;|&nbsp;</span><a href="<?= generateURL('register'); ?>" class="nav-link"><?= trans("register"); ?></a></li>
 <?php endif; ?>
 <?php endif;
 if ($generalSettings->multilingual_system == 1 && countItems($activeLanguages) > 1): ?>
