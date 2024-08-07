@@ -11,7 +11,7 @@
                 <div class="d-flex align-items-center justify-content-center">
                     <div class="section-account">
                         <div class="title text-center">
-                            <h1 class="page-title"><?= trans("register"); ?></h1>
+                            <h1 class="page-title"><?= trans("form_register"); ?></h1>
                         </div>
                         <div class="social-login text-center mb-4">
                             <?= view("common/_social_login", ['orText' => trans("or_register_with_email")]); ?>
@@ -20,8 +20,10 @@
                         <form action="<?= base_url('register-post-spc'); ?>" method="post" class="needs-validation">
                             <?= csrf_field(); ?>
                             <input type="hidden" name="sys_lang_id" value="<?= $activeLang->id; ?>">
-                            <div class="mb-3">
-                                <select id="title" class="form-control form-input input-account" name="title" required autocomplete="off">
+
+                            <div class="form-group mb-3">
+                                <label for="title"><?= trans("select_ttle"); ?><span class="required-asterisk">*</span></label>
+                                <select id="title" class="form-control form-input input-account" name="title" required>
                                     <option value=""><?= trans("select_ttle"); ?></option>
                                     <?php if (!empty($ttle)):
                                         foreach ($ttle as $item=>$value): ?>
@@ -30,8 +32,10 @@
                                     endif; ?>
                                 </select>
                             </div>
-                            <div class="mb-3">
-                                <select id="jenis_identitas" class="form-control form-input input-account" name="jenis_identitas" required autocomplete="off">
+
+                            <div class="form-group mb-3">
+                                <label for="jenis_identitas"><?= trans("select_identype"); ?><span class="required-asterisk">*</span></label>
+                                <select id="jenis_identitas" class="form-control form-input input-account" name="jenis_identitas" required>
                                     <option value=""><?= trans("select_identype"); ?></option>
                                     <?php if (!empty($jnsident)):
                                         foreach ($jnsident as $item=>$value): ?>
@@ -40,42 +44,50 @@
                                     endif; ?>
                                 </select>
                             </div>
-                            <div class="mb-3">
-                                <input type="text" name="no_identitas" class="form-control form-input input-account" placeholder="<?= trans("no_identitas_reg"); ?>" value="<?= old("no_identitas"); ?>" required autocomplete="off">
+
+                            <div class="form-group mb-3">
+                                <label for="no_identitas"><?= trans("no_identitas_reg"); ?><span class="required-asterisk">*</span></label>
+                                <input type="text" id="no_identitas" name="no_identitas" class="form-control form-input input-account" value="<?= old("no_identitas"); ?>" required>
                             </div>
-                            <div class="mb-3">
-                                <input type="text" name="fullname" class="form-control form-input input-account" placeholder="<?= trans("fullnamedesc"); ?>" value="<?= old("fullname"); ?>" required autocomplete="off">
+
+                            <div class="form-group mb-3">
+                                <label for="fullname"><?= trans("fullnamedesc"); ?><span class="required-asterisk">*</span></label>
+                                <input type="text" id="fullname" name="fullname" class="form-control form-input input-account" value="<?= old("fullname"); ?>" required>
                             </div>
-                            <div class="mb-3">
-                                <input type="text" name="namecard" class="form-control form-input input-account" placeholder="<?= trans("namecarddesc"); ?>" value="<?= old("namecard"); ?>" required autocomplete="off">
+
+                            <div class="form-group mb-3">
+                                <label for="namecard"><?= trans("namecarddesc"); ?><span class="required-asterisk">*</span></label>
+                                <input type="text" id="namecard" name="namecard" class="form-control form-input input-account" value="<?= old("namecard"); ?>" required>
                             </div>
-                            <div class="mb-3">
-                                <input type="date" id="dob" class="form-control form-input input-account" name="dob" value="<?= old("dob"); ?>" required autocomplete="off" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}">
-                                <script>
-                                    document.getElementById('dob').type = 'text';
-                                    document.getElementById('dob').placeholder = 'DOB';
-                                </script>
-									 
-										 
-																				
-						   
-				  
-				 
+
+                            <div class="form-group mb-3">
+                                <label for="dob"><?= trans("dob"); ?><span class="required-asterisk">*</span></label>
+                                <input type="date" id="dob" class="form-control form-input input-account" name="dob" value="<?= old("dob"); ?>" required>
                             </div>
-                            <div class="mb-3">
-                                <input type="text" name="mailingaddr" class="form-control form-input input-account" placeholder="<?= trans("mailingaddr"); ?>" value="<?= old("mailingaddr"); ?>" required autocomplete="off">
+
+                            <div class="form-group mb-3">
+                                <label for="mailingaddr"><?= trans("mailingaddr"); ?><span class="required-asterisk">*</span></label>
+                                <input type="text" id="mailingaddr" name="mailingaddr" class="form-control form-input input-account" value="<?= old("mailingaddr"); ?>" required>
                             </div>
-                            <div class="mb-3">
-                                <input type="text" name="city" class="form-control form-input input-account" placeholder="<?= trans("city"); ?>" value="<?= old("city"); ?>" required autocomplete="off">
+
+                            <div class="form-group mb-3">
+                                <label for="city"><?= trans("city"); ?><span class="required-asterisk">*</span></label>
+                                <input type="text" id="city" name="city" class="form-control form-input input-account" value="<?= old("city"); ?>" required>
                             </div>
-                            <div class="mb-3">
-                                <input type="text" name="province" class="form-control form-input input-account" placeholder="<?= trans("province"); ?>" value="<?= old("province"); ?>" required autocomplete="off">
+
+                            <div class="form-group mb-3">
+                                <label for="province"><?= trans("province"); ?><span class="required-asterisk">*</span></label>
+                                <input type="text" id="province" name="province" class="form-control form-input input-account" value="<?= old("province"); ?>" required>
                             </div>
-                            <div class="mb-3">
-                                <input type="text" name="postalcode" class="form-control form-input input-account" placeholder="<?= trans("postalcode"); ?>" value="<?= old("postalcode"); ?>" required autocomplete="off">
+
+                            <div class="form-group mb-3">
+                                <label for="postalcode"><?= trans("postalcode"); ?><span class="required-asterisk">*</span></label>
+                                <input type="text" id="postalcode" name="postalcode" class="form-control form-input input-account" value="<?= old("postalcode"); ?>" required>
                             </div>
-						    <div class="mb-3">
-                                <select id="nationalities" class="form-control form-input input-account" name="nationality" required autocomplete="off">
+
+                            <div class="form-group mb-3">
+                                <label for="nationality"><?= trans("select_country"); ?><span class="required-asterisk">*</span></label>
+                                <select id="nationality" class="form-control form-input input-account" name="nationality" required>
                                     <option value=""><?= trans("select_country"); ?></option>
                                     <?php if (!empty($nationl)):
                                         foreach ($nationl as $item): ?>
@@ -84,36 +96,47 @@
                                     endif; ?>
                                 </select>
                             </div>
-                            <div class="mb-3">
-                                <input type="text" name="hometelp" class="form-control form-input input-account" placeholder="<?= trans("hometelp"); ?>" value="<?= old("hometelp"); ?>"   autocomplete="off">
+
+                            <div class="form-group mb-3">
+                                <label for="hometelp"><?= trans("hometelp"); ?></label>
+                                <input type="text" id="hometelp" name="hometelp" class="form-control form-input input-account" value="<?= old("hometelp"); ?>" autocomplete="off">
                             </div>
-                            <div class="mb-3">
-                                <input type="text" name="mobilenomer" class="form-control form-input input-account" placeholder="<?= trans("mobilenomer"); ?>" value="<?= old("mobilenomer"); ?>"   autocomplete="off">
+
+                            <div class="form-group mb-3">
+                                <label for="mobilenomer"><?= trans("mobilenomer"); ?></label>
+                                <input type="text" id="mobilenomer" name="mobilenomer" class="form-control form-input input-account" value="<?= old("mobilenomer"); ?>" autocomplete="off">
                             </div>
-                            <div class="mb-3">
-                                <input type="email" name="email" class="form-control form-input input-account" placeholder="<?= trans("email"); ?>" value="<?= old("email"); ?>" required>
+
+                            <div class="form-group mb-3">
+                                <label for="email"><?= trans("email"); ?><span class="required-asterisk">*</span></label>
+                                <input type="email" id="email" name="email" class="form-control form-input input-account" value="<?= old("email"); ?>" required>
                             </div>
-                            <div class="mb-3">
-                                <input type="password" name="password" class="form-control form-input input-account" placeholder="<?= trans("password"); ?>" value="<?= old("password"); ?>" required>
+
+                            <div class="form-group mb-3">
+                                <label for="password"><?= trans("password"); ?><span class="required-asterisk">*</span></label>
+                                <input type="password" id="password" name="password" class="form-control form-input input-account" value="<?= old("password"); ?>" required>
                             </div>
-                            <div class="mb-4">
-                                <input type="password" name="confirm_password" class="form-control form-input input-account" placeholder="<?= trans("confirm_password"); ?>" value="<?= old("confirm_password"); ?>" required>
+
+                            <div class="form-group mb-3">
+                                <label for="confirm_password"><?= trans("confirm_password"); ?><span class="required-asterisk">*</span></label>
+                                <input type="password" id="confirm_password" name="confirm_password" class="form-control form-input input-account" value="<?= old("confirm_password"); ?>" required>
                             </div>
+
                             <div class="form-check mb-3">
                                 <input type="checkbox" class="form-check-input" name="terms_conditions" value="1" id="checkboxContactTerms" required>
                                 <label class="form-check-label" for="checkboxContactTerms">
                                     <?= trans("terms_conditions_exp"); ?>&nbsp;<a href="<?= getPageLinkByDefaultName('terms_conditions', $activeLang->id); ?>" class="font-weight-600" target="_blank"><strong><?= trans("terms_conditions"); ?></strong></a>
                                 </label>
                             </div>
+
                             <?php if (isRecaptchaEnabled($generalSettings)): ?>
                                 <div class="mb-4 d-flex justify-content-center">
                                     <?php reCaptcha('generate', $generalSettings); ?>
                                 </div>
                             <?php endif; ?>
+
                             <div class="d-grid">
-															  
                                 <button type="submit" class="btn btn-custom btn-account"><?= trans("register"); ?></button>
-									  
                             </div>
                         </form>
                     </div>
@@ -154,6 +177,17 @@
     box-shadow: 0 0 5px rgba(128,189,255,0.5);
 }
 
+.form-group label {
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #495057;
+}
+
+.required-asterisk {
+    color: #808080; /* Grey color */
+    font-weight: bold;
+}
+
 .btn-custom {
     background: #007bff;
     color: #ffffff;
@@ -184,4 +218,5 @@
         padding: 15px;
     }
 }
+
 </style>

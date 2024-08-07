@@ -35,7 +35,7 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 if(authCheck()&&user()->reward_system_enabled == 1&&getMU()=='user'){
-	$routes->get('/', 'EarningsController::pointHist');
+	$routes->get('/', 'EarningsController::earnings');
 }else{
 	$routes->get('/', 'HomeController::index');
 }

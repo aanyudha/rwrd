@@ -39,7 +39,7 @@ if (authCheck()): ?>
 <?php endif; ?>
 <!--<li><a href="?= generateProfileURL(user()->slug); ?>" class="dropdown-item">?= trans("profile"); ?></a></li>-->
 <?php if (user()->reward_system_enabled == 1): ?>
-<li><a href="<?= generateURL('pointhist'); ?>" class="dropdown-item"><?= trans("earnings"); ?>&nbsp;(<strong class="lbl-earnings"><?= (user()->balance); ?></strong>)</a></li>
+<li><a href="<?= generateURL('pointhist'); ?>" class="dropdown-item"><?= trans("earnings"); ?>&nbsp;(<strong class="lbl-earnings"><?= getLastPointMember(); ?> Pts</strong>)</a></li>
 <?php endif; ?>
 <!--<li><a href="?= generateURL('reading_list'); ?>" class="dropdown-item">?= trans("reading_list"); ?></a></li>-->
 <li><a href="<?= generateURL('settings'); ?>" class="dropdown-item"><?= trans("settings"); ?></a></li>
@@ -48,7 +48,7 @@ if (authCheck()): ?>
 </li>
 <?php else:
 if ($generalSettings->registration_system == 1): ?>
-<li class="nav-item display-flex align-items-center"><a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#modalLogin"><?= trans("login"); ?></a><span class="span-login-sep">&nbsp;|&nbsp;</span><a href="<?= generateURL('register'); ?>" class="nav-link"><?= trans("register"); ?></a></li>
+<li class="nav-item display-flex align-items-center"><a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#modalLogin"><b><?= trans("login"); ?></b></a><span class="span-login-sep">&nbsp;<b>|</b>&nbsp;</span><a href="<?= generateURL('register'); ?>" class="nav-link"><b><?= trans("register"); ?></b></a></li>
 <?php endif; ?>
 <?php endif;
 if ($generalSettings->multilingual_system == 1 && countItems($activeLanguages) > 1): ?>

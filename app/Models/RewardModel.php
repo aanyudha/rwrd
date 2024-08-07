@@ -19,6 +19,7 @@ class RewardModel extends BaseModel
     protected $builderTrnPointOut;
     protected $builderTrnReward;
     protected $builderTrnStatus;
+    protected $builderMstMember;
 
     public function __construct()
     {
@@ -38,6 +39,7 @@ class RewardModel extends BaseModel
         $this->builderTrnPointOut = $this->db->table('trn_point_out');
         $this->builderTrnReward = $this->db->table('trn_reward');
         $this->builderTrnStatus = $this->db->table('trn_status');
+        $this->builderMstMember = $this->db->table('mst_member');
     }
 	
 	//input values hotel
@@ -641,7 +643,12 @@ class RewardModel extends BaseModel
 	//get Mmbr_type_monitor
     public function getMmbrTypeMtr($id)
     {
-		return $this->builderMemberType->where('id_member', cleanNumber($id))->get()->getRow();
+		return $this->builderMstMember->where('id_member', cleanNumber($id))->get()->getRow()->id_tipe_member;
+	}
+	
+	public function getMmbrTypeNameMtr($id)
+    {
+		return $this->builderRefTipeMember->where('id_tipe_member', cleanNumber($id))->get()->getRow()->nama;
 	}
 
     //get Mmbr_type_mtr count
@@ -666,6 +673,10 @@ class RewardModel extends BaseModel
             $this->builderMemberType->groupStart()->like('id_member', cleanStr($q))->orLike('name_on_card', cleanStr($q))->groupEnd();
         }
     }
+	public function getMmbrTypeMtrCmn($id)
+    {
+		return $this->builderMemberType->where('id_member', cleanNumber($id))->get()->getRow();
+	}
 	//Report Point by member
 	//get rptPointMmbr
     public function getRptPointMmbr($id)
@@ -752,7 +763,7 @@ class RewardModel extends BaseModel
 	}
 	public function last_point()
 	{
-		$query = $this->db->query("select ifnull(sum(point),0)-ifnull((select sum(point*qty) from trn_point_out where id_member='".user()->id_member."' and status<>'Canceled' and id_reward<>0),0)-ifnull((select sum(point*qty) from trn_point_out where id_member='".user()->id_member."' and id_reward=0),0) as hasil from trn_point_in where id_member='" . user()->id_member . "'")->getResult();		
+		$query = $this->db->query("select ifnull(sum(point),0)-ifnull((select sum(point*qty) from trn_point_out where id_member='".member()->id_member."' and status<>'Canceled' and id_reward<>0),0)-ifnull((select sum(point*qty) from trn_point_out where id_member='".user()->id_member."' and id_reward=0),0) as hasil from trn_point_in where id_member='" . user()->id_member . "'")->getResult();		
 		return $query[0]->hasil;
 	}
 	//

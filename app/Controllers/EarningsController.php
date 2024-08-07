@@ -206,4 +206,24 @@ class EarningsController extends BaseController
 				echo json_encode($data);
 			}
 	}
+	
+	public function earnings()
+    {
+        $data['title'] = trans("earnings");
+        $data['description'] = trans("earnings") . ' - ' . $this->settings->site_title;
+        $data['keywords'] = trans("earnings") . ', ' . $this->settings->application_name;
+        $data['activeTab'] = 'earnings';
+        $data['userSession'] = getUserSession();
+        //$data['userPostsCount'] = $this->postModel->getUserPostsCount(user()->id);
+        // $data['pageViewsCounts'] = $this->rewardModel->getPageViewsCountByDate(user()->id);
+        $data['numberOfDays'] = date('t');
+        if (empty($data['numberOfDays'])) {
+            $data['numberOfDays'] = 30;
+        }
+        $data['today'] = date('d');
+
+        echo loadView('partials/_header', $data);
+        echo loadView('earnings/homembr', $data);
+        echo loadView('partials/_footer');
+    }
 }

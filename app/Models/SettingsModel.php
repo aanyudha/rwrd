@@ -264,6 +264,7 @@ class SettingsModel extends BaseModel
             'pointhist' => inputPost('pointhist'),
             'redemptsta' => inputPost('redemptsta'),
             'gfy' => inputPost('gfy'),
+            '_home' => inputPost('_home'),
             'set_payout_account' => inputPost('set_payout_account'),
             'logout' => inputPost('logout')
         ];

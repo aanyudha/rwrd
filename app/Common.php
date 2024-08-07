@@ -2291,12 +2291,36 @@ if (!function_exists('isBot')) {
 			return $model->getCountries($id);
 		}
 	}
-	//get TipeMember by id
+	//get getMemberTypesById by id
+	if (!function_exists('getLastPointMember')) {
+		function getLastPointMember()
+		{
+			$model = new \App\Models\RewardModel();
+			return $model->last_point();
+		}
+	}
+	//get getMemberTypesById by id
 	if (!function_exists('getMemberTypesById')) {
 		function getMemberTypesById($id)
 		{
 			$model = new \App\Models\RewardModel();
 			return $model->getMemberTypes($id);
+		}
+	}
+	//get getMmbrTypeNameMtrCmn by id
+	if (!function_exists('getMmbrTypeNameMtrCmn')) {
+		function getMmbrTypeNameMtrCmn($id)
+		{
+			$model = new \App\Models\RewardModel();
+			return $model->getMmbrTypeNameMtr($id);
+		}
+	}
+	//get getMmbrTypeMtrCommon by id
+	if (!function_exists('getMmbrTypeMtrCommon')) {
+		function getMmbrTypeMtrCommon($id)
+		{
+			$model = new \App\Models\RewardModel();
+			return $model->getMmbrTypeMtr($id);
 		}
 	}
 	//get refReward by id
