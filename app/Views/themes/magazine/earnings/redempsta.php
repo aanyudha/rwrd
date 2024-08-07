@@ -14,50 +14,49 @@
                         <?= loadView('earnings/_tabs'); ?>
                     </div>
                     <div class="col-sm-12 col-md-9">
-						 <div class="left">
-							<h3 class="box-title"><?= trans('red_stat'); ?></h3>
-						</div>
+                        <div class="left">
+                            <h3 class="box-title"><?= trans('red_stat'); ?></h3>
+                        </div>
                         <div class="table-responsive table-payouts">
-                            <table class="table table-striped">
-                                <thead>
+                            <table class="table table-striped" style="border-collapse: collapse; width: 100%; text-align: left;">
+                                <thead style="background-color: #f2f2f2;">
                                 <tr role="row">
-                                    <th>#</th>
-                                    <th><?= trans('red-stat'); ?></th>
-                                    <th><?= trans('qty-stat'); ?></th>
-                                    <th><?= trans('pointunt-stat'); ?></th>
-                                    <th><?= trans('point-stat'); ?></th>
-                                    <th><?= trans('reqdate-stat'); ?></th>
-                                    <th><?= trans('procdate-stat'); ?></th>
-                                    <th><?= trans('claimed-stat'); ?></th>
-                                    <th><?= trans('stat-stat'); ?></th>
+                                    <th style="width: 5%; min-width: 40px; padding: 12px; border: 1px solid #ddd;">#</th>
+                                    <th style="width: 35%; padding: 12px; border: 1px solid #ddd;"><?= trans('red-stat'); ?></th>
+                                    <th style="width: 5%; padding: 12px; border: 1px solid #ddd;"><?= trans('qty-stat'); ?></th>
+                                    <th style="width: 5%; padding: 12px; border: 1px solid #ddd;"><?= trans('pointunt-stat'); ?></th>
+                                    <th style="width: 5%; padding: 12px; border: 1px solid #ddd;"><?= trans('point-stat'); ?></th>
+                                    <th style="width: 15%; padding: 12px; border: 1px solid #ddd;"><?= trans('reqdate-stat'); ?></th>
+                                    <th style="width: 10%; padding: 12px; border: 1px solid #ddd;"><?= trans('procdate-stat'); ?></th>
+                                    <th style="width: 10%; padding: 12px; border: 1px solid #ddd;"><?= trans('claimed-stat'); ?></th>
+                                    <th style="width: 10%; padding: 12px; border: 1px solid #ddd;"><?= trans('stat-stat'); ?></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php 
-								$i=0;
-								foreach($history as $row) 
-									{
-										$color="primary";
-										if($row->status=="Canceled")
-										{
-											$color="danger";					
-										}
-										if($row->status=="Approved")
-										{
-											$color="info";										
-										}
-										if($row->status=="Claimed")
-										{
-											$color="success";										
-										}
-										$i++;
-										$tanggal_pengajuan=$row->tanggal_pengajuan==null?"":date("d-M-Y", strtotime($row->tanggal_pengajuan));
-										$tanggal_proses=$row->tanggal_proses==null?"":date("d-M-Y", strtotime($row->tanggal_proses));
-										$tanggal_claim=$row->tanggal_claim==null?"":date("d-M-Y", strtotime($row->tanggal_claim));
-										echo "<tr><td>$i</td><td>".$row->nama."</td><td>".$row->qty."</td><td align='right'>".$row->point."</td><td align='right'>".($row->qty*$row->point)."</td><td align='right'>".$tanggal_pengajuan."</td><td align='right'>".$tanggal_proses."</td><td align='right'>".$tanggal_claim."</td><td align='right'><span class='badge bg-".$color."'>".$row->status."</span></td></tr>";
-									} 
-									?>
-                                        
+                                $i=0;
+                                foreach($history as $row) 
+                                {
+                                    $color = "primary";
+                                    if($row->status == "Canceled")
+                                    {
+                                        $color = "danger";                    
+                                    }
+                                    if($row->status == "Approved")
+                                    {
+                                        $color = "info";                                        
+                                    }
+                                    if($row->status == "Claimed")
+                                    {
+                                        $color = "success";                                        
+                                    }
+                                    $i++;
+                                    $tanggal_pengajuan = $row->tanggal_pengajuan == null ? "" : date("d-M-Y", strtotime($row->tanggal_pengajuan));
+                                    $tanggal_proses = $row->tanggal_proses == null ? "" : date("d-M-Y", strtotime($row->tanggal_proses));
+                                    $tanggal_claim = $row->tanggal_claim == null ? "" : date("d-M-Y", strtotime($row->tanggal_claim));
+                                    echo "<tr style='border-bottom: 1px solid #ddd;'><td style='width: 5%; min-width: 40px; padding: 12px; border: 1px solid #ddd;'>$i</td><td style='width: 20%; padding: 12px; border: 1px solid #ddd;'>".$row->nama."</td><td style='width: 10%; padding: 12px; border: 1px solid #ddd;'>".$row->qty."</td><td style='width: 15%; padding: 12px; border: 1px solid #ddd; text-align: right;'>".$row->point."</td><td style='width: 15%; padding: 12px; border: 1px solid #ddd; text-align: right;'>".($row->qty*$row->point)."</td><td style='width: 15%; padding: 12px; border: 1px solid #ddd; text-align: right;'>".$tanggal_pengajuan."</td><td style='width: 10%; padding: 12px; border: 1px solid #ddd; text-align: right;'>".$tanggal_proses."</td><td style='width: 10%; padding: 12px; border: 1px solid #ddd; text-align: right;'>".$tanggal_claim."</td><td style='width: 10%; padding: 12px; border: 1px solid #ddd; text-align: right;'><span class='badge bg-".$color."'>".$row->status."</span></td></tr>";
+                                } 
+                                ?>
                                 </tbody>
                             </table>
                           <?php if (empty($history)): ?>

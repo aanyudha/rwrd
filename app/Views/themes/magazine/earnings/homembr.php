@@ -43,7 +43,7 @@
                             <div class="earnings-box justify-content-between">
                                 <div class="flex-column">
 								<label><?= trans("balance"); ?></label>
-                                    <strong><?= getLastPointMember(); ?> Points</strong>
+                                    <strong><?= getLastPointMember(); ?></strong>
                                     <label><?= trans("member_type_act"); ?></label>
 								<strong><?= getMmbrTypeNameMtrCmn(getMmbrTypeMtrCommon(esc(member()->id_member))); ?> </strong>
                                 </div>

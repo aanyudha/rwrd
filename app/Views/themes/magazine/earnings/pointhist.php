@@ -18,16 +18,15 @@
 							<h3 class="box-title"><?= trans('point_hist'); ?></h3>
 						</div>
                         <div class="table-responsive table-payouts">
-                            <table class="table table-striped">
+                            <table class="table table-striped" style="border-collapse: collapse; width: 100%; text-align: left;">
                                 <thead>
-                                <tr role="row">
-                                    <th>#</th>
-                                    <th><?= trans('room_phist'); ?></th>
-                                    <th><?= trans('arvdate_phist'); ?></th>
-                                    <th><?= trans('depdate_phist'); ?></th>
-                                    <th><?= trans('pointhist_point'); ?></th>
-                                    <!--<th style="text-align: right"><= trans('point_phist'); ?></th>-->
-                                    <th><?= trans('stat_phist'); ?></th>
+                                <tr role="row" style="background-color: #f2f2f2;">
+                                    <th style="width: 5%; min-width: 40px; padding: 12px; border: 1px solid #ddd;">#</th>
+                                    <th style="padding: 12px; border: 1px solid #ddd;"><?= trans('room_phist'); ?></th>
+                                    <th style="padding: 12px; border: 1px solid #ddd;"><?= trans('arvdate_phist'); ?></th>
+                                    <th style="padding: 12px; border: 1px solid #ddd;"><?= trans('depdate_phist'); ?></th>
+                                    <th style="padding: 12px; border: 1px solid #ddd;"><?= trans('pointhist_point'); ?></th>
+                                    <th style="padding: 12px; border: 1px solid #ddd;"><?= trans('stat_phist'); ?></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -63,30 +62,26 @@
 											$arrival_date=$item->arrival_date==null?"":date("d-M-Y", strtotime($item->arrival_date));
 											$departure_date=$item->arrival_date==null?"":date("d-M-Y", strtotime($item->departure_date)); 
 									?>
-                                        <tr>
-                                            <td><?= $i ?></td>
-                                            <td><?= $item->room_no; ?></td>
-                                            <td><?= formatDateFront($item->arrival_date); ?></td>
-                                            <td><?= formatDateFront($item->departure_date); ?></td>
-                                            <td><?= $item->total_revenue_converted; ?></td>
-                                            <!--<td align='right'><= trans($item->created_at); ?></td>-->
-                                            <td><?= $status ?></td>
+                                        <tr style="border-bottom: 1px solid #ddd;">
+                                            <td style="width: 5%; min-width: 40px; padding: 12px; border: 1px solid #ddd;"><?= $i ?></td>
+                                            <td style="padding: 12px; border: 1px solid #ddd;"><?= $item->room_no; ?></td>
+                                            <td style="padding: 12px; border: 1px solid #ddd;"><?= formatDateFront($item->arrival_date); ?></td>
+                                            <td style="padding: 12px; border: 1px solid #ddd;"><?= formatDateFront($item->departure_date); ?></td>
+                                            <td style="padding: 12px; border: 1px solid #ddd;"><?= $item->total_revenue_converted; ?></td>
+                                            <td style="padding: 12px; border: 1px solid #ddd;"><?= $status ?></td>
                                         </tr>
                                     <?php endforeach;?>
-									<tr>
-										<td colspan='2'>Total Point In</td>
-										<td colspan='4' align='right'><h4><b class='text text-default'><?=  number_format($total_all);  ?></b></h4></td>
-									
+									<tr style="background-color: #f9f9f9;">
+										<td colspan='2' style="padding: 12px; border: 1px solid #ddd;">Sub Total Point</td>
+										<td colspan='4' style="padding: 12px; text-align: right; border: 1px solid #ddd;"><h4><b class='text text-default'><?=  number_format($total_all);  ?></b></h4></td>
 									</tr>
-									<tr>
-										<td colspan='2'>Total Expired</td>
-										<td colspan='4' align='right'><h4><b class='text text-danger'><?= number_format($total_exp); ?></b></h4></td>
-										
+									<tr style="background-color: #f9f9f9;">
+										<td colspan='2' style="padding: 12px; border: 1px solid #ddd;">Expired Point</td>
+										<td colspan='4' style="padding: 12px; text-align: right; border: 1px solid #ddd;"><h4><b class='text text-danger'><?= number_format($total_exp); ?></b></h4></td>
 									</tr>
-									<tr>
-										<th colspan='4'>Total Point In Nett</th>
-										<td colspan='4' align='right'><h4><b class='text text-success'><?= number_format($total_in); ?></b></h4></td>
-										
+									<tr style="background-color: #f9f9f9;">
+										<td colspan='4' style="padding: 12px; border: 1px solid #ddd;"><b>Total Point<b></td>
+										<td colspan='4' style="padding: 12px; text-align: right; border: 1px solid #ddd;"><h4><b class='text text-success'><?= number_format($total_in); ?></b></h4></td>
 									</tr>		
                                 </tbody>
                             </table>

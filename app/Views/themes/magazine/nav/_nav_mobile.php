@@ -8,7 +8,9 @@
 <line x1="2" y1="11" x2="22" y2="11"></line>
 <line x1="2" y1="18" x2="22" y2="18"></line>
 </svg>
+<?php if (authCheck()): ?>
 <span class="display-cart-count badge rounded-pill bg-danger badge-custom">0</span>
+<?php endif; ?>
 </button>
 <div class="mobile-logo">
 <a href="<?= langBaseUrl(); ?>">
