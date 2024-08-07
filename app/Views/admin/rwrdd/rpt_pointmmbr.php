@@ -29,7 +29,7 @@
                             <th><?= trans('trn-hotel-room-code'); ?></th>
                             <th><?= trans('trn-hotel-room-code'); ?></th>
                             <th><?= trans('trn-hotel-room-code'); ?></th>
-                            <th><?= trans('options'); ?></th>
+                            <!--<th>?= trans('options'); ?></th>-->
                         </tr>
                         </thead>
                         <tbody>
@@ -45,24 +45,24 @@
                                     <td><?= esc($item->total_point_redeemed); ?></td>
                                     <td><?= esc($item->expired_point); ?></td>
                                     <td><?= esc($item->point_balance); ?></td>
-                                    <td class="td-select-option">
+                                    <!--<td class="td-select-option">
                                         <div class="dropdown">
-                                            <button class="btn bg-purple dropdown-toggle btn-select-option" type="button" data-toggle="dropdown"><?= trans('select_an_option'); ?>
+                                            <button class="btn bg-purple dropdown-toggle btn-select-option" type="button" data-toggle="dropdown">?= trans('select_an_option'); ?>
                                                 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu options-dropdown">
                                                 <li>
-                                                    <a href="<?= adminUrl('reward-system/view-trn-hotel/' . $item->id_member); ?>"><i class="fa fa-play option-icon"></i><?= trans('trn-hotel-view'); ?></a>
+                                                    <a href="?= adminUrl('reward-system/view-trn-hotel/' . $item->id_member); ?>"><i class="fa fa-play option-icon"></i>?= trans('trn-hotel-view'); ?></a>
                                                 </li>
 												<li>
-                                                    <a href="<?= adminUrl('reward-system/edit-trn-hotel/' . $item->id_member); ?>"><i class="fa fa-edit option-icon"></i><?= trans('trn-hotel-edit'); ?></a>
+                                                    <a href="?= adminUrl('reward-system/edit-trn-hotel/' . $item->id_member); ?>"><i class="fa fa-edit option-icon"></i>?= trans('trn-hotel-edit'); ?></a>
                                                 </li>
 												<li>
-                                                        <a href="javascript:void(0)" onclick="deleteItem('RewardController/deleteTrnHotel','<?= $item->id_member; ?>','<?= clrQuotes(trans("confirm_post_delete_trn_hotel")); ?>');"><i class="fa fa-trash option-icon"></i><?= trans('delete'); ?></a>
+                                                        <a href="javascript:void(0)" onclick="deleteItem('RewardController/deleteTrnHotel','?= $item->id_member; ?>','?= clrQuotes(trans("confirm_post_delete_trn_hotel")); ?>');"><i class="fa fa-trash option-icon"></i><?= trans('delete'); ?></a>
                                                 </li>
                                             </ul>
                                         </div>
-                                    </td>
+                                    </td>-->
                                 </tr>
                             <?php endforeach;
                         endif; ?>

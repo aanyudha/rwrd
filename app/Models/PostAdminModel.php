@@ -983,6 +983,19 @@ class PostAdminModel extends BaseModel
         }
     }
 	
+	//CRON PROCESSED +++++++++++++++++++++++++++++++++++++++++++
+	// CEK config PHP Maximum execution time
+	public function select_id_member_v2()
+	{
+			$query=$this->db->query("SELECT id_member from trn_hotel GROUP BY id_member");
+			return $query->getResult();
+	}
+		
+	public function update_all_converted_null(){
+			$sql = "UPDATE trn_hotel SET status = 'Converted', exp_date = NULL";
+			return $this->db->query($sql);
+	}
+	
 	public function algorithma_baru_model($id_member){
 			$query=$this->db->query("SELECT id_trn,id_member,departure_date,STATUS,IF((SELECT departure_date FROM trn_hotel e2 WHERE e2.departure_date > e.departure_date AND id_member='$id_member' ORDER BY departure_date ASC LIMIT 1 OFFSET 0) IS NULL,DATE_FORMAT(NOW(),'%Y-%m-%d'),(SELECT departure_date FROM trn_hotel e2 WHERE e2.departure_date > e.departure_date AND id_member='$id_member' ORDER BY departure_date ASC LIMIT 1 OFFSET 0)) AS next_value,(SELECT TIMESTAMPDIFF(YEAR,departure_date,next_value)) AS gapnya FROM trn_hotel e WHERE id_member='$id_member' ORDER BY departure_date ASC");
 			$row2=$query->getResult();
@@ -1010,6 +1023,23 @@ class PostAdminModel extends BaseModel
 					);
 				return $this->builderTrnHotel->where('id_member', $id_member)->where('status!=', 'Expired')->update($data);
 	}
+	
+	//CRON PROCESSED +++++++++++++++++++++++++++++++++++++++++++
+	
+	public function check_cron_db(){
+			$query = $this->builderTrnHotel->get()->getResult();
+			// var_dump($query);
+			if (!empty($query)) {
+				return true;
+			} else {
+				return false;
+			}
+			// if ($query->num_rows() > 0) {
+				// return true;
+				// } else {
+				// return false;
+			// }
+		}
 	
 	//get filename by filename
     public function getTrnByfilename($filename)
