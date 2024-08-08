@@ -8,4 +8,7 @@ post_max_size = 100M
 //Pakai ini untuk cron otomatis wget -O /dev/null https://domain.com/cron/upload-trn-file
 cd /var/www/rewards/rwrd/uploads/osr;
 thefile=$(ls -1 *.txt | tail -1);
-php https://domain.com/cron/upload-trn-file $thefile;
+Linux
+php /var/www/rewards/index.php https://domain.com/cron/upload-trn-file $thefile;
+Windows
+php /rwrd/index.php https://domain.com/cron/upload-trn-file $thefile;

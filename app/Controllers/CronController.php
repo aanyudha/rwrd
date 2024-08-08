@@ -113,6 +113,7 @@ class CronController extends BaseController
 	
 	public function cek_controller()
     {
+		
 		// var_dump('SUSU');
 		if ($this->postAdminModel->check_cron_db() == true) {
 			
@@ -196,8 +197,17 @@ class CronController extends BaseController
 	
 	public function simpan_upload_trn_hotel_cron($fileauto)	
 	{
-		if (!$this->postAdminModel->isUniqueFilename($fileauto)) {
+		// if (!$this->postAdminModel->isUniqueFilename($fileauto)) {
 			if (!$this->postAdminModel->simpan_upload_mod_auto($fileauto)) {
 			}
+		// }
+	}
+	public function message($to = 'World')
+    {
+        return "Hello {$to}!" . PHP_EOL;
+    }
+	public function cek_controller_cli($coba)
+    {
+		echo $coba;
 	}
 }

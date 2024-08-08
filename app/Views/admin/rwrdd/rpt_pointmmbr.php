@@ -20,15 +20,15 @@
                         <?= view('admin/rwrdd/_filter', ['url' => adminUrl('reward-system/rpt-point-mmbr')]); ?>
                         <thead>
                         <tr role="row">
-                            <th><?= trans('trn-hotel-filename'); ?></th>
-                            <th><?= trans('trn-hotel-hotel-code'); ?></th>
+                            <th><?= trans('rptpoint_ID'); ?></th>
+                            <th><?= trans('rptpoint_guest'); ?></th>
                             <th><?= trans('trn-hotel-id-member'); ?></th>
-                            <th><?= trans('trn-hotel-room-no'); ?></th>
-                            <th><?= trans('trn-hotel-room-type'); ?></th>
-                            <th><?= trans('trn-hotel-room-code'); ?></th>
-                            <th><?= trans('trn-hotel-room-code'); ?></th>
-                            <th><?= trans('trn-hotel-room-code'); ?></th>
-                            <th><?= trans('trn-hotel-room-code'); ?></th>
+                            <th><?= trans('rptpoint_noc'); ?></th>
+                            <th><?= trans('rptpoint_mmbr_lvl'); ?></th>
+                            <th><?= trans('rptpoint_ttl_point'); ?></th>
+                            <th><?= trans('rptpoint_redeem'); ?></th>
+                            <th><?= trans('rptpoint_exp'); ?></th>
+                            <th><?= trans('rptpoint_balance'); ?></th>
                             <!--<th>?= trans('options'); ?></th>-->
                         </tr>
                         </thead>

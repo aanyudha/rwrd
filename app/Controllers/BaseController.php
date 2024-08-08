@@ -83,10 +83,11 @@ abstract class BaseController extends Controller
 
         //general settings
         $this->generalSettings = Globals::$generalSettings;
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            setActiveLangPostRequest();
-        }
+		if (!is_cli()) {
+			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+				setActiveLangPostRequest();
+			}
+		}
 
         //settings
         $this->settings = Globals::$settings;

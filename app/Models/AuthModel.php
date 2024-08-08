@@ -20,6 +20,7 @@ class AuthModel extends BaseModel
     public function inputValues()
     {
         return [
+            'username' => inputPost('username'),
             'email' => inputPost('email'),
             'password' => inputPost('password')
         ];

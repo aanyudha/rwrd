@@ -1292,7 +1292,7 @@ class PostAdminModel extends BaseModel
 			$query = $this->builderTblSetting->select('nilai')->where('nama', cleanStr('Guest GRP'))->get()->getResult();
 			$point_conversion_booker_grp=$query[0]->nilai;
 			$path_upload=FCPATH."uploads/osr";
-			$filename=$filemanual;
+			$filename=$fileauto;
 			try
 			{
 				if (($handle = fopen($path_upload."/".$filename, "r")) !== FALSE) 

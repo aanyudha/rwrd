@@ -560,7 +560,7 @@ class RewardModel extends BaseModel
     public function getTrnHotelPaginated($perPage, $offset)
     {
         $this->filterTrnHotel();
-        return $this->builderTrnHotel->orderBy('id_trn ASC')->limit($perPage, $offset)->get()->getResult();
+        return $this->builderTrnHotel->orderBy('waktu_upload DESC')->limit($perPage, $offset)->get()->getResult();
     }
 
     //ref trnHotel filter

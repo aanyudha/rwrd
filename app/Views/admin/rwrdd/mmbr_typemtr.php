@@ -20,12 +20,12 @@
                         <?= view('admin/rwrdd/_filter', ['url' => adminUrl('reward-system/mmbr-type-mtr')]); ?>
                         <thead>
                         <tr role="row">
-                            <th><?= trans('trn-hotel-filename'); ?></th>
-                            <th><?= trans('trn-hotel-hotel-code'); ?></th>
-                            <th><?= trans('trn-hotel-id-member'); ?></th>
-                            <th><?= trans('trn-hotel-room-no'); ?></th>
-                            <th><?= trans('trn-hotel-room-type'); ?></th>
-                            <th><?= trans('trn-hotel-room-code'); ?></th>
+                            <th><?= trans('mmbr_id'); ?></th>
+                            <th><?= trans('mmbr_nameoc'); ?></th>
+                            <th><?= trans('mmbr_isprintcard'); ?></th>
+                            <th><?= trans('mmbr_nos'); ?></th>
+                            <th><?= trans('mmbr_typeactual'); ?></th>
+                            <th><?= trans('mmbr_typesuggest'); ?></th>
                             <!--<th>?= trans('options'); ?></th>-->
                         </tr>
                         </thead>
