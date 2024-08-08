@@ -507,6 +507,7 @@ class RewardController extends BaseAdminController
 			$this->session->setFlashdata('error', trans("msg_member_type_kode_unique_error"));
             return redirect()->to(adminUrl('reward-system/trn-hotel-upl'))->withInput();
 		}
+		
         $this->session->setFlashdata('success', trans("msg_added"));
         resetCacheDataOnChange();
         return redirect()->to(adminUrl('reward-system/trn-hotel'));				

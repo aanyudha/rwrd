@@ -1136,7 +1136,6 @@ class PostAdminModel extends BaseModel
 			$query = $this->builderTblSetting->select('nilai')->where('nama', cleanStr('Guest GRP'))->get()->getResult();
 			$point_conversion_booker_grp=$query[0]->nilai;
 			$path_upload=FCPATH."uploads/osr";
-			$path_upload2=FCPATH."uploads/";
 			if($filemanual!==NULL)
 			{
 				$filename=$filemanual;
@@ -1265,7 +1264,150 @@ class PostAdminModel extends BaseModel
 					$this->db->transComplete();
 					fclose($handle);	
 					//exec("rm -rf $path_upload/$filename");
-					exec("mv $path_upload/$filename $path_upload2/processed");
+					exec("mv $path_upload/$filename $path_upload/processed");
+					//redirect("kelola/trn_hotel","refresh");
+					// $this->session->setFlashdata('success', trans("msg_updated"));
+					return true;
+				}
+			}
+			catch(Exception $e)
+			{
+				show_error($e->getMessage().' --- '.$e->getTraceAsString());
+			}		
+	}
+	
+	public function simpan_upload_mod_auto($fileauto){
+			$query = $this->builderRefKonversi->get()->getResult();
+			$fitgrp=array();
+			foreach($query as $row)		
+			{
+				$fitgrp[$row->kode]=$row->tipe;
+			}
+			$query = $this->builderTblSetting->select('nilai')->where('nama', cleanStr('Guest FIT'))->get()->getResult();
+			$point_conversion_guest_fit=$query[0]->nilai;
+			$query = $this->builderTblSetting->select('nilai')->where('nama', cleanStr('Guest GRP'))->get()->getResult();
+			$point_conversion_guest_grp=$query[0]->nilai;
+			$query = $this->builderTblSetting->select('nilai')->where('nama', cleanStr('Guest FIT'))->get()->getResult();
+			$point_conversion_booker_fit=$query[0]->nilai;
+			$query = $this->builderTblSetting->select('nilai')->where('nama', cleanStr('Guest GRP'))->get()->getResult();
+			$point_conversion_booker_grp=$query[0]->nilai;
+			$path_upload=FCPATH."uploads/osr";
+			$filename=$filemanual;
+			try
+			{
+				if (($handle = fopen($path_upload."/".$filename, "r")) !== FALSE) 
+				{
+					$this->db->transStart();				
+					$this->builderTrnHotel->where('filename', $filename)->delete();					
+					$tipenya="Member";
+					while (($data = fgetcsv($handle, 0, ";")) !== FALSE) 
+					{
+						if(count($data)>2 && strlen($data[0])>3) 
+						{
+							//HTJOG	TNT		100	Bambang	Dwi	326	DLXK	14BARBP	BEN	WEB	06-OCT-17	06-OCT-17	0	1.115.702.479.338.840.000	0	1.115.702.479.338.840.000						
+							//HTJOG;;;;Anton;Siregar;9011;PM;NR;BEN;PHN;18-MAR-20;18-MAR-20;0;0;0;0;							
+							$hotel_code=$data[0];
+							$id_member=$data[3];
+							$room_no=$data[6];						
+							$room_type=$data[7];
+							$room_code=$data[6];
+							$market_code=$data[9];
+							$market_code_converted=$fitgrp[$market_code];
+							$source_code=$data[10];
+							$arrival_date_asli = date_create_from_format('j-M-y', $data[11]);						
+							$arrival_date=date_format($arrival_date_asli, 'Y-m-d');
+							$departure_date_asli = date_create_from_format('j-M-y', $data[12]);						
+							$departure_date=date_format($departure_date_asli, 'Y-m-d');
+							$number_of_nights=$data[13];
+							$room_revenue=$data[14];
+							$fnb_revenue=$data[15];
+							$total_revenue=$data[16];
+							$booker=$data[17];
+							$status="Converted";
+							if($market_code_converted!=="" && ($id_member!=="" || $booker !=="") && $source_code!="OTA" && $source_code!="WHO" && $source_code!="RDM" && $market_code!=="WHO") //TAMBAHAN PAK YO DISINI
+							{
+								if($market_code_converted=="FIT")
+								{
+									$point_conversion_member=$point_conversion_guest_fit;
+									$point_conversion_booker=$point_conversion_booker_fit;
+								}
+								if($market_code_converted=="GRP")
+								{
+									$point_conversion_member=$point_conversion_guest_grp;
+									$point_conversion_booker=$point_conversion_booker_grp;
+								}
+								try
+								{									
+									$builder = $this->db->table('ref_tipe_member r');
+									$builder->select('r.index as nilai');
+									$builder->from('mst_member m');
+									$builder->where('m.id_tipe_member=r.id_tipe_member');
+									$builder->where('m.id_member', $id_member);
+									$query = $builder->get()->getResult();
+									if(count($query)==0)
+									{
+										$index_tipe_member=1;
+									}
+									else
+									{
+										$index_tipe_member=$query[0]->nilai;
+									}
+									$room_revenue_converted=floor(($room_revenue/100000)*$point_conversion_member*$index_tipe_member*100000);
+									$fnb_revenue_converted=floor(($fnb_revenue/100000)*$point_conversion_member*$index_tipe_member*100000);
+									$other_revenue=0;
+									$other_revenue_converted=0;
+									$total_revenue_converted=$room_revenue_converted+$fnb_revenue_converted;
+									$point_type="Member";
+									if($id_member!==""){
+									$query=$this->db->query("insert into trn_hotel(filename, hotel_code, id_member, room_no, room_type, room_code, market_code, market_code_converted, source_code, arrival_date, departure_date, number_of_nights, room_revenue, fnb_revenue, other_revenue, total_revenue, room_revenue_converted, fnb_revenue_converted, other_revenue_converted, total_revenue_converted, point_type, status) values('$filename', '$hotel_code', '$id_member', '$room_no', '$room_type', '$room_code', '$market_code', '$market_code_converted', '$source_code', '$arrival_date', '$departure_date', $number_of_nights, $room_revenue, $fnb_revenue, $other_revenue, $total_revenue, $room_revenue_converted, $fnb_revenue_converted, $other_revenue_converted, $total_revenue_converted, '$point_type', '$status')");
+									//UPDATE yang lama sesuai ID INTERVAL 1 TAHUN
+										if (!empty($query)) {
+											$cek_gap = $this->algorithma_baru_model($id_member);
+												foreach ($cek_gap as $cek) {
+													if ($cek->gapnya=='0'){
+														$this->update_exp_date($cek->id_member,$cek->departure_date);
+													}elseif($cek->gapnya=='1'){
+														$this->update_status_exp($cek->id_member, $cek->departure_date );
+													}
+												}
+										}
+									}
+
+									if($booker!=="")
+									{
+										$id_member=$booker;
+										$room_revenue_converted=floor(($room_revenue/100000)*$point_conversion_booker*$index_tipe_member*100000);
+										$fnb_revenue_converted=floor(($fnb_revenue/100000)*$point_conversion_booker*$index_tipe_member*100000);
+										$other_revenue=0;
+										$other_revenue_converted=0;
+										$total_revenue_converted=$room_revenue_converted+$fnb_revenue_converted;
+										$point_type="Booker";
+										$query=$this->db->query("insert into trn_hotel(filename, hotel_code, id_member, room_no, room_type, room_code, market_code, market_code_converted, source_code, arrival_date, departure_date, number_of_nights, room_revenue, fnb_revenue, other_revenue, total_revenue, room_revenue_converted, fnb_revenue_converted, other_revenue_converted, total_revenue_converted, point_type, status) values('$filename', '$hotel_code', '$id_member', '$room_no', '$room_type', '$room_code', '$market_code', '$market_code_converted', '$source_code', '$arrival_date', '$departure_date', $number_of_nights, $room_revenue, $fnb_revenue, $other_revenue, $total_revenue, $room_revenue_converted, $fnb_revenue_converted, $other_revenue_converted, $total_revenue_converted, '$point_type', '$status')");										
+										
+										//UPDATE yang lama sesuai ID INTERVAL 1 TAHUN
+										if (!empty($query)) {
+											$cek_gap = $this->algorithma_baru_model($id_member);
+												foreach ($cek_gap as $cek) {
+													if ($cek->gapnya=='0'){
+														$this->update_exp_date($cek->id_member,$cek->departure_date);
+													}elseif($cek->gapnya=='1'){
+														$this->update_status_exp($cek->id_member, $cek->departure_date );
+													}
+												}
+										}
+									}
+								}
+								catch(Exception $e)
+								{
+							}			
+								
+							}
+						}
+					}
+					$this->db->transComplete();
+					fclose($handle);	
+					//exec("rm -rf $path_upload/$filename");
+					exec("mv $path_upload/$filename $path_upload/processed");
 					//redirect("kelola/trn_hotel","refresh");
 					// $this->session->setFlashdata('success', trans("msg_updated"));
 					return true;

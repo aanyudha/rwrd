@@ -193,4 +193,11 @@ class CronController extends BaseController
 					echo 'mlebu';
 			}
 	}
+	
+	public function simpan_upload_trn_hotel_cron($fileauto)	
+	{
+		if (!$this->postAdminModel->isUniqueFilename($fileauto)) {
+			if (!$this->postAdminModel->simpan_upload_mod_auto($fileauto)) {
+			}
+	}
 }

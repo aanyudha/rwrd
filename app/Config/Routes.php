@@ -50,6 +50,7 @@ $routes->get('cron/check-scheduled-posts', 'CronController::checkScheduledPosts'
 //Pakai ini untuk cron job wget -O /dev/null https://domain.com/bfda1be1d758fb307cc999596269b57f/8d777f385d3dfec8815d20f7496026dc
 //untuk cek exp date interval 1 tahun
 $routes->get('cron/alghrtm-new', 'CronController::algorithma_baru');
+$routes->get('cron/upload-trn-file', 'CronController::simpan_upload_trn_hotel_cron');
 $routes->get('cron/ceker', 'CronController::cek_controller');
 $routes->get('cron/ceker2', 'CronController::coba_lagi');
 $routes->get('unsubscribe', 'AuthController::unsubscribe');

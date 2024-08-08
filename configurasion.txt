@@ -5,3 +5,7 @@ Maximum execution time of 100 seconds exceeded : tingkatkan
 untuk upload video terutama yang berdampak
 upload_max_filesize 100M
 post_max_size = 100M
+//Pakai ini untuk cron otomatis wget -O /dev/null https://domain.com/cron/upload-trn-file
+cd /var/www/rewards/rwrd/uploads/osr;
+thefile=$(ls -1 *.txt | tail -1);
+php https://domain.com/cron/upload-trn-file $thefile;
