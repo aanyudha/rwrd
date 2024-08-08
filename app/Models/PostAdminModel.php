@@ -987,12 +987,12 @@ class PostAdminModel extends BaseModel
 	// CEK config PHP Maximum execution time
 	public function select_id_member_v2()
 	{
-			$query=$this->db->query("SELECT id_member from trn_hotel GROUP BY id_member");
+			$query=$this->db->query("SELECT id_member from trn_hotel WHERE status = 'Converted' GROUP BY id_member");
 			return $query->getResult();
 	}
 		
 	public function update_all_converted_null(){
-			$sql = "UPDATE trn_hotel SET status = 'Converted', exp_date = NULL";
+			$sql = "UPDATE trn_hotel SET exp_date = NULL WHERE status = 'Converted'";
 			return $this->db->query($sql);
 	}
 	
@@ -1039,6 +1039,57 @@ class PostAdminModel extends BaseModel
 				// } else {
 				// return false;
 			// }
+	}
+	
+	public function indexing_per_member($id_member){
+			$query=$this->db->query("SELECT (@idx := @idx + 1) AS indexNya,id_trn, id_member, departure_date,DATE_ADD(departure_date, INTERVAL 1 DAY) AS adaylater,DATE_ADD(departure_date, INTERVAL 1 YEAR) AS ayearlater FROM trn_hotel AS t CROSS JOIN (SELECT @idx := 0) AS dummy WHERE t.id_member='$id_member'");
+			$row2=$query->result();
+			return $row2;
+	}
+	
+	public function count_1_year($awal, $akhir, $id_member){
+			$query=$this->db->query("SELECT COUNT(*) as jml FROM trn_hotel WHERE departure_date BETWEEN '$awal' AND '$akhir' AND id_member = '$id_member'");
+			$row2=$query->result();
+			return $row2;
+	}
+	
+	public function update_blue($id_member){
+			$data = array(
+						'id_tipe_member' => 1,
+					);
+					$where = "(id_member='$id_member')";
+					$this->db->where($where);
+					return $this->db->update('mst_member', $data);
+		}
+		
+		public function update_gold($id_member){
+			$data = array(
+						'id_tipe_member' => 2,
+					);
+					$where = "(id_member='$id_member')";
+					$this->db->where($where);
+					return $this->db->update('mst_member', $data);
+					
+			$sql = "UPDATE mst_member SET id_tipe_member = 2 WHERE id_member = ?";
+			return $this->db->query($sql, array($post->id_trn));
+		}
+		
+		public function update_platinum($id_member){
+			$data = array(
+						'id_tipe_member' => 3,
+					);
+					$where = "(id_member='$id_member')";
+					$this->db->where($where);
+					return $this->db->update('mst_member', $data);
+		}
+		
+		public function update_black($id_member){
+			$data = array(
+						'id_tipe_member' => 4,
+					);
+					$where = "(id_member='$id_member')";
+					$this->db->where($where);
+					return $this->db->update('mst_member', $data);
 		}
 	
 	//get filename by filename
@@ -1085,6 +1136,7 @@ class PostAdminModel extends BaseModel
 			$query = $this->builderTblSetting->select('nilai')->where('nama', cleanStr('Guest GRP'))->get()->getResult();
 			$point_conversion_booker_grp=$query[0]->nilai;
 			$path_upload=FCPATH."uploads/osr";
+			$path_upload2=FCPATH."uploads/";
 			if($filemanual!==NULL)
 			{
 				$filename=$filemanual;
@@ -1213,7 +1265,7 @@ class PostAdminModel extends BaseModel
 					$this->db->transComplete();
 					fclose($handle);	
 					//exec("rm -rf $path_upload/$filename");
-					exec("mv $path_upload/$filename $path_upload/processed");
+					exec("mv $path_upload/$filename $path_upload2/processed");
 					//redirect("kelola/trn_hotel","refresh");
 					// $this->session->setFlashdata('success', trans("msg_updated"));
 					return true;

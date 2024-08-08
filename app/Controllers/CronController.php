@@ -68,29 +68,29 @@ class CronController extends BaseController
 					$cek_gap = $this->postAdminModel->algorithma_baru_model($post->id_member);
 					foreach ($cek_gap as $cek) {
 						//echo "cek gap = $cek->gapnya<br>";
-						echo "$post->id_member<br>";
+						// echo "$post->id_member<br>";
 						if ($cek->gapnya=='0'){
-							echo "------------------------------------------<br>";
-							echo "NOL<br>";
-							echo "id trn = $cek->id_trn<br>";
-							echo "id_member = $cek->id_member<br>";
-							echo "departure_date = $cek->departure_date<br>";
-							echo "------------------------------------------<br>";
+							// echo "------------------------------------------<br>";
+							// echo "NOL<br>";
+							// echo "id trn = $cek->id_trn<br>";
+							// echo "id_member = $cek->id_member<br>";
+							// echo "departure_date = $cek->departure_date<br>";
+							// echo "------------------------------------------<br>";
 							$this->postAdminModel->update_exp_date($cek->id_member,$cek->departure_date);
 						}else{
-							echo "++++++++++++++++++++++++++++++++++++++++++<br>";
-							echo "LEBIH DARI 0<br>";
-							echo "id trn = $cek->id_trn<br>";
-							echo "id_member = $cek->id_member<br>";
-							echo "departure_date = $cek->departure_date<br>";
-							echo "++++++++++++++++++++++++++++++++++++++++++<br>";
+							// echo "++++++++++++++++++++++++++++++++++++++++++<br>";
+							// echo "LEBIH DARI 0<br>";
+							// echo "id trn = $cek->id_trn<br>";
+							// echo "id_member = $cek->id_member<br>";
+							// echo "departure_date = $cek->departure_date<br>";
+							// echo "++++++++++++++++++++++++++++++++++++++++++<br>";
 							$this->postAdminModel->update_status_exp($cek->id_member, $cek->departure_date );
 						}
 					}
 				}
 					$log_time = date('Y-m-d h:i:s');
-					$log_time_end = date('Y-m-d h:i:s');
-					$log_msg = "Masuk di semua data";
+					// $log_time_end = date('Y-m-d h:i:s');
+					// $log_msg = "Masuk di semua data";
 					echo 'Masuk di semua data';
 					echo "************** Akhir Log Pada : '" . $log_time . "'**********";
 					//LOG
@@ -99,8 +99,8 @@ class CronController extends BaseController
 					// $this->lognya("************** Akhir Log Pada : '" . $log_time_end . "'**********");
 			}else {
 					$log_time = date('Y-m-d h:i:s');
-					$log_time_end = date('Y-m-d h:i:s');
-					$log_msg = "TIDAK MASOK di semua data, CEK Lagi";
+					// $log_time_end = date('Y-m-d h:i:s');
+					// $log_msg = "TIDAK MASOK di semua data, CEK Lagi";
 					echo 'TIDAK MASOK di semua data, CEK Lagi';
 					echo "************** Akhir Log Pada : '" . $log_time . "'**********";
 					//LOG
@@ -155,5 +155,42 @@ class CronController extends BaseController
 		$log_file_data = $dir.'/log_' . $log_tanggal_waktu . '.txt';
 		// `FILE_APPEND`, supaya tidak kehapus saat ada log baru, jadi update file itu di hari yg sama
 		file_put_contents($log_file_data, $log_msg . "\n", FILE_APPEND);
+	}
+	
+	function coba_algo_baru(){
+		$ini = $this->postAdminModel->select_id_member_v2();       
+			if (!empty($ini)) {
+				foreach ($ini as $post) {
+					//echo "$post->id_member<br>";
+					$cek_gap = $this->postAdminModel->indexing_per_member($post->id_member);
+					foreach ($cek_gap as $cek) {
+						//echo "cek gap = $cek->gapnya<br>";
+						//echo "$cek->indexNya<br>";
+						//echo "$cek->id_member<br>";
+						if ($cek->indexNya=='3'){
+							//echo "dept_date3 $cek->id_member = $cek->departure_date<br>";
+							//echo "UPDATE MEMBER JADI 2(GOLD)<br>";
+							$count1year = $this->postAdminModel->count_1_year($cek->adaylater,$cek->ayearlater,$cek->id_member);
+							foreach ($count1year as $cek2) {
+								//echo "jumlahnya = $cek2->jml<br>";
+								if($cek2->jml>=0 && $cek2->jml<=2){
+									echo "$cek->id_member = BLUE<br>";
+									$this->postAdminModel->update_BLUE($cek->id_member);
+								}elseif($cek2->jml>=3 && $cek2->jml<=9){
+									echo "$cek->id_member = GOLD<br>";
+									$this->postAdminModel->update_GOLD($cek->id_member);
+								}elseif($cek2->jml>=10 && $cek2->jml<=24){
+									echo "$cek->id_member = PLATINUM<br>";
+									$this->postAdminModel->update_PLATINUM($cek->id_member);
+								}elseif($cek2->jml>=25 && $cek2->jml<=9999){
+									echo "$cek->id_member = BLACK<br>";
+									$this->postAdminModel->update_BLACK($cek->id_member);
+								}
+							}
+						}
+					}
+				}
+					echo 'mlebu';
+			}
 	}
 }
