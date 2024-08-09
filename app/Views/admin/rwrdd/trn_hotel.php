@@ -10,10 +10,10 @@
             <h3 class="box-title"><?= trans('trn-hotel'); ?></h3>
         </div>
         <div class="right">
-            <a href="<?= adminUrl('reward-system/add-trn-hotel'); ?>" class="btn btn-success btn-add-new">
+            <!--<a href="?= adminUrl('reward-system/add-trn-hotel'); ?>" class="btn btn-success btn-add-new">
                 <i class="fa fa-plus"></i>
-                <?= trans('trn-hotel-add'); ?>
-            </a>
+                ?= trans('trn-hotel-add'); ?>
+            </a>-->
         </div>
     </div>
     <div class="box-body">
@@ -80,8 +80,8 @@
                                     <td><?= esc($item->total_revenue_converted); ?></td>
                                     <td><?= esc($item->point_type); ?></td>
                                     <td><?= esc($item->status); ?></td>
-                                    <td><?= esc($item->waktu_upload); ?></td>
-                                    <td><?= esc($item->exp_date); ?></td>
+                                    <td><?= formatDateOnly($item->waktu_upload); ?></td>
+                                    <td><?= formatDateOnly($item->exp_date); ?></td>
                                     <td class="td-select-option">
                                         <div class="dropdown">
                                             <button class="btn bg-purple dropdown-toggle btn-select-option" type="button" data-toggle="dropdown"><?= trans('select_an_option'); ?>

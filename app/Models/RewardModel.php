@@ -572,6 +572,13 @@ class RewardModel extends BaseModel
     public function filterTrnHotel()
     {
 		$q = inputGet('q');
+		$pointtpe = cleanStr(inputGet('pointtpe'));
+		$qdatestart = formatDateOnly(inputGet('qdatestart'));
+		$qdateend = formatDateOnly(inputGet('qdateend'));
+		$qdatestart1 = new \DateTime($qdatestart);
+		$qdatestartFormat= $qdatestart1->format('Y-m-d');
+		$qdateend1 = new \DateTime($qdateend);
+		$qdateendFormat= $qdateend1->format('Y-m-d');
 		if (!empty($q)) {
             $this->builderTrnHotel->groupStart()->like('mst_member.fullname', cleanStr($q))
 			->orLike('trn_hotel.id_trn', cleanStr($q))
@@ -580,6 +587,15 @@ class RewardModel extends BaseModel
 			->orLike('trn_hotel.hotel_code', cleanStr($q))
 			->groupEnd();
         }
+		if (!empty($pointtpe)) {
+                $this->builderTrnHotel->groupStart()->like('trn_hotel.point_type', cleanStr($pointtpe))->groupEnd();
+            }
+		if (!empty($qdatestart && $qdateend)) {
+                $this->builderTrnHotel->groupStart()
+				->where('trn_hotel.waktu_upload >=', $qdatestartFormat)
+				->where('trn_hotel.waktu_upload <=', $qdateendFormat)
+				->groupEnd();
+            }
     }
 	//get trnHotel by id
     public function getTrnHotelById($id)
@@ -845,4 +861,12 @@ class RewardModel extends BaseModel
             echo 'Invalid JSON';
         }
     }
+	public function enum_select_pointType(){
+		$query = " SHOW COLUMNS FROM trn_hotel WHERE FIELD = 'point_type' ";
+		$row = $this->db->query(" SHOW COLUMNS FROM trn_hotel WHERE FIELD = 'point_type' ")->getRow()->Type;
+		$regex = "/'(.*?)'/";
+		preg_match_all( $regex , $row, $enum_array );
+		$enum_fields = $enum_array[1];
+		return( $enum_fields );
+	}
 }

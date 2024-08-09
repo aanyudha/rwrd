@@ -174,6 +174,7 @@ class RewardController extends BaseAdminController
 	public function refMemberTypes()
     {
         $data['title'] = trans("ref-tipe-member");
+		$data['rwrdType'] = 'refMemberType';
         $numRows = $this->rewardModel->getMemberTypesCount();
         $pager = paginate($this->perPage, $numRows);
         $data['userSession'] = getUserSession();
@@ -266,6 +267,7 @@ class RewardController extends BaseAdminController
 	public function refReward()
     {
         $data['title'] = trans("rewards-list");
+		$data['rwrdType'] = 'refRewardType';
         $numRows = $this->rewardModel->getRefRewardCount();
         $pager = paginate($this->perPage, $numRows);
         $data['userSession'] = getUserSession();
@@ -372,7 +374,10 @@ class RewardController extends BaseAdminController
         $numRows = $this->rewardModel->getTrnHotelCount();
         $pager = paginate($this->perPage, $numRows);
         $data['userSession'] = getUserSession();
+		$data['panelSettings'] = panelSettings();
+		$data['rwrdType'] = 'trnType';
         $data['trnhtl'] = $this->rewardModel->getTrnHotelPaginated($this->perPage, $pager->offset);
+		$data['ptaip'] = $this->rewardModel->enum_select_pointType();
 
         echo view('admin/includes/_header', $data);
         echo view('admin/rwrdd/trn_hotel', $data);
@@ -520,6 +525,7 @@ class RewardController extends BaseAdminController
 	public function trnPointOut()
     {
         $data['title'] = trans("trn-point-out");
+		$data['rwrdType'] = 'trnPointType';
         $numRows = $this->rewardModel->getTrnPointOutCount();
         $pager = paginate($this->perPage, $numRows);
         $data['userSession'] = getUserSession();
@@ -570,6 +576,7 @@ class RewardController extends BaseAdminController
 	public function mmbrTypeMtr()
     {
         $data['title'] = trans("mmbr-type-mtr");
+		$data['rwrdType'] = 'mmbrTypeType';
         $numRows = $this->rewardModel->getMmbrTypeMtrCount();
         $pager = paginate($this->perPage, $numRows);
         $data['userSession'] = getUserSession();
@@ -586,6 +593,7 @@ class RewardController extends BaseAdminController
 	public function rptPointMmbr()
     {
         $data['title'] = trans("rpt-point-mmbr");
+		$data['rwrdType'] = 'rptPointType';
         $numRows = $this->rewardModel->getRptPointMmbrCount();
         $pager = paginate($this->perPage, $numRows);
         $data['userSession'] = getUserSession();
