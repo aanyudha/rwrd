@@ -1418,4 +1418,22 @@ class PostAdminModel extends BaseModel
 				show_error($e->getMessage().' --- '.$e->getTraceAsString());
 			}		
 	}
+	
+	public function update_expired_stat(){
+				$data = array(
+						'status' => 'Expired',
+					);
+				// return $this->builderTrnHotel->where('id_member', $id_member)
+				// ->where('status', 'Converted')
+				// ->where('exp_date', DATE_FORMAT(now(),'%Y-%m-%d')->update($data);
+				$query = $this->builderTrnHotel->where('status', 'Converted')
+				->where('exp_date', date('Y-m-d'))->update($data);
+				// $query = $this->builderTrnHotel->where('status', 'Converted')
+				// ->where('exp_date', date('Y-m-d'))->get()->getResult();
+				if (!empty($query)) {
+					return true;
+				} else {
+					return false;
+				}
+	}
 }

@@ -43,9 +43,9 @@ if(authCheck()&&user()->reward_system_enabled == 1&&getMU()=='user'){
 // $route["bfda1be1d758fb307cc999596269b57f/8d777f385d3dfec8815d20f7496026dc"] = 'kelola/algorithma_baru'; //semua/data MD5
 // $route["untuk/cek"] = 'kelola/cek_controller'; //untuk cek db dan controller
 //$route["jajal/algo"] = 'kelola/coba_lagi'; //
-$routes->get('cron/update-feeds', 'CronController::checkFeedPosts');
-$routes->get('cron/update-sitemap', 'CronController::updateSitemap');
-$routes->get('cron/check-scheduled-posts', 'CronController::checkScheduledPosts');
+// $routes->get('cron/update-feeds', 'CronController::checkFeedPosts');
+// $routes->get('cron/update-sitemap', 'CronController::updateSitemap');
+// $routes->get('cron/check-scheduled-posts', 'CronController::checkScheduledPosts');
 //Pakai ini untuk cron job wget -O /dev/null https://domain.com/bfda1be1d758fb307cc999596269b57f/8d777f385d3dfec8815d20f7496026dc
 //untuk cek exp date interval 1 tahun
 //PHP CLI
@@ -53,17 +53,18 @@ $routes->get('cron/check-scheduled-posts', 'CronController::checkScheduledPosts'
 // $routes->cli('cron/alghrtm-new-cli', 'CronController::algorithma_baru');
 $routes->cli('tools/message/(:segment)', 'CronController::message/$1');
 $routes->cli('cron/auto-upload-cli/(:segment)', 'CronController::simpan_upload_trn_hotel_cron/$1');
+$routes->cli('cron/_updmmbbbr/', 'CronController::cekExpMmb');
 //WEB
 // $routes->get('cron/alghrtm-new', 'CronController::algorithma_baru');
 // $routes->get('cron/upload-trn-file', 'CronController::simpan_upload_trn_hotel_cron');
 // $routes->get('cron/ceker', 'CronController::cek_controller');
 // $routes->get('cron/ceker2', 'CronController::coba_lagi');
 $routes->get('unsubscribe', 'AuthController::unsubscribe');
-$routes->get('connect-with-facebook', 'AuthController::connectWithFacebook');
-$routes->get('facebook-callback', 'AuthController::facebookCallback');
-$routes->get('connect-with-google', 'AuthController::connectWithGoogle');
-$routes->get('connect-with-vk', 'AuthController::connectWithVK');
-$routes->get('gnews/feed', 'HomeController::googleNewsFeeds');
+// $routes->get('connect-with-facebook', 'AuthController::connectWithFacebook');
+// $routes->get('facebook-callback', 'AuthController::facebookCallback');
+// $routes->get('connect-with-google', 'AuthController::connectWithGoogle');
+// $routes->get('connect-with-vk', 'AuthController::connectWithVK');
+// $routes->get('gnews/feed', 'HomeController::googleNewsFeeds');
 
 /*
  * --------------------------------------------------------------------

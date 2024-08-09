@@ -2349,6 +2349,14 @@ if (!function_exists('isBot')) {
 			return $model->getTrnHotelById($id);
 		}
 	}
+	//get trnHotel  fullname by id
+	if (!function_exists('getTrnHotelMemberNameByIdC')) {
+		function getTrnHotelMemberNameByIdC($id)
+		{
+			$model = new \App\Models\RewardModel();
+			return $model->getTrnHotelMemberNameById($id);
+		}
+	}
 	//get getTrnPointOutById by id
 	if (!function_exists('getTrnPointOutById')) {
 		function getTrnPointOutById($id)

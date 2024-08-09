@@ -367,6 +367,7 @@ class RewardController extends BaseAdminController
      */
 	public function trnHotel()
     {
+		checkAdmin();
         $data['title'] = trans("trn-hotel");
         $numRows = $this->rewardModel->getTrnHotelCount();
         $pager = paginate($this->perPage, $numRows);

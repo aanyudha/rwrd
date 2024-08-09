@@ -27,7 +27,7 @@ $postTitle = urlencode($post->title); ?>
             </svg>
         </a>
     </div>
-    <?php if (authCheck()) :
+  <!--  ?php if (authCheck()) :
         if (isPostInReadingList($post->id) == false) : ?>
             <div class="btn-inner">
                 <a href="javascript:void(0)" class="btn-reading-list" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<?= trans("add_reading_list"); ?>" onclick="addRemoveReadingListItem('<?= $post->id; ?>');">
@@ -36,7 +36,7 @@ $postTitle = urlencode($post->title); ?>
                     </svg>
                 </a>
             </div>
-        <?php else: ?>
+        ?php else: ?>
             <div class="btn-inner">
                 <a href="javascript:void(0)" class="btn-reading-list" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<?= trans("delete_reading_list"); ?>" onclick="addRemoveReadingListItem('<?= $post->id; ?>');">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -44,7 +44,7 @@ $postTitle = urlencode($post->title); ?>
                     </svg>
                 </a>
             </div>
-        <?php endif;
+        ?php endif;
     else:
         if ($generalSettings->registration_system == 1): ?>
             <div class="btn-inner">
@@ -54,6 +54,6 @@ $postTitle = urlencode($post->title); ?>
                     </svg>
                 </a>
             </div>
-        <?php endif;
-    endif; ?>
+        ?php endif;
+    endif; ?>-->
 </div>

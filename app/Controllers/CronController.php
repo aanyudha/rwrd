@@ -204,10 +204,23 @@ class CronController extends BaseController
 	}
 	public function message($to = 'World')
     {
+		if (is_cli()) {
         return "Hello {$to}!" . PHP_EOL;
+		}
     }
 	public function cek_controller_cli($coba)
     {
 		echo $coba;
+	}
+	
+	public function cekExpMmb(){
+		if (is_cli()) {
+			$upppddd=$this->postAdminModel->update_expired_stat();
+			if($upppddd){
+				echo ';D';
+			}else {
+				echo ':C';
+			}
+		}
 	}
 }

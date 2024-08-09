@@ -553,28 +553,46 @@ class RewardModel extends BaseModel
     public function getTrnHotelCount()
     {
         $this->filterTrnHotel();
-        return $this->builderTrnHotel->countAllResults();
+        return $this->builderTrnHotel->join('mst_member', 'mst_member.id_member = trn_hotel.id_member')
+            ->select('trn_hotel.*, mst_member.fullname AS jeneng')
+			->orderBy('waktu_upload DESC')->countAllResults();
     }
 
     //get ref trnHotel paginated
     public function getTrnHotelPaginated($perPage, $offset)
     {
         $this->filterTrnHotel();
-        return $this->builderTrnHotel->orderBy('waktu_upload DESC')->limit($perPage, $offset)->get()->getResult();
+		return $this->builderTrnHotel->join('mst_member', 'mst_member.id_member = trn_hotel.id_member')
+            ->select('trn_hotel.*, mst_member.fullname AS jeneng')
+			->orderBy('waktu_upload DESC')->limit($perPage, $offset)->get()->getResult();
+        // return $this->builderTrnHotel->orderBy('waktu_upload DESC')->limit($perPage, $offset)->get()->getResult();
     }
 
     //ref trnHotel filter
     public function filterTrnHotel()
     {
-        $q = cleanStr(inputGet('q'));
-        if (!empty($q)) {
-            $this->builderTrnHotel->groupStart()->like('id_member', cleanStr($q))->orLike('id_trn', cleanStr($q))->groupEnd();
+		$q = inputGet('q');
+		if (!empty($q)) {
+            $this->builderTrnHotel->groupStart()->like('mst_member.fullname', cleanStr($q))
+			->orLike('trn_hotel.id_trn', cleanStr($q))
+			->orLike('trn_hotel.id_member', cleanStr($q))
+			->orLike('trn_hotel.filename', cleanStr($q))
+			->orLike('trn_hotel.hotel_code', cleanStr($q))
+			->groupEnd();
         }
     }
 	//get trnHotel by id
     public function getTrnHotelById($id)
     {
 		return $this->builderTrnHotel->where('id_trn', cleanNumber($id))->get()->getRow();
+	}
+	//get trnHotel fullname by id
+    public function getTrnHotelMemberNameById($id)
+    {
+		return $this->builderTrnHotel->join('mst_member', 'mst_member.id_member = trn_hotel.id_member')
+            ->select('*, mst_member.fullname AS jeneng')
+			->where('id_trn', cleanNumber($id))->get()->getRow();
+		// return $this->builderTrnHotel->where('id_trn', cleanNumber($id))->get()->getRow();
 	}
 	//delete trnHotel
     public function deleteTrnHotelPost($id)

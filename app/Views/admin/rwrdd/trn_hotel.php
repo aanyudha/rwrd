@@ -28,6 +28,7 @@
                             <th><?= trans('trn-hotel-filename'); ?></th>
                             <th><?= trans('trn-hotel-hotel-code'); ?></th>
                             <th><?= trans('trn-hotel-id-member'); ?></th>
+                            <th><?= trans('trn-hotel-id-member-fullname'); ?></th>
                             <th><?= trans('trn-hotel-room-no'); ?></th>
                             <th><?= trans('trn-hotel-room-type'); ?></th>
                             <th><?= trans('trn-hotel-room-code'); ?></th>
@@ -59,6 +60,7 @@
                                     <td><?= esc($item->filename); ?></td>
                                     <td><?= esc($item->hotel_code); ?></td>
                                     <td><?= esc($item->id_member); ?></td>
+                                    <td><?= esc($item->jeneng); ?></td>
                                     <td><?= esc($item->room_no); ?></td>
                                     <td><?= esc($item->room_type); ?></td>
                                     <td><?= esc($item->room_code); ?></td>
